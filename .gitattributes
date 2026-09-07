@@ -1,0 +1,6 @@
+# Texto normalizado a LF en el repositorio; en Windows se sigue trabajando
+# con CRLF en el disco. Evita diffs falsos entre maquinas.
+* text=auto eol=lf
+
+*.jpg binary
+*.png binary
