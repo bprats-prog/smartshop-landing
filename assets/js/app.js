@@ -147,6 +147,16 @@
   function video() {
     if (!D.videos) { return; }
 
+    /* YouTube rechaza los reproductores incrustados en paginas abiertas desde
+       el disco: sin dominio, el origen es "null" y devuelve el error 153. Con
+       el archivo suelto (doble clic) el video se abre en una pestana; servido
+       por HTTP se reproduce dentro de la pagina, como debe ser. */
+    var enDisco = window.location.protocol === "file:";
+    if (enDisco) {
+      var aviso = $("#video .nota");
+      if (aviso) { aviso.textContent = "Los vídeos se abren en YouTube, en una pestaña nueva."; }
+    }
+
     $$("[data-video]").forEach(function (caja) {
       var v = D.videos[caja.getAttribute("data-video")];
       if (!v) { return; }
@@ -162,6 +172,10 @@
       }
 
       caja.addEventListener("click", function () {
+        if (enDisco) {
+          window.open("https://www.youtube.com/watch?v=" + v.id, "_blank", "noopener");
+          return;
+        }
         var marco = document.createElement("iframe");
         /* nocookie: no deja rastro de YouTube hasta que el usuario decide ver el vídeo */
         marco.src = "https://www.youtube-nocookie.com/embed/" + v.id + "?autoplay=1&rel=0";
@@ -172,7 +186,7 @@
         caja.innerHTML = "";
         caja.appendChild(marco);
         caja.style.cursor = "default";
-      }, { once: true });
+      }, { once: !enDisco });
     });
   }
 
