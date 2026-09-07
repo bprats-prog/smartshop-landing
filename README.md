@@ -3,6 +3,21 @@
 Web de dos páginas que explica qué es una SmartShop y cómo se contrata.
 Pensada para el móvil del comercial y para proyectarse en una reunión.
 
+**Publicada en:** https://bprats-prog.github.io/smartshop-landing/
+
+Ese enlace lo sirve GitHub Pages desde la rama `main`, así que se actualiza
+solo con cada `git push`. Es la copia buena mientras no esté en el hosting de
+Arbitrade: los vídeos se reproducen incrustados y las vistas previas al
+compartir el enlace salen con imagen.
+
+Dos advertencias sobre las copias sueltas:
+
+- Abriendo `index.html` con **doble clic** la web funciona, pero YouTube se
+  niega a incrustarse en una página sin dominio (error 153). En ese caso los
+  vídeos se abren en una pestaña, y la nota bajo el reproductor lo avisa.
+- Si la web cambia de dominio hay que actualizar `og:url` y `og:image` en las
+  dos páginas: son rutas absolutas y no se ajustan solas.
+
 ## Cómo subirla
 
 Copia la carpeta entera al hosting. No hay que compilar nada ni instalar
