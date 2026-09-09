@@ -399,6 +399,63 @@ h2.titular{
 .aviso b{display:block; font-size:clamp(14px,1.45vw,17px); margin-bottom:3px}
 .aviso span{font-size:clamp(12.5px,1.25vw,15px); opacity:.66; line-height:1.5}
 
+/* ---- Los dos modelos de surtido: pestanas ---- */
+/* La home enlaza a #modelos: sin este margen la barra fija tapa el titulo. */
+#modelos{scroll-margin-top:var(--barra)}
+.modelos{
+  width:min(1040px,94vw);
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(16px,2.6vh,28px);
+}
+.pestanas{
+  display:inline-flex; gap:4px; padding:4px; max-width:100%;
+  background:#fff; border:1px solid var(--cream-200); border-radius:999px;
+  box-shadow:var(--sombra-s);
+}
+.pestana{
+  font-family:inherit; font-size:clamp(12.5px,1.3vw,15px); font-weight:700;
+  color:var(--ink); background:none; border:0; cursor:pointer;
+  padding:.7em 1.35em; border-radius:999px; min-height:44px; white-space:nowrap;
+  transition:background .2s, color .2s, box-shadow .2s;
+}
+.pestana[aria-selected="true"]{
+  background:linear-gradient(120deg,var(--naranja),var(--naranja-d));
+  color:#fff; box-shadow:0 10px 20px -12px rgba(199,45,7,.9);
+}
+@media (hover:hover){
+  .pestana:not([aria-selected="true"]):hover{background:var(--cream-100)}
+}
+
+.panel{
+  width:100%;
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(12px,2vh,20px);
+}
+/* Sin JS los dos paneles se ven uno tras otro, cada uno con su nombre visible,
+   asi el contenido nunca depende del script. Con JS (clase .js en <html>) solo
+   se muestra el panel elegido, y desde el primer pintado: nada de parpadeo. */
+.js .panel{display:none}
+.js .panel.activo{display:flex}
+.panel:focus-visible{outline:2px solid var(--naranja); outline-offset:6px; border-radius:8px}
+.panel-nombre{
+  font-family:"Fraunces",Georgia,serif; font-weight:600;
+  font-variation-settings:"opsz" 40;
+  font-size:clamp(18px,2.2vw,26px); margin:0; line-height:1.2;
+}
+.panel-resumen{
+  margin:0; max-width:56ch;
+  font-size:clamp(13.5px,1.4vw,16.5px); opacity:.7; line-height:1.5;
+}
+@media (max-width:520px){
+  /* Los dos nombres no caben en una fila: el selector pasa a dos columnas
+     iguales a todo el ancho en vez de desbordar la pantalla. */
+  .pestanas{
+    display:grid; grid-template-columns:1fr 1fr;
+    width:min(420px,94vw); border-radius:18px;
+  }
+  .pestana{padding:.7em .6em; white-space:normal}
+}
+
 /* ---- Pie ---- */
 .pie{
   background:var(--ink); color:#fff; text-align:center;

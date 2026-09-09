@@ -10,13 +10,21 @@
 
 window.SMARTSHOP = {
 
-  /* ---------- Presentación completa ----------
-     Se enlaza en formato /preview (solo lectura) en vez de /edit, para que se
-     abra sin la barra de edición de Google y se lea bien en el móvil.
+  /* ---------- Presentaciones completas ----------
+     Una por modelo de surtido. Cada clave se corresponde con un
+     data-presentacion="..." del HTML; sin valor, se enlaza la del estándar.
+     Se enlazan en formato /preview (solo lectura) en vez de /edit, para que se
+     abran sin la barra de edición de Google y se lean bien en el móvil.
      Con url en "" los botones que la enlazan desaparecen solos. */
-  presentacion: {
-    url: "https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview",
-    texto: "Ver la presentación completa"
+  presentaciones: {
+    estandar: {
+      url: "https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview",
+      texto: "Ver la presentación completa"
+    },
+    ametller: {
+      url: "https://docs.google.com/presentation/d/1ozZ4GSvKPfxAZi_QNogMI2KyLYJ93dSbl_X4jNWXwlA/preview",
+      texto: "Ver la presentación de Ametller Origen"
+    }
   },
 
   /* ---------- Contacto ---------- */

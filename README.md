@@ -26,7 +26,7 @@ dependencias: son archivos estáticos.
 ```
 smartshop-landing/
 ├── index.html              El recorrido: qué es, cómo funciona, medidas, vídeo…
-├── como-se-contrata.html   El modelo y qué incluye el servicio
+├── como-se-contrata.html   El modelo, los dos surtidos y qué incluye
 └── assets/
     ├── css/arbitrade.css   Colores, tipografías y componentes (compartido)
     ├── js/app.js           Comportamiento (compartido)
@@ -42,9 +42,12 @@ rutas relativas y scripts clásicos, sin módulos ni `fetch`.
 Casi todo está en **`assets/js/datos.js`**. No hace falta abrir el HTML para:
 
 - **Cambiar el teléfono o la tienda** → bloque `contacto`.
-- **Cambiar la presentación enlazada** → bloque `presentacion`, campo `url`.
-  Va en formato `/preview` (solo lectura), no `/edit`. Dejando `url: ""` los
-  botones que la enlazan desaparecen solos.
+- **Cambiar una presentación enlazada** → bloque `presentaciones`, que tiene una
+  entrada por modelo (`estandar` y `ametller`), cada una con su `url` y el texto
+  del botón. Van en formato `/preview` (solo lectura), no `/edit`. Dejando
+  `url: ""` los botones que la enlazan desaparecen solos.
+  En el HTML se elige cuál con `data-presentacion="estandar|ametller"`; sin
+  valor se enlaza la del modelo estándar, que es la que usa el recorrido.
 - **Cambiar o añadir un vídeo** → bloque `videos`. Cada clave se corresponde
   con un `data-video="..."` del HTML. `id` es el identificador de YouTube,
   `vertical: true` encuadra los Shorts en 9:16, y `poster` es la imagen de
@@ -54,7 +57,26 @@ Casi todo está en **`assets/js/datos.js`**. No hace falta abrir el HTML para:
   `alt`, útil mientras esperas una foto nueva.
 
 Los textos de las secciones sí están en el HTML, con un comentario por bloque
-para localizarlos rápido.
+para localizarlos rápido. Eso incluye las características de cada modelo de
+surtido: viven en el bloque `LOS DOS MODELOS` de `como-se-contrata.html`, un
+panel por modelo.
+
+## Los dos modelos de surtido
+
+`como-se-contrata.html` presenta los dos modelos con los que se trabaja —el
+estándar y el de Ametller Origen— en un selector de dos pestañas, para que el
+cliente compare y elija. El equipo, la instalación y todo lo que incluye el
+servicio son idénticos: lo único que cambia es el surtido, y así se dice.
+
+Para añadir un tercer modelo: duplica una pestaña y su panel en el HTML
+(cuidando que `aria-controls` y `aria-labelledby` se apunten entre sí) y añade
+su entrada en `presentaciones`. El script no lleva la lista de modelos: recorre
+las pestañas y los paneles que encuentre, en orden.
+
+Sin JavaScript los dos paneles se muestran uno tras otro, cada uno con su
+nombre visible. El CSS solo esconde el panel inactivo cuando el script ha
+cargado (clase `js` en `<html>`), así que no hay forma de que quede un panel en
+blanco.
 
 ## De dónde salen las imágenes
 
@@ -102,7 +124,11 @@ sensación de pase de diapositivas.
 
 - **La web no publica precios.** Ni cuota mensual, ni precios de producto, ni
   planogramas. El alquiler del equipo se menciona como obligatorio y se remite
-  al gestor, porque la tarifa se revisa cada ejercicio.
+  al gestor, porque la tarifa se revisa cada ejercicio. Esto vale también para
+  el modelo Ametller: su presentación sí lleva una tarifa mensual por SmartShop,
+  y aquí se deja fuera a propósito. De ese deck solo se recoge la condición que
+  no caduca —los productos de Ametller cuestan lo mismo que en sus tiendas—, no
+  la cifra.
 - **Sin alcohol y solo marcas que están de verdad en las máquinas.** Las que se
   pueden verificar contra los planogramas de los decks son Bien Aparecida,
   Danet, Salgot, Activia, Florette, Jabugo, Natwins, Lay's y Milka. La foto de
@@ -120,6 +146,8 @@ sensación de pase de diapositivas.
 
 ## Pendiente
 
-- **`og:image` con URL absoluta.** Ahora apunta a una ruta relativa; WhatsApp y
-  LinkedIn necesitan la URL completa del sitio para mostrar la miniatura. Cuando
-  sepas el dominio, cambia las etiquetas `og:image` de los dos HTML.
+- **Los metadatos al cambiar de dominio.** `og:url` y `og:image` ya son URLs
+  absolutas, apuntando a GitHub Pages. Cuando la web se mueva al hosting de
+  Arbitrade hay que actualizarlas a mano en los dos HTML: no se ajustan solas, y
+  si apuntan al dominio viejo WhatsApp y LinkedIn seguirán mostrando esa
+  miniatura.

@@ -29,11 +29,14 @@
     });
   }
 
-  /* ---------- Enlace a la presentación completa ----------
+  /* ---------- Enlaces a las presentaciones completas ----------
+     data-presentacion="estandar|ametller" elige cuál; sin valor, la del modelo
+     estándar, que es la que enlaza el recorrido.
      Si no hay URL configurada, el botón se retira en vez de quedar muerto. */
   function presentacion() {
-    var p = D.presentacion;
+    var P = D.presentaciones || {};
     $$("[data-presentacion]").forEach(function (el) {
+      var p = P[el.getAttribute("data-presentacion") || "estandar"];
       if (!p || !p.url) { el.remove(); return; }
       el.href = p.url;
       var etiqueta = $(".etiqueta-presentacion", el);
@@ -254,6 +257,46 @@
   }
 
 
+  /* ========================================================
+     6. Los dos modelos de surtido: pestañas
+     ======================================================== */
+  /* Sin JS los dos paneles se ven uno tras otro, cada uno con su nombre: el
+     CSS solo esconde el inactivo cuando hay script (clase .js en <html>). */
+  function modelos() {
+    var caja = $("[data-modelos]");
+    if (!caja) { return; }
+
+    var pestanas = $$(".pestana", caja);
+    var paneles  = $$(".panel", caja);
+    if (!pestanas.length || pestanas.length !== paneles.length) { return; }
+
+    function activar(i, moverFoco) {
+      pestanas.forEach(function (p, n) {
+        var elegida = n === i;
+        p.setAttribute("aria-selected", elegida ? "true" : "false");
+        /* Solo la pestaña activa entra en el tabulador: el panel es el
+           siguiente destino natural, no la otra pestaña. */
+        p.tabIndex = elegida ? 0 : -1;
+        paneles[n].classList.toggle("activo", elegida);
+      });
+      if (moverFoco) { pestanas[i].focus(); }
+    }
+
+    pestanas.forEach(function (pestana, i) {
+      pestana.addEventListener("click", function () { activar(i, false); });
+      pestana.addEventListener("keydown", function (e) {
+        var salto = 0;
+        if (e.key === "ArrowRight") { salto = 1; }
+        else if (e.key === "ArrowLeft") { salto = -1; }
+        if (!salto) { return; }
+        e.preventDefault();
+        activar((i + salto + pestanas.length) % pestanas.length, true);
+      });
+    });
+
+    activar(0, false);
+  }
+
   /* ---------- Arranque ---------- */
   function iniciar() {
     pintarContacto();
@@ -263,6 +306,7 @@
     video();
     galeria();
     visor();
+    modelos();
   }
 
   if (document.readyState === "loading") {
