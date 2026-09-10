@@ -25,7 +25,7 @@ dependencias: son archivos estáticos.
 
 ```
 smartshop-landing/
-├── index.html              El recorrido: qué es, cómo funciona, medidas, vídeo…
+├── index.html              El recorrido: qué es, cómo funciona, qué hay dentro…
 ├── como-se-contrata.html   El modelo, los dos surtidos y qué incluye
 └── assets/
     ├── css/arbitrade.css   Colores, tipografías y componentes (compartido)
@@ -58,25 +58,43 @@ Casi todo está en **`assets/js/datos.js`**. No hace falta abrir el HTML para:
 
 Los textos de las secciones sí están en el HTML, con un comentario por bloque
 para localizarlos rápido. Eso incluye las características de cada modelo de
-surtido: viven en el bloque `LOS DOS MODELOS` de `como-se-contrata.html`, un
-panel por modelo.
+surtido: viven en la pantalla `QUÉ HAY DENTRO` de `index.html`, un panel por
+modelo.
 
 ## Los dos modelos de surtido
 
-`como-se-contrata.html` presenta los dos modelos con los que se trabaja —el
-de **autogestión** y el de **Ametller Origen**— en un selector de dos pestañas,
-para que el cliente compare y elija. El equipo, la instalación y todo lo que incluye el
-servicio son idénticos: lo único que cambia es el surtido, y así se dice.
+Los dos modelos con los que se trabaja —el de **autogestión** y el de
+**Ametller Origen**— se comparan en un selector de dos pestañas que vive en la
+**pantalla 3 del recorrido**, "¿Qué hay dentro?", junto a la foto del surtido.
+El equipo, la instalación y todo lo que incluye el servicio son idénticos: lo
+único que cambia es el surtido, y así se dice.
 
-**El selector va en el segundo bloque, justo detrás de la portada, y conviene
-dejarlo ahí.** Cuando estaba en el tercero, las pestañas aparecían a 1732 px en
-un móvil de 812: dos pantallas de scroll, y eso después de haber llegado a la
-página. Lo que las empujaba era el aviso del alquiler obligatorio, que ocupaba
-la mitad inferior de la portada repitiendo lo que ya decía el párrafo de
-encima. Ese aviso está ahora al final de "Qué incluye el servicio", con el
-resto de condiciones, y las pestañas se ven sin tocar el dedo: 586 px en un
-móvil de 812 y 523 px en un iPhone SE. El orden de la página es primero
-eliges, luego la letra pequeña.
+**Están en la home a propósito, y conviene no moverlos de ahí.** Antes vivían
+en `como-se-contrata.html`, y para verlos había que cambiar de página. Además
+el surtido se contaba dos veces: "¿Qué puedo encontrar dentro?" en el recorrido
+y "Elige el surtido" en la otra página. Al fusionarlos, el selector queda en el
+camino que recorre todo el mundo y el contenido deja de estar en dos sitios. En
+`como-se-contrata.html` queda un bloque puente que conserva el `id="modelos"`,
+porque hay enlaces con ese fragmento circulando por WhatsApp.
+
+**Esa pantalla va al límite de alto y hay que tratarla con cuidado.** Mide
+exactamente 100svh con los dos paneles: 812 px en un móvil estándar y 667 en un
+iPhone SE, sin un píxel de sobra. Por eso:
+
+- Cada panel lleva una lista `.puntos` de tres líneas, no tarjetas: una
+  `.tarjeta` ocupa unos 108 px y un punto unos 38.
+- El `.panel-nombre` se esconde cuando hay JavaScript (`.js .pantalla
+  .panel-nombre`): ya lo dice la pestaña activa. Sin JS reaparece, que es
+  cuando hace falta para distinguir los dos paneles apilados.
+- La foto se encoge **por ancho**, nunca por alto: la caja mantiene la
+  proporción 1400/869 de la imagen y así no se recorta ningún producto.
+- Si añades una línea, mide antes de subirlo. Cualquier texto que pase de una
+  línea a dos cuesta unos 20 px y saca el botón de la presentación fuera de
+  la pantalla.
+
+**Nada con clase `.entra` dentro de un `.panel`.** Un panel oculto no interseca
+nunca, así que el observador que revela las animaciones no llegaría a mostrarlo
+y quedaría invisible para siempre. La clase va en el envoltorio `.modelos`.
 
 **Las dos URLs de `presentaciones` son provisionales.** Hoy apuntan al deck
 general de Empresas y al de Ametller Origen, pero los definitivos de cada
@@ -86,7 +104,8 @@ tocar nada más.
 Para añadir un tercer modelo: duplica una pestaña y su panel en el HTML
 (cuidando que `aria-controls` y `aria-labelledby` se apunten entre sí) y añade
 su entrada en `presentaciones`. El script no lleva la lista de modelos: recorre
-las pestañas y los paneles que encuentre, en orden.
+las pestañas y los paneles que encuentre, en orden. Con tres modelos la
+pantalla ya no cabrá: habrá que quitar la foto o mover el selector.
 
 Sin JavaScript los dos paneles se muestran uno tras otro, cada uno con su
 nombre visible. El CSS solo esconde el panel inactivo cuando el script ha
@@ -101,7 +120,7 @@ castigue una conexión móvil.
 
 - `hero-lobby.jpg` — la foto de portada.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
-- `gama-productos.jpg` — el bodegón de "¿Qué puedo encontrar dentro?". Está
+- `gama-productos.jpg` — el bodegón de "¿Qué hay dentro?". Está
   recortado para dejar la cerveza fuera de cuadro; con ella se van también el
   agua y la Coca-Cola que había a su derecha, así que la sección no muestra
   ninguna bebida. La caja respeta la proporción exacta de la foto, de modo que
@@ -127,7 +146,7 @@ castigue una conexión móvil.
 
 La web convence en noventa segundos en un móvil; la presentación es la
 profundidad. Por eso el recorrido son ocho pantallas —qué es, cómo funciona,
-qué se encuentra dentro, qué aporta, el vídeo, dónde está instalada y cierre—
+qué hay dentro y con qué modelo, qué aporta, el vídeo, dónde está instalada—
 y todo lo demás (requisitos de instalación, medidas completas, cifras de
 solvencia del grupo) vive en la presentación enlazada.
 
