@@ -660,7 +660,7 @@ h2.titular{
   /* En pantalla estrecha el ancho es el recurso escaso: si se sigue mandando
      por alto, el max-width recorta la foto por los lados y se comen productos.
      Aqui manda el ancho y el alto lo deduce la proporcion. */
-  .foto-gama{height:auto; width:min(430px,88vw); max-width:none}
+  .foto-gama{height:auto; width:min(400px,78vw); max-width:none}
 }
 
 /* La foto comparte pantalla con el selector, asi que en moviles bajos cede
