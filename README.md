@@ -68,6 +68,16 @@ estándar y el de Ametller Origen— en un selector de dos pestañas, para que e
 cliente compare y elija. El equipo, la instalación y todo lo que incluye el
 servicio son idénticos: lo único que cambia es el surtido, y así se dice.
 
+**El selector va en el segundo bloque, justo detrás de la portada, y conviene
+dejarlo ahí.** Cuando estaba en el tercero, las pestañas aparecían a 1732 px en
+un móvil de 812: dos pantallas de scroll, y eso después de haber llegado a la
+página. Lo que las empujaba era el aviso del alquiler obligatorio, que ocupaba
+la mitad inferior de la portada repitiendo lo que ya decía el párrafo de
+encima. Ese aviso está ahora al final de "Qué incluye el servicio", con el
+resto de condiciones, y las pestañas se ven sin tocar el dedo: 586 px en un
+móvil de 812 y 523 px en un iPhone SE. El orden de la página es primero
+eliges, luego la letra pequeña.
+
 Para añadir un tercer modelo: duplica una pestaña y su panel en el HTML
 (cuidando que `aria-controls` y `aria-labelledby` se apunten entre sí) y añade
 su entrada en `presentaciones`. El script no lleva la lista de modelos: recorre
