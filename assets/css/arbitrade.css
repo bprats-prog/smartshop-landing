@@ -309,6 +309,11 @@ h2.titular{
 }
 .puntos li b{color:var(--ink); font-weight:700}
 
+/* Esta pantalla lleva foto y selector a la vez, asi que el espaciado entre
+   bloques va mas apretado que en el resto del recorrido: si no, la flecha de
+   avance se come la nota del pie. */
+#productos{gap:clamp(10px,1.9vh,22px)}
+
 @media (max-width:520px){
   /* Los dos nombres no caben en una fila: el selector pasa a dos columnas
      iguales a todo el ancho en vez de desbordar la pantalla. */
@@ -655,7 +660,7 @@ h2.titular{
   /* En pantalla estrecha el ancho es el recurso escaso: si se sigue mandando
      por alto, el max-width recorta la foto por los lados y se comen productos.
      Aqui manda el ancho y el alto lo deduce la proporcion. */
-  .foto-gama{height:auto; width:min(520px,94vw); max-width:none}
+  .foto-gama{height:auto; width:min(430px,88vw); max-width:none}
 }
 
 /* La foto comparte pantalla con el selector, asi que en moviles bajos cede
