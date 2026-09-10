@@ -519,9 +519,10 @@ h2.titular{
   .apoyo{font-size:14px; line-height:1.45}
   /* El selector convive con la foto de gama en una sola pantalla: aqui hay
      que recuperar cada pixel o el boton de la presentacion se sale por abajo. */
-  .pantalla .modelos{gap:11px}
+  #productos{gap:9px}
+  .pantalla .modelos{gap:10px}
   .pantalla .panel{gap:11px}
-  .pantalla .puntos{gap:5px}
+  .pantalla .puntos{gap:4px}
   .pantalla .puntos li{font-size:12.5px; line-height:1.4}
   .pantalla .pestana{min-height:40px; padding:.55em 1em}
 }
