@@ -72,7 +72,12 @@
 
     function irA(i) {
       var p = pantallas[Math.max(0, Math.min(pantallas.length - 1, i))];
-      if (p) { deck.scrollTo({ top: p.offsetTop, behavior: "smooth" }); }
+      if (!p) { return; }
+      deck.scrollTo({ top: p.offsetTop, behavior: "smooth" });
+      /* El foco viaja con la vista: sin esto un lector de pantalla no anuncia
+         nada al avanzar, y el siguiente tabulador devolvia al usuario a la
+         pantalla anterior. Las secciones llevan tabindex="-1" en el HTML. */
+      p.focus({ preventScroll: true });
     }
 
     deck.addEventListener("scroll", actualizarProgreso, { passive: true });
@@ -109,6 +114,16 @@
          eximiera cualquier tecla, tras pulsar una flecha .avanzar con el raton
          el foco se quedaria ahi y la flecha abajo dejaria de funcionar. */
       if (e.key === " " && (t === "BUTTON" || t === "A")) { return; }
+      /* Las pestañas de los modelos gobiernan sus propias flechas, y Home/End
+         mueven entre pestañas: capturarlas aqui sacaba al usuario del selector. */
+      if (e.target.closest && e.target.closest('[role="tablist"]')) { return; }
+      /* Si la pantalla no cabe entera —a zoom 200 %, o en un movil bajo— el
+         scroll nativo es la unica forma de leer su mitad inferior. Secuestrar
+         las flechas ahi deja contenido inalcanzable con teclado. */
+      var actual = pantallas[pantallaActual()];
+      if (actual && actual.offsetHeight > deck.clientHeight + 4 &&
+          (e.key === "ArrowDown" || e.key === "ArrowUp" ||
+           e.key === "PageDown" || e.key === "PageUp" || e.key === " ")) { return; }
       if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") {
         e.preventDefault(); irA(pantallaActual() + 1);
       } else if (e.key === "ArrowUp" || e.key === "PageUp") {
@@ -192,9 +207,15 @@
         marco.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
         marco.setAttribute("allowfullscreen", "");
         marco.loading = "lazy";
-        caja.innerHTML = "";
-        caja.appendChild(marco);
-        caja.style.cursor = "default";
+        /* El reproductor sustituye al boton en vez de meterse dentro: un
+           iframe dentro de un <button> es HTML invalido y un lector de
+           pantalla anuncia todos los controles de YouTube como "boton". El
+           div hereda las clases, asi que se ve exactamente igual. */
+        var hueco = document.createElement("div");
+        hueco.className = caja.className;
+        hueco.appendChild(marco);
+        caja.parentNode.replaceChild(hueco, caja);
+        marco.focus();
       }, { once: !enDisco });
     });
   }
@@ -209,11 +230,16 @@
     var pesos = [];
 
     D.galeria.forEach(function (foto) {
-      var fig = document.createElement("figure");
+      /* Con foto es un <button>: colgar el clic de un <figure> dejaba la
+         galeria sin abrir con teclado, que es como se navega al proyectar. */
+      var fig = document.createElement(foto.src ? "button" : "figure");
       if (foto.src) {
+        fig.type = "button";
+        fig.className = "pieza";
+        fig.setAttribute("aria-label", "Ampliar la foto: " + (foto.alt || ""));
         var img = document.createElement("img");
         img.src = foto.src;
-        img.alt = foto.alt || "";
+        img.alt = "";
         img.loading = "lazy";
         img.decoding = "async";
         /* Ancho y alto reales para reservar el hueco antes de que cargue y para
@@ -227,7 +253,7 @@
           pesos.push("1fr");
         }
         fig.appendChild(img);
-        fig.addEventListener("click", function () { abrirVisor(foto.src, foto.alt); });
+        fig.addEventListener("click", function () { abrirVisor(foto.src, foto.alt, fig); });
       } else {
         var hueco = document.createElement("div");
         hueco.className = "hueco";
@@ -242,23 +268,51 @@
     cont.style.setProperty("--columnas", pesos.join(" "));
   }
 
-  function abrirVisor(src, alt) {
-    var visor = $(".visor");
-    if (!visor) { return; }
-    $("img", visor).src = src;
-    $("img", visor).alt = alt || "";
-    visor.classList.add("abierto");
-    $(".cerrar", visor).focus();
+  /* Desde donde se abrio el visor, para devolver el foco al cerrarlo. */
+  var ultimoFoco = null;
+
+  function abrirVisor(src, alt, origen) {
+    var caja = $(".visor");
+    if (!caja) { return; }
+    ultimoFoco = origen || document.activeElement;
+    $("img", caja).src = src;
+    $("img", caja).alt = alt || "";
+    caja.classList.add("abierto");
+    /* El resto de la pagina queda inerte: sin esto el tabulador se escapaba
+       del visor hacia las ocho pantallas de detras y el usuario lo perdia de
+       vista sin poder cerrarlo. */
+    inertizarFondo(true);
+    $(".cerrar", caja).focus();
+  }
+
+  function inertizarFondo(inerte) {
+    ["header.barra", ".deck", ".doc", "footer.pie"].forEach(function (sel) {
+      var el = $(sel);
+      if (!el) { return; }
+      el.inert = inerte;
+      if (inerte) { el.setAttribute("aria-hidden", "true"); }
+      else { el.removeAttribute("aria-hidden"); }
+    });
   }
 
   function visor() {
-    var visor = $(".visor");
-    if (!visor) { return; }
-    function cerrar() { visor.classList.remove("abierto"); }
-    $(".cerrar", visor).addEventListener("click", cerrar);
-    visor.addEventListener("click", function (e) { if (e.target === visor) { cerrar(); } });
+    var caja = $(".visor");
+    if (!caja) { return; }
+
+    function cerrar() {
+      caja.classList.remove("abierto");
+      inertizarFondo(false);
+      if (ultimoFoco && document.contains(ultimoFoco)) { ultimoFoco.focus(); }
+      ultimoFoco = null;
+    }
+
+    $(".cerrar", caja).addEventListener("click", cerrar);
+    caja.addEventListener("click", function (e) { if (e.target === caja) { cerrar(); } });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && visor.classList.contains("abierto")) { cerrar(); }
+      if (!caja.classList.contains("abierto")) { return; }
+      if (e.key === "Escape") { cerrar(); return; }
+      /* Solo hay un elemento enfocable dentro: el tabulador se queda en el. */
+      if (e.key === "Tab") { e.preventDefault(); $(".cerrar", caja).focus(); }
     });
   }
 

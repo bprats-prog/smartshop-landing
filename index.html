@@ -49,9 +49,9 @@
 <main class="deck">
 
   <!-- ============ 0 · PORTADA ============ -->
-  <section class="pantalla hero" id="portada">
+  <section class="pantalla hero" id="portada" tabindex="-1" aria-labelledby="t-portada">
     <p class="kicker entra">Arbitrade presenta</p>
-    <h1 class="titular entra">La tienda que cobra sola<span class="punto">.</span></h1>
+    <h1 class="titular entra" id="t-portada">La tienda que cobra sola<span class="punto">.</span></h1>
     <p class="apoyo entra">
       Abre con el móvil o la tarjeta, coge lo que quieras y cierra.
       Las básculas lo detectan todo y cobran solas.
@@ -74,11 +74,11 @@
   </section>
 
   <!-- ============ 1 · QUÉ ES ============ -->
-  <section class="pantalla" id="que-es">
+  <section class="pantalla" id="que-es" tabindex="-1" aria-labelledby="t-que-es">
     <p class="kicker entra">SmartShops</p>
-    <h2 class="titular entra">¿Qué es una SmartShop?</h2>
+    <h2 class="titular entra" id="t-que-es">¿Qué es una SmartShop?</h2>
     <p class="apoyo entra">
-      Una solución de <strong>retail desatendido tipo Grab &amp; Go</strong> que elimina
+      Una solución de <strong>retail desatendido tipo <span lang="en">Grab &amp; Go</span></strong> que elimina
       las barreras del vending tradicional. Sin espirales, sin colas y sin nada que teclear.
     </p>
     <div class="duo">
@@ -90,7 +90,7 @@
       <article class="tarjeta ac-naranja entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
         <h3 class="nombre">Se abre con tarjeta o móvil</h3>
-        <p class="desc">Basta acercar la tarjeta bancaria, el wallet del teléfono o usar la app.</p>
+        <p class="desc">Basta acercar la tarjeta bancaria, el <span lang="en">wallet</span> del teléfono o usar la app.</p>
       </article>
       <article class="tarjeta ac-verde entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/></svg></div>
@@ -111,20 +111,20 @@
   </section>
 
   <!-- ============ 2 · CÓMO FUNCIONA ============ -->
-  <section class="pantalla" id="como-funciona">
+  <section class="pantalla" id="como-funciona" tabindex="-1" aria-labelledby="t-como-funciona">
     <p class="kicker entra">Paso a paso</p>
-    <h2 class="titular entra">¿Cómo funciona?</h2>
+    <h2 class="titular entra" id="t-como-funciona">¿Cómo funciona?</h2>
     <div class="pasos">
       <div class="paso ac-naranja entra">
-        <div class="foto"><img src="assets/img/pv-desbloqueo-movil.jpg" width="934" height="1400" loading="lazy" decoding="async" alt="Persona acercando el movil al lector de la puerta"></div>
+        <div class="foto"><img src="assets/img/pv-desbloqueo-movil.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Persona acercando el móvil al lector de la puerta"></div>
         <div class="num">1</div>
         <div>
           <b>Acerca la tarjeta al lector</b>
-          <span>El lector está anclado en la puerta. Vale la tarjeta bancaria, el wallet del móvil o la app.</span>
+          <span>El lector está anclado en la puerta. Vale la tarjeta bancaria, el <span lang="en">wallet</span> del móvil o la app.</span>
         </div>
       </div>
       <div class="paso ac-azul entra">
-        <div class="foto"><img src="assets/img/pv-lector-pantalla.jpg" width="1400" height="934" loading="lazy" decoding="async" alt="Pantalla de la SmartShop confirmando la autorizacion"></div>
+        <div class="foto"><img src="assets/img/pv-lector-pantalla.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Pantalla de la SmartShop confirmando la autorización"></div>
         <div class="num">2</div>
         <div>
           <b>Se preautoriza un importe</b>
@@ -132,7 +132,7 @@
         </div>
       </div>
       <div class="paso ac-verde entra">
-        <div class="foto"><img src="assets/img/pv-fila-smartshops.jpg" width="1400" height="934" loading="lazy" decoding="async" alt="Persona cogiendo un producto de la SmartShop con la puerta abierta"></div>
+        <div class="foto"><img src="assets/img/pv-fila-smartshops.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Persona cogiendo un producto de la SmartShop con la puerta abierta"></div>
         <div class="num">3</div>
         <div>
           <b>Se desbloquea la puerta</b>
@@ -140,7 +140,7 @@
         </div>
       </div>
       <div class="paso ac-rosa entra">
-        <div class="foto"><img src="assets/img/pv-puerta-abierta-carrito.jpg" width="934" height="1400" loading="lazy" decoding="async" alt="Pantalla mostrando el carrito con el producto retirado y su importe"></div>
+        <div class="foto"><img src="assets/img/pv-puerta-abierta-carrito.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Pantalla mostrando el carrito con el producto retirado y su importe"></div>
         <div class="num">4</div>
         <div>
           <b>Cierras y ya está</b>
@@ -159,9 +159,9 @@
        Cuidado con el alto: esto mide 100svh y ya va justo en un iPhone SE.
        Nada con clase .entra dentro de un .panel — un panel oculto no interseca
        y el observador lo dejaria invisible para siempre. -->
-  <section class="pantalla" id="productos">
+  <section class="pantalla" id="productos" tabindex="-1" aria-labelledby="t-productos">
     <p class="kicker entra">Gama y modelos</p>
-    <h2 class="titular entra">¿Qué hay dentro?</h2>
+    <h2 class="titular entra" id="t-productos">¿Qué hay dentro?</h2>
     <p class="apoyo entra">
       Más de <strong>30 variedades</strong> de comida real. Entre los dos modelos
       solo cambia el surtido.
@@ -180,7 +180,7 @@
       </div>
 
       <!-- ---- Panel: modelo autogestión ---- -->
-      <div class="panel activo" id="panel-autogestion" role="tabpanel" aria-labelledby="tab-autogestion" tabindex="0">
+      <div class="panel activo" id="panel-autogestion" role="tabpanel" aria-labelledby="tab-autogestion">
         <h3 class="panel-nombre">Modelo autogestión</h3>
         <ul class="puntos">
           <li><b>Surtido a tu medida</b> — el planograma se diseña contigo y se revisa de forma periódica.</li>
@@ -194,7 +194,7 @@
       </div>
 
       <!-- ---- Panel: modelo Ametller ---- -->
-      <div class="panel" id="panel-ametller" role="tabpanel" aria-labelledby="tab-ametller" tabindex="0">
+      <div class="panel" id="panel-ametller" role="tabpanel" aria-labelledby="tab-ametller">
         <h3 class="panel-nombre">Modelo Ametller</h3>
         <ul class="puntos">
           <li><b>Catálogo de Ametller</b> — platos preparados, cremas, ensaladas, yogures y kéfir.</li>
@@ -215,9 +215,9 @@
   </section>
 
   <!-- ============ 5 · QUÉ APORTA ============ -->
-  <section class="pantalla" id="beneficios">
+  <section class="pantalla" id="beneficios" tabindex="-1" aria-labelledby="t-beneficios">
     <p class="kicker entra">Ventajas únicas</p>
-    <h2 class="titular entra">¿Qué aporta al entorno laboral?</h2>
+    <h2 class="titular entra" id="t-beneficios">¿Qué aporta al entorno laboral?</h2>
     <div class="duo">
     <div class="duo-media entra">
       <button class="video entra" type="button" data-video="entornoLaboral">
@@ -267,9 +267,9 @@
   </section>
 
   <!-- ============ 7 · VÍDEO ============ -->
-  <section class="pantalla" id="video">
+  <section class="pantalla" id="video" tabindex="-1" aria-labelledby="t-video">
     <p class="kicker entra">En movimiento</p>
-    <h2 class="titular entra">Míralo en un minuto</h2>
+    <h2 class="titular entra" id="t-video">Míralo en un minuto</h2>
     <button class="video hero rotulo entra" type="button" data-video="principal">
       <span class="rotulo-inner">
         <span class="rotulo-titulo">SmartShops<span class="punto">.</span></span>
@@ -286,9 +286,9 @@
   </section>
 
   <!-- ============ 8 · PUNTOS DE VENTA ============ -->
-  <section class="pantalla" id="puntos-venta">
+  <section class="pantalla" id="puntos-venta" tabindex="-1" aria-labelledby="t-puntos-venta">
     <p class="kicker entra">Instalaciones reales</p>
-    <h2 class="titular entra">Así queda en su sitio</h2>
+    <h2 class="titular entra" id="t-puntos-venta">Así queda en su sitio</h2>
     <div class="galeria entra" data-galeria></div>
     <p class="nota entra">
       Ocupa menos de un metro cuadrado: 1010 × 705 mm de planta y 1940 mm de alto.
@@ -301,9 +301,9 @@
   </section>
 
   <!-- ============ 10 · SIGUIENTE PASO ============ -->
-  <section class="pantalla hero" id="siguiente">
+  <section class="pantalla hero" id="siguiente" tabindex="-1" aria-labelledby="t-siguiente">
     <p class="kicker entra">Ya sabes qué es</p>
-    <h1 class="titular entra">Ahora, cómo se contrata<span class="punto">.</span></h1>
+    <h2 class="titular grande entra" id="t-siguiente">Ahora, cómo se contrata<span class="punto">.</span></h2>
     <p class="apoyo entra">
       Cómo es el modelo, qué incluye el servicio y qué pasa después
       de la primera visita. Todo en una página.
