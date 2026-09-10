@@ -141,27 +141,62 @@
     </button>
   </section>
 
-  <!-- ============ 3 · QUÉ PUEDO ENCONTRAR ============ -->
+  <!-- ============ 3 · QUÉ HAY DENTRO + LOS DOS MODELOS ============ -->
+  <!-- El surtido y los modelos son el mismo tema, y por eso van en la misma
+       pantalla: separarlos obligaba a cambiar de pagina para compararlos.
+       Cuidado con el alto: esto mide 100svh y ya va justo en un iPhone SE.
+       Nada con clase .entra dentro de un .panel — un panel oculto no interseca
+       y el observador lo dejaria invisible para siempre. -->
   <section class="pantalla" id="productos">
-    <p class="kicker entra">Gama de productos</p>
-    <h2 class="titular entra">¿Qué puedo encontrar dentro?</h2>
+    <p class="kicker entra">Gama y modelos</p>
+    <h2 class="titular entra">¿Qué hay dentro?</h2>
     <p class="apoyo entra">
-      Más de <strong>30 variedades</strong> de comida real, de un bombón a un plato
-      de gran tamaño.
+      Más de <strong>30 variedades</strong> de comida real. Mismo equipo y mismas
+      condiciones en los dos modelos: solo cambia el surtido.
     </p>
     <figure class="foto-gama entra">
       <img src="assets/img/gama-productos.jpg" width="1400" height="869" loading="lazy" decoding="async"
              alt="Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.">
     </figure>
-    <div class="botones entra">
-      <a class="btn btn-secundario" href="como-se-contrata.html#modelos">
-        Los dos modelos de surtido
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
+
+    <div class="modelos entra" data-modelos>
+      <div class="pestanas" role="tablist" aria-label="Modelos de SmartShop">
+        <button class="pestana" type="button" role="tab" id="tab-autogestion"
+                aria-controls="panel-autogestion" aria-selected="true">Modelo autogestión</button>
+        <button class="pestana" type="button" role="tab" id="tab-ametller"
+                aria-controls="panel-ametller" aria-selected="false">Ametller Origen</button>
+      </div>
+
+      <!-- ---- Panel: modelo autogestión ---- -->
+      <div class="panel activo" id="panel-autogestion" role="tabpanel" aria-labelledby="tab-autogestion" tabindex="0">
+        <h3 class="panel-nombre">Modelo autogestión</h3>
+        <ul class="puntos">
+          <li><b>Surtido a tu medida</b> — diseñamos el planograma contigo desde el catálogo de Arbitrade y lo revisamos de forma periódica.</li>
+          <li><b>Sin límite de formato</b> — cualquier producto encaja, de un bombón a un envase de gran tamaño.</li>
+          <li><b>Foco en alimentación fresca</b> — comida real, no solo snacks de máquina.</li>
+        </ul>
+        <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion="autogestion">
+          <span class="etiqueta-presentacion">Ver la presentación completa</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        </a>
+      </div>
+
+      <!-- ---- Panel: modelo Ametller Origen ---- -->
+      <div class="panel" id="panel-ametller" role="tabpanel" aria-labelledby="tab-ametller" tabindex="0">
+        <h3 class="panel-nombre">Ametller Origen</h3>
+        <ul class="puntos">
+          <li><b>Catálogo de Ametller</b> — platos preparados, cremas, ensaladas, yogures y kéfir de Ametller Origen.</li>
+          <li><b>Al precio de sus tiendas</b> — cuesta lo mismo dentro de la SmartShop que en sus tiendas físicas.</li>
+          <li><b>Completado por Arbitrade</b> — el resto del surtido, en un planograma conjunto que se revisa igual.</li>
+        </ul>
+        <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion="ametller">
+          <span class="etiqueta-presentacion">Ver la presentación de Ametller Origen</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        </a>
+      </div>
     </div>
-    <p class="nota entra">
-      El surtido se diseña a medida para cada punto de venta. Imágenes orientativas.
-    </p>
+
+    <p class="nota entra">Imágenes orientativas.</p>
     <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </button>

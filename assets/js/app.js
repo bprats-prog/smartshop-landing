@@ -103,6 +103,12 @@
       if ($(".visor.abierto")) { return; }
       var t = e.target.tagName;
       if (t === "INPUT" || t === "TEXTAREA") { return; }
+      /* El espacio activa el elemento enfocado. Desde que las pestañas de los
+         modelos viven dentro del recorrido, capturarlo aqui haria avanzar de
+         pantalla en vez de cambiar de panel. Solo se exime el espacio: si se
+         eximiera cualquier tecla, tras pulsar una flecha .avanzar con el raton
+         el foco se quedaria ahi y la flecha abajo dejaria de funcionar. */
+      if (e.key === " " && (t === "BUTTON" || t === "A")) { return; }
       if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") {
         e.preventDefault(); irA(pantallaActual() + 1);
       } else if (e.key === "ArrowUp" || e.key === "PageUp") {
@@ -263,9 +269,13 @@
   /* Sin JS los dos paneles se ven uno tras otro, cada uno con su nombre: el
      CSS solo esconde el inactivo cuando hay script (clase .js en <html>). */
   function modelos() {
-    var caja = $("[data-modelos]");
-    if (!caja) { return; }
+    /* Recorre todas las cajas, no solo la primera: si alguna vez hay dos
+       selectores en la misma pagina, con querySelector el segundo se quedaria
+       en blanco (el CSS esconde los paneles inactivos en cuanto hay JS). */
+    $$("[data-modelos]").forEach(montarSelector);
+  }
 
+  function montarSelector(caja) {
     var pestanas = $$(".pestana", caja);
     var paneles  = $$(".panel", caja);
     if (!pestanas.length || pestanas.length !== paneles.length) { return; }
