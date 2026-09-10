@@ -12,12 +12,12 @@ window.SMARTSHOP = {
 
   /* ---------- Presentaciones completas ----------
      Una por modelo de surtido. Cada clave se corresponde con un
-     data-presentacion="..." del HTML; sin valor, se enlaza la del estándar.
+     data-presentacion="..." del HTML; sin valor, se enlaza la de autogestión.
      Se enlazan en formato /preview (solo lectura) en vez de /edit, para que se
      abran sin la barra de edición de Google y se lean bien en el móvil.
      Con url en "" los botones que la enlazan desaparecen solos. */
   presentaciones: {
-    estandar: {
+    autogestion: {
       url: "https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview",
       texto: "Ver la presentación completa"
     },

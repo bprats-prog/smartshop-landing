@@ -30,13 +30,13 @@
   }
 
   /* ---------- Enlaces a las presentaciones completas ----------
-     data-presentacion="estandar|ametller" elige cuál; sin valor, la del modelo
-     estándar, que es la que enlaza el recorrido.
+     data-presentacion="autogestion|ametller" elige cuál; sin valor, la del modelo
+     de autogestión, que es la que enlaza el recorrido.
      Si no hay URL configurada, el botón se retira en vez de quedar muerto. */
   function presentacion() {
     var P = D.presentaciones || {};
     $$("[data-presentacion]").forEach(function (el) {
-      var p = P[el.getAttribute("data-presentacion") || "estandar"];
+      var p = P[el.getAttribute("data-presentacion") || "autogestion"];
       if (!p || !p.url) { el.remove(); return; }
       el.href = p.url;
       var etiqueta = $(".etiqueta-presentacion", el);

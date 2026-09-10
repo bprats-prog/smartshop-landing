@@ -43,11 +43,11 @@ Casi todo está en **`assets/js/datos.js`**. No hace falta abrir el HTML para:
 
 - **Cambiar el teléfono o la tienda** → bloque `contacto`.
 - **Cambiar una presentación enlazada** → bloque `presentaciones`, que tiene una
-  entrada por modelo (`estandar` y `ametller`), cada una con su `url` y el texto
+  entrada por modelo (`autogestion` y `ametller`), cada una con su `url` y el texto
   del botón. Van en formato `/preview` (solo lectura), no `/edit`. Dejando
   `url: ""` los botones que la enlazan desaparecen solos.
-  En el HTML se elige cuál con `data-presentacion="estandar|ametller"`; sin
-  valor se enlaza la del modelo estándar, que es la que usa el recorrido.
+  En el HTML se elige cuál con `data-presentacion="autogestion|ametller"`; sin
+  valor se enlaza la del modelo de autogestión, que es la que usa el recorrido.
 - **Cambiar o añadir un vídeo** → bloque `videos`. Cada clave se corresponde
   con un `data-video="..."` del HTML. `id` es el identificador de YouTube,
   `vertical: true` encuadra los Shorts en 9:16, y `poster` es la imagen de
@@ -64,8 +64,8 @@ panel por modelo.
 ## Los dos modelos de surtido
 
 `como-se-contrata.html` presenta los dos modelos con los que se trabaja —el
-estándar y el de Ametller Origen— en un selector de dos pestañas, para que el
-cliente compare y elija. El equipo, la instalación y todo lo que incluye el
+de **autogestión** y el de **Ametller Origen**— en un selector de dos pestañas,
+para que el cliente compare y elija. El equipo, la instalación y todo lo que incluye el
 servicio son idénticos: lo único que cambia es el surtido, y así se dice.
 
 **El selector va en el segundo bloque, justo detrás de la portada, y conviene
@@ -77,6 +77,11 @@ encima. Ese aviso está ahora al final de "Qué incluye el servicio", con el
 resto de condiciones, y las pestañas se ven sin tocar el dedo: 586 px en un
 móvil de 812 y 523 px en un iPhone SE. El orden de la página es primero
 eliges, luego la letra pequeña.
+
+**Las dos URLs de `presentaciones` son provisionales.** Hoy apuntan al deck
+general de Empresas y al de Ametller Origen, pero los definitivos de cada
+modelo están pendientes. Cuando lleguen, se cambian en `datos.js` y no hay que
+tocar nada más.
 
 Para añadir un tercer modelo: duplica una pestaña y su panel en el HTML
 (cuidando que `aria-controls` y `aria-labelledby` se apunten entre sí) y añade
