@@ -23,7 +23,7 @@ window.SMARTSHOP = {
     },
     ametller: {
       url: "https://docs.google.com/presentation/d/1ozZ4GSvKPfxAZi_QNogMI2KyLYJ93dSbl_X4jNWXwlA/preview",
-      texto: "Ver la presentación de Ametller Origen"
+      texto: "Ver la presentación de Ametller"
     }
   },
 
