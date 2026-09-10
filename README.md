@@ -171,9 +171,26 @@ sensación de pase de diapositivas.
 - **Los vídeos no cargan hasta que se pulsan**, y lo hacen contra
   `youtube-nocookie.com`. Así la página no llama a Google sin que el visitante
   lo decida, y no gasta datos de más en móvil.
-- **El contenido es visible sin JavaScript.** Las animaciones de entrada solo se
-  activan si el script carga (clase `js` en `<html>`). No quites ese script del
-  `<head>` o la página aparecerá en blanco cuando falle el JS.
+- **El contenido es visible aunque `app.js` no llegue.** El script del `<head>`
+  pone dos clases: `js`, que gobierna la degradación del selector de modelos, y
+  `anim`, que activa las animaciones de entrada. Si `app.js` no confirma que ha
+  arrancado —añade `app-ok`— ese mismo script retira `anim` a los tres segundos
+  y el contenido aparece sin animar. No toques ese bloque: sin él, un 404 o un
+  proxy corporativo dejan la web en blanco, porque quien revela los `.entra` es
+  el script.
+- **Atenúa el texto con `color`, nunca con `opacity`.** `opacity` crea un grupo
+  de composición y un hijo no puede recuperarla: por eso el enlace del teléfono
+  dentro de una `.nota` se quedaba en 2,72:1 de contraste y `.apoyo strong{opacity:1}`
+  no hace nada. Con `color:rgba(56,25,26,α)` los `<b>`, `<strong>` y `<a>` sí
+  pueden volver a tinta plena.
+- **Las imágenes se encogen por alto o por ancho, nunca con `max-height` sobre
+  una caja de ancho fijo.** Eso rompe el `aspect-ratio` y `object-fit:cover`
+  recorta. Pasó con la foto vertical de la galería, que perdía el 39 %.
+- **Cada pantalla del recorrido debe caber en el viewport**, y hay que
+  comprobarlo en cuatro sitios, no en uno: 375×812, 375×667, 1366×768 y
+  1920×1080. Los `clamp` suben al máximo en escritorio, así que una pantalla
+  calibrada solo para móvil se desborda en un portátil — que es donde se
+  proyecta en las reuniones.
 - **Los halos de color de las tarjetas son estáticos.** Animarlos costaba
   batería en móvil sin ganancia visible; el movimiento se reserva al degradado
   de las portadas.
