@@ -26,7 +26,7 @@ dependencias: son archivos estáticos.
 ```
 smartshop-landing/
 ├── index.html              El recorrido: qué es, cómo funciona, qué hay dentro…
-├── como-se-contrata.html   El modelo, los dos surtidos y qué incluye
+├── como-se-contrata.html   El modelo de negocio y qué incluye el servicio
 └── assets/
     ├── css/arbitrade.css   Colores, tipografías y componentes (compartido)
     ├── js/app.js           Comportamiento (compartido)
