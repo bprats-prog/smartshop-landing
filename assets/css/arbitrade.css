@@ -549,22 +549,6 @@ h2.titular{
   .paso .foto{width:48px; border-radius:12px}
 }
 
-@media (max-width:560px){
-  /* Las seis categorias de producto son tarjetas cortas: en movil caben a dos
-     columnas y asi la seccion, que es la mas cargada, se acorta bastante. */
-  #productos .rejilla{grid-template-columns:1fr 1fr; gap:9px}
-  #productos .tarjeta{
-    grid-template-columns:1fr; row-gap:4px;
-    padding:11px 12px;
-  }
-  /* La regla general apila icono a la izquierda con nombre/desc a la derecha en
-     filas 1 y 2 fijas. Aqui se vuelve a una sola columna, asi que hay que
-     reasignar las filas explicitamente o el icono cae debajo del texto. */
-  #productos .tarjeta .icono{grid-column:1; grid-row:1; margin-bottom:2px}
-  #productos .tarjeta .nombre{grid-column:1; grid-row:2; font-size:14px}
-  #productos .tarjeta .desc{grid-column:1; grid-row:3; font-size:11.5px; line-height:1.35}
-}
-
 /* --- Video vertical (Shorts) como columna de medios --- */
 .duo-media{margin:0; display:flex; justify-content:center; align-items:center}
 .video.vertical{
