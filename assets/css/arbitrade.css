@@ -699,17 +699,19 @@ h2.titular{
 }
 
 @media (max-width:820px){
-  /* En pantalla estrecha, una debajo de otra y a todo el ancho: repartir las
-     columnas por proporcion deja las fotos diminutas. Cada una conserva su
-     forma gracias a --proporcion. */
-  .galeria{grid-template-columns:1fr; width:min(560px,94vw); justify-items:center}
-  /* Mandando por alto y dejando que la proporcion deduzca el ancho, la caja
-     sigue cumpliendo su aspect-ratio y object-fit:cover no recorta nada. Con
-     max-height la caja perdia la proporcion y se comia el 39 % de la foto
-     vertical, cortada por arriba y por abajo. */
+  /* Tres fotos apiladas suman mas de 1000 px: en un movil de 812 solo se veia
+     una y media, y debajo del corte quedaba justo la prueba social. En tira
+     horizontal caben las tres a la misma altura, se pasan con el dedo y
+     ninguna se recorta: cada una deduce su ancho de su proporcion. */
+  .galeria{
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+    gap:10px; width:min(560px,94vw); scrollbar-width:none;
+  }
+  .galeria::-webkit-scrollbar{display:none}
   .galeria figure,.galeria .pieza{
+    flex:0 0 auto; scroll-snap-align:center;
     max-height:none; height:min(34svh,290px);
-    width:auto; max-width:min(560px,94vw);
+    width:auto; max-width:none;
   }
 }
 
