@@ -19,7 +19,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/arbitrade.css">
-<script>document.documentElement.className+=" js";</script>
+<script>
+/* La animacion de entrada solo se activa si el script principal confirma que
+   ha arrancado (clase app-ok). Si app.js no llega —404, proxy, extension— el
+   temporizador retira la clase anim a los 3 s y el contenido aparece igual.
+   La clase js gobierna la degradacion del selector y se pone siempre. */
+(function (e) {
+  e.className += " js anim";
+  setTimeout(function () {
+    if (!e.classList.contains("app-ok")) { e.classList.remove("anim"); }
+  }, 3000);
+})(document.documentElement);
+</script>
+
 </head>
 <body>
 

@@ -309,6 +309,9 @@
 
   /* ---------- Arranque ---------- */
   function iniciar() {
+    /* Le dice al script del <head> que el comportamiento esta vivo: sin esto
+       retira la clase anim a los 3 s y el contenido se muestra sin animar. */
+    document.documentElement.classList.add("app-ok");
     pintarContacto();
     presentacion();
     recorrido();
