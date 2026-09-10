@@ -785,3 +785,7 @@ h2.titular.grande{
   font-size:clamp(34px,7vw,84px); max-width:15ch;
   font-variation-settings:"opsz" 96;
 }
+
+/* La pista de deslizar solo tiene sentido donde la galeria es una tira. */
+.solo-tira{display:none}
+@media (max-width:820px){ .solo-tira{display:inline} }
