@@ -1019,3 +1019,35 @@ h2.titular.grande{
    con el numero cortado en dos. */
 .btn-etiqueta{text-align:center}
 .btn-num{white-space:nowrap}
+
+/* ============================================================
+   EL CIERRE EN MOVIL
+   Con la barra de Safari arriba y abajo, un iPhone deja unos 600 px utiles, no
+   812. El bloque medía 746 y el boton de llamada quedaba fuera de pantalla:
+   el sitio se recorta de los espaciados y del tamano del propio bloque, no del
+   mensaje, y el enlace a la presentacion pasa de boton a enlace de texto.
+   ============================================================ */
+@media (max-width:820px){
+  .pantalla.cierre{
+    padding-top:calc(var(--barra) + 6px);
+    padding-bottom:28px;
+    gap:9px;
+  }
+  .cierre .apoyo{font-size:15.5px; line-height:1.4; max-width:40ch}
+  .cierre .puntos{gap:5px}
+  .cierre .puntos li{font-size:14.5px; padding-left:17px}
+  .cierre .aviso{padding:12px 14px; gap:10px}
+  .cierre .aviso .icono svg{height:21px; width:21px}
+  .cierre .aviso b{font-size:14.5px; margin-bottom:1px}
+  .cierre .aviso span{font-size:13px; line-height:1.4}
+  .cierre .botones{gap:6px}
+  /* El enlace a la presentacion deja de ocupar un boton entero: sigue estando,
+     pero no compite con la llamada ni se come 60 px. */
+  .cierre .btn-secundario{
+    background:none; border:0; box-shadow:none;
+    min-height:0; padding:2px 6px;
+    font-size:13.5px; font-weight:700;
+    color:var(--naranja-d); text-decoration:underline;
+  }
+  .cierre .btn-secundario:hover{transform:none; box-shadow:none}
+}
