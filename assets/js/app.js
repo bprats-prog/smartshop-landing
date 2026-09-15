@@ -219,7 +219,7 @@
         }
         if (enMovil()) { abrirVisorVideo(v, caja); return; }
 
-        var marco = marcoDeVideo(v);
+        var marco = marcoDeVideo(v, true);   /* escritorio: arranca solo, con sonido */
         /* El reproductor sustituye al boton en vez de meterse dentro: un
            iframe dentro de un <button> es HTML invalido y un lector de
            pantalla anuncia todos los controles de YouTube como "boton". El
@@ -237,18 +237,21 @@
     return window.matchMedia("(max-width:820px)").matches;
   }
 
-  function marcoDeVideo(v, silenciado) {
+  function marcoDeVideo(v, arrancarSolo) {
     var marco = document.createElement("iframe");
-    /* nocookie: no deja rastro de YouTube hasta que el usuario decide ver el vídeo.
-       playsinline evita que iOS se lleve el vídeo a su reproductor nativo y se
-       salte el visor.
-       Sobre el arranque automatico: Chrome y Safari solo lo permiten SIN sonido.
-       Se decidio priorizar el audio, asi que en movil el reproductor se abre
-       listo y el visitante da un toque al play. El parametro silenciado sigue
-       aqui por si algun dia se prefiere lo contrario: basta pasarlo a true
-       desde abrirVisorVideo. */
+    /* nocookie: no deja rastro de YouTube hasta que el usuario decide ver el
+       vídeo. playsinline evita que iOS se lleve el vídeo a su reproductor
+       nativo y se salte el visor.
+
+       El arranque automatico solo se pide donde el navegador lo permite con
+       sonido, es decir en escritorio. En movil NO se pide, y es deliberado:
+       Chrome y Safari bloquean el autoplay con audio, pero YouTube no se queda
+       quieto ante ese bloqueo — se silencia solo y se pone a reproducir. El
+       resultado era un video en marcha y mudo. Sin pedir autoplay, el
+       reproductor muestra su boton de play y ese toque es un gesto directo del
+       usuario: sonido garantizado. */
     marco.src = "https://www.youtube-nocookie.com/embed/" + v.id +
-                "?autoplay=1&rel=0&playsinline=1" + (silenciado ? "&mute=1" : "");
+                "?rel=0&playsinline=1" + (arrancarSolo ? "&autoplay=1" : "");
     marco.title = v.titulo;
     marco.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
     marco.setAttribute("allowfullscreen", "");
