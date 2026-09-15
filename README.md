@@ -118,7 +118,9 @@ Están extraídas de las presentaciones de Google Slides y reescaladas a 1400 px
 de lado mayor con calidad 80, para que la web entera pese menos de 2 MB y no
 castigue una conexión móvil.
 
-- `hero-lobby.jpg` — la foto de portada.
+- `hero-lobby.jpg` — **sin usar desde que el vídeo ocupa la portada.** Se
+  conserva porque es la única foto con una persona dentro y es la mejor
+  candidata a miniatura al compartir el enlace.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
 - `gama-productos.jpg` — el bodegón de "¿Qué hay dentro?". Está
   recortado para dejar la cerveza fuera de cuadro; con ella se van también el
@@ -136,8 +138,9 @@ castigue una conexión móvil.
   coinciden solas y ninguna se recorta. Si cambias una foto, actualiza también
   su `ancho` y `alto` o el hueco quedará mal calculado.
 - `poster-video-entorno.jpg` — la portada del Short, recortada a 9:16 desde la
-  miniatura de YouTube. El vídeo horizontal no lleva foto: su portada es un
-  rótulo de marca que dibuja el propio HTML.
+  miniatura de YouTube. Es lo primero que se ve del recorrido: el Short abre la
+  portada en lugar de una foto fija. El vídeo horizontal no lleva foto: su
+  portada es un rótulo de marca que dibuja el propio HTML.
 - `arbitrade-wordmark.svg` — el wordmark de la barra superior. Venía con
   `fill="currentColor"`; se le fijó el tinta de marca (`#38191A`) porque dentro
   de un `<img>` no hereda el color de la página.
