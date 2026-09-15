@@ -122,6 +122,11 @@ castigue una conexión móvil.
   conserva porque es la única foto con una persona dentro y es la mejor
   candidata a miniatura al compartir el enlace.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
+- `gama-ametller.jpg` — el surtido del modelo Ametller Origen, que sustituye al
+  bodegón cuando se elige esa pestaña. Es una **fotografía real** de producto,
+  no una imagen generada. Recortada 34 px por arriba para que comparta la
+  proporción exacta del otro bodegón: así la pantalla no cambia de alto al
+  cambiar de modelo, que es lo que la sacaría del viewport.
 - `gama-productos.jpg` — el bodegón de "¿Qué hay dentro?". Está
   recortado para dejar la cerveza fuera de cuadro; con ella se van también el
   agua y la Coca-Cola que había a su derecha, así que la sección no muestra

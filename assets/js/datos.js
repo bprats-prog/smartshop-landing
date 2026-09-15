@@ -69,8 +69,8 @@ window.SMARTSHOP = {
       alt: "Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos."
     },
     ametller: {
-      src: "assets/img/gama-productos.jpg",
-      alt: "Surtido de una SmartShop con el catálogo de Ametller Origen."
+      src: "assets/img/gama-ametller.jpg",
+      alt: "Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras y un gazpacho embotellado."
     }
   },
 
