@@ -1029,14 +1029,14 @@ h2.titular.grande{
    ============================================================ */
 @media (max-width:820px){
   .pantalla.cierre{
-    padding-top:calc(var(--barra) + 6px);
-    padding-bottom:28px;
-    gap:9px;
+    padding-top:calc(var(--barra) + 4px);
+    padding-bottom:16px;
+    gap:7px;
   }
   .cierre .apoyo{font-size:15.5px; line-height:1.4; max-width:40ch}
   .cierre .puntos{gap:5px}
   .cierre .puntos li{font-size:14.5px; padding-left:17px}
-  .cierre .aviso{padding:12px 14px; gap:10px}
+  .cierre .aviso{padding:10px 13px; gap:9px}
   .cierre .aviso .icono svg{height:21px; width:21px}
   .cierre .aviso b{font-size:14.5px; margin-bottom:1px}
   .cierre .aviso span{font-size:13px; line-height:1.4}
