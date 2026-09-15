@@ -30,19 +30,33 @@
   }
 
   /* ---------- Enlaces a las presentaciones completas ----------
-     data-presentacion="autogestion|ametller" elige cuál; sin valor, la del modelo
-     de autogestión, que es la que enlaza el recorrido.
+     data-presentacion="autogestion|ametller" elige cuál; sin valor se usa la
+     entrada "general", para que los botones de cierre no hereden el texto de
+     un modelo concreto.
      Si no hay URL configurada, el botón se retira en vez de quedar muerto. */
   function presentacion() {
     var P = D.presentaciones || {};
     $$("[data-presentacion]").forEach(function (el) {
-      var p = P[el.getAttribute("data-presentacion") || "autogestion"];
+      var p = P[el.getAttribute("data-presentacion") || "general"];
       if (!p || !p.url) { el.remove(); return; }
       el.href = p.url;
       var etiqueta = $(".etiqueta-presentacion", el);
       if (etiqueta) { texto(etiqueta, p.texto); }
+
+      /* La presentación se abre dentro de la web, con un botón de volver. El
+         href se deja puesto: sirve para "abrir en pestaña nueva", para cuando
+         no hay JS, y para el caso de disco, donde Google no deja incrustar. */
+      el.addEventListener("click", function (e) {
+        if (desdeDisco() || !$(".visor-doc")) { return; }
+        e.preventDefault();
+        abrirVisorDoc(p, el);
+      });
     });
   }
+
+  /* YouTube y Google rechazan incrustarse en una pagina abierta desde el disco:
+     sin dominio, el origen es "null". Ahi todo se abre fuera. */
+  function desdeDisco() { return window.location.protocol === "file:"; }
 
   /* ========================================================
      2. El recorrido: progreso, flechas y teclado
@@ -175,7 +189,7 @@
        el disco: sin dominio, el origen es "null" y devuelve el error 153. Con
        el archivo suelto (doble clic) el video se abre en una pestana; servido
        por HTTP se reproduce dentro de la pagina, como debe ser. */
-    var enDisco = window.location.protocol === "file:";
+    var enDisco = desdeDisco();
     if (enDisco) {
       var aviso = $("#video .nota");
       if (aviso) { aviso.textContent = "Los vídeos se abren en YouTube, en una pestaña nueva."; }
@@ -250,6 +264,42 @@
     caja.classList.add("abierto");
     inertizarFondo(true);
     $(".cerrar", caja).focus();
+  }
+
+  /* ---------- Visor de presentaciones ---------- */
+  function abrirVisorDoc(p, origen) {
+    var caja = $(".visor-doc");
+    if (!caja) { return; }
+    ultimoFoco = origen || document.activeElement;
+    var marco = document.createElement("iframe");
+    marco.src = p.url;
+    marco.title = p.texto || "Presentación";
+    marco.setAttribute("allowfullscreen", "");
+    var hueco = $(".marco-doc", caja);
+    hueco.innerHTML = "";
+    hueco.appendChild(marco);
+    caja.classList.add("abierto");
+    inertizarFondo(true);
+    $(".cerrar", caja).focus();
+  }
+
+  function visorDoc() {
+    var caja = $(".visor-doc");
+    if (!caja) { return; }
+
+    function cerrar() {
+      caja.classList.remove("abierto");
+      $(".marco-doc", caja).innerHTML = "";
+      inertizarFondo(false);
+      if (ultimoFoco && document.contains(ultimoFoco)) { ultimoFoco.focus(); }
+      ultimoFoco = null;
+    }
+
+    $(".cerrar", caja).addEventListener("click", cerrar);
+    document.addEventListener("keydown", function (e) {
+      if (!caja.classList.contains("abierto")) { return; }
+      if (e.key === "Escape") { cerrar(); }
+    });
   }
 
   function visorVideo() {
@@ -445,6 +495,7 @@
     galeria();
     visor();
     visorVideo();
+    visorDoc();
     modelos();
   }
 

@@ -17,13 +17,20 @@ window.SMARTSHOP = {
      abran sin la barra de edición de Google y se lean bien en el móvil.
      Con url en "" los botones que la enlazan desaparecen solos. */
   presentaciones: {
-    autogestion: {
+    /* "general" es la que enlazan los botones sin valor en data-presentacion:
+       los de cierre del recorrido y de la pagina de contratacion. Separarla de
+       "autogestion" evita que esos botones hereden el texto de un modelo. */
+    general: {
       url: "https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview",
       texto: "Ver la presentación completa"
     },
+    autogestion: {
+      url: "https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview",
+      texto: "Descubre el modelo de autogestión"
+    },
     ametller: {
       url: "https://docs.google.com/presentation/d/1snA9x6OPckMfcblX6bZ9dxsgJNU4aM3cipMY53DxbmA/preview",
-      texto: "Ver la presentación de Ametller"
+      texto: "Descubre el modelo Ametller"
     }
   },
 
