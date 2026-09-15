@@ -171,6 +171,14 @@ sensación de pase de diapositivas.
 - **Los vídeos no cargan hasta que se pulsan**, y lo hacen contra
   `youtube-nocookie.com`. Así la página no llama a Google sin que el visitante
   lo decida, y no gasta datos de más en móvil.
+- **En móvil el vídeo se abre a pantalla completa**, en el visor `.visor-video`,
+  y en escritorio se incrusta en su sitio. El corte está en 820 px. Al cerrar se
+  **destruye el iframe**, no se esconde: si solo se oculta, el vídeo sigue
+  sonando por detrás.
+- **El texto de móvil es deliberadamente grande y corto.** El bloque
+  "TIPOGRAFÍA EN MÓVIL" del final del CSS sube los tamaños, y lo que lo paga es
+  el recorte de los párrafos. Si vuelves a alargar un texto, mide: las ocho
+  pantallas caben hoy al píxel en 375×812 y en 375×667.
 - **El contenido es visible aunque `app.js` no llegue.** El script del `<head>`
   pone dos clases: `js`, que gobierna la degradación del selector de modelos, y
   `anim`, que activa las animaciones de entrada. Si `app.js` no confirma que ha
