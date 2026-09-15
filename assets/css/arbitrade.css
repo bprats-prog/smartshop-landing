@@ -991,3 +991,9 @@ h2.titular.grande{
   .visor-doc{padding:clamp(56px,8vh,80px) clamp(20px,4vw,56px) clamp(20px,4vh,40px)}
   .visor-doc iframe{border-radius:14px}
 }
+
+/* En un portatil bajo el titular de portada ocupa 175 px: el video no puede
+   llevarse ademas la mitad de la pantalla. */
+@media (min-width:901px) and (max-height:820px){
+  #portada .video{height:clamp(220px,34svh,300px)}
+}
