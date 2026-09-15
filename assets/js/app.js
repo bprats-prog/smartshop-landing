@@ -383,6 +383,22 @@
     $$("[data-modelos]").forEach(montarSelector);
   }
 
+  /* La foto que acompaña al selector cambia con el modelo elegido. La clave
+     sale del id del panel sin el prefijo "panel-", que es el mismo vocabulario
+     de data-presentacion y de presentaciones: asi no hay una lista de modelos
+     repartida por el codigo. Sin entrada en datos.js se queda la del HTML. */
+  function pintarFotoDelModelo(caja, panel) {
+    var seccion = caja.closest ? caja.closest("section") : null;
+    var fig = seccion && $("[data-foto-modelo]", seccion);
+    if (!fig || !panel) { return; }
+    var clave = (panel.id || "").replace(/^panel-/, "");
+    var foto = (D.fotosModelo || {})[clave];
+    var img = $("img", fig);
+    if (!foto || !foto.src || !img) { return; }
+    if (img.getAttribute("src") !== foto.src) { img.src = foto.src; }
+    img.alt = foto.alt || "";
+  }
+
   function montarSelector(caja) {
     var pestanas = $$(".pestana", caja);
     var paneles  = $$(".panel", caja);
@@ -397,6 +413,7 @@
         p.tabIndex = elegida ? 0 : -1;
         paneles[n].classList.toggle("activo", elegida);
       });
+      pintarFotoDelModelo(caja, paneles[i]);
       if (moverFoco) { pestanas[i].focus(); }
     }
 

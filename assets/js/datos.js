@@ -59,6 +59,21 @@ window.SMARTSHOP = {
   },
 
 
+  /* ---------- La foto de "Qué hay dentro", una por modelo ----------
+     La clave se corresponde con el id del panel sin el prefijo "panel-", que
+     es el mismo vocabulario que usan data-presentacion y presentaciones.
+     Si un modelo no tiene entrada, se queda la que hubiera puesta en el HTML. */
+  fotosModelo: {
+    autogestion: {
+      src: "assets/img/gama-productos.jpg",
+      alt: "Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos."
+    },
+    ametller: {
+      src: "assets/img/gama-productos.jpg",
+      alt: "Surtido de una SmartShop con el catálogo de Ametller Origen."
+    }
+  },
+
   /* ---------- Galería de puntos de venta ----------
      Solo instalaciones: las fotos de uso se han repartido por el recorrido
      (los cuatro pasos de "¿Cómo funciona?"), así no se repite ninguna.

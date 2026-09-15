@@ -615,7 +615,6 @@ h2.titular{
 @media (max-width:560px){
   /* En movil las imagenes compiten con el texto por el alto de pantalla:
      se recortan un poco para que cada seccion siga cabiendo de una pasada. */
-  .paso .foto{width:48px; border-radius:12px}
 }
 
 /* --- Video vertical (Shorts) como columna de medios --- */
@@ -878,3 +877,56 @@ h2.titular.grande{
 @media (max-width:820px){
   #beneficios .duo-foto{display:none}
 }
+
+/* ============================================================
+   ITERACION: miniatura mayor, pasos con foto a sangre, texto mas grande
+   ============================================================ */
+
+/* --- La miniatura de la portada era de 155 px de ancho: se veia diminuta.
+       El alto extra sale de apretar las separaciones de esa pantalla. --- */
+#portada{gap:clamp(10px,1.7vh,22px)}
+#portada .video{height:clamp(240px,44svh,430px)}
+@media (max-height:740px){ #portada .video{height:clamp(200px,38svh,320px)} }
+
+/* --- Los pasos: la foto ocupaba 48 px dentro de una tarjeta de 110 y se
+       perdia. Ahora la tarjeta no tiene relleno propio y la foto va a sangre,
+       de borde a borde del rectangulo blanco. --- */
+.paso{
+  align-items:stretch; gap:0;
+  padding:0; overflow:hidden;
+}
+.paso .foto{
+  flex:none; width:clamp(104px,30vw,150px);
+  aspect-ratio:auto; height:auto; align-self:stretch;
+  border-radius:0;
+}
+.paso .num{align-self:center; padding-left:clamp(12px,3vw,20px)}
+.paso > div:last-child{
+  padding:clamp(12px,1.8vh,18px) clamp(14px,2.4vw,22px)
+          clamp(12px,1.8vh,18px) clamp(10px,1.6vw,14px);
+}
+
+/* --- Segunda subida de tamano en movil. La anterior se quedo corta. --- */
+@media (max-width:820px){
+  .apoyo{font-size:17.5px; line-height:1.45}
+  .tarjeta .nombre,#beneficios .tarjeta .nombre{font-size:16.5px}
+  .tarjeta .desc,#beneficios .tarjeta .desc{font-size:15px; line-height:1.4}
+  .paso b{font-size:18px}
+  .paso span{font-size:15.5px; line-height:1.4}
+  .puntos li,.pantalla .puntos li{font-size:15.5px; line-height:1.4}
+  .cinta{font-size:15px}
+  .nota{font-size:12.5px}
+  .btn{font-size:15.5px}
+}
+@media (max-width:820px) and (max-height:700px){
+  .apoyo{font-size:16px}
+  .puntos li,.pantalla .puntos li{font-size:14.5px}
+  .tarjeta .desc,#beneficios .tarjeta .desc{font-size:14px}
+  .paso b{font-size:16.5px}
+  .paso span{font-size:14.5px}
+}
+
+/* La lista de "Que incluye" no vive en una pantalla apretada como la de los
+   modelos: puede respirar. */
+.puntos.grande{width:min(680px,94vw); gap:clamp(10px,1.6vh,16px)}
+.puntos.grande li{font-size:clamp(15.5px,1.5vw,18px); line-height:1.5}
