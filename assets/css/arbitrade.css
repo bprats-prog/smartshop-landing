@@ -1013,3 +1013,9 @@ h2.titular.grande{
 .pantalla.cierre .puntos{width:min(640px,94vw)}
 .pantalla.cierre .aviso{width:min(640px,94vw)}
 .pantalla.cierre .apoyo{max-width:62ch}
+
+/* El boton de llamada parte su texto en movil. Sin envolverlo, el flex trata
+   cada trozo como un elemento y el separador se quedaba solo en una linea,
+   con el numero cortado en dos. */
+.btn-etiqueta{text-align:center}
+.btn-num{white-space:nowrap}
