@@ -869,3 +869,12 @@ h2.titular.grande{
   #que-es .duo-foto img{height:min(15svh,150px)}
   #productos .foto-gama{width:min(340px,68vw)}
 }
+
+/* La foto del lobby vuelve a la columna de medios de "Que aporta", donde
+   estaba el Short antes de subir a la portada. En escritorio va al lado de las
+   tarjetas y no cuesta alto; en movil el .duo se apila y esa pantalla, que cabe
+   al pixel, se desbordaria unos 200 px. Por eso ahi no se muestra: con
+   loading="lazy" ni siquiera se descarga. */
+@media (max-width:820px){
+  #beneficios .duo-foto{display:none}
+}
