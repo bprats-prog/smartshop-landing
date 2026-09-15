@@ -1057,7 +1057,7 @@ h2.titular.grande{
    ya estan ajustadas y no conviene tocarlas. */
 @media (max-width:820px) and (max-height:640px){
   #productos{gap:7px}
-  #productos .foto-gama{width:min(210px,46vw)}
+  #productos .foto-gama{width:min(190px,42vw)}
   .pantalla .puntos{gap:3px}
   .pantalla .pestana{min-height:38px; padding:.45em .9em}
   #beneficios .rejilla{gap:7px}
