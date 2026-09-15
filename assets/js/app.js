@@ -195,18 +195,17 @@
         caja.appendChild(img);
       }
 
+      /* Sin { once }: en movil el visor se puede abrir y cerrar las veces que
+         haga falta. En escritorio el boton se sustituye por el reproductor, asi
+         que el oyente muere con el nodo y no hace falta desengancharlo. */
       caja.addEventListener("click", function () {
         if (enDisco) {
           window.open("https://www.youtube.com/watch?v=" + v.id, "_blank", "noopener");
           return;
         }
-        var marco = document.createElement("iframe");
-        /* nocookie: no deja rastro de YouTube hasta que el usuario decide ver el vídeo */
-        marco.src = "https://www.youtube-nocookie.com/embed/" + v.id + "?autoplay=1&rel=0";
-        marco.title = v.titulo;
-        marco.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
-        marco.setAttribute("allowfullscreen", "");
-        marco.loading = "lazy";
+        if (enMovil()) { abrirVisorVideo(v, caja); return; }
+
+        var marco = marcoDeVideo(v);
         /* El reproductor sustituye al boton en vez de meterse dentro: un
            iframe dentro de un <button> es HTML invalido y un lector de
            pantalla anuncia todos los controles de YouTube como "boton". El
@@ -216,7 +215,62 @@
         hueco.appendChild(marco);
         caja.parentNode.replaceChild(hueco, caja);
         marco.focus();
-      }, { once: !enDisco });
+      });
+    });
+  }
+
+  function enMovil() {
+    return window.matchMedia("(max-width:820px)").matches;
+  }
+
+  function marcoDeVideo(v) {
+    var marco = document.createElement("iframe");
+    /* nocookie: no deja rastro de YouTube hasta que el usuario decide ver el vídeo.
+       playsinline evita que iOS se lleve el vídeo a su reproductor nativo y se
+       salte el visor. */
+    marco.src = "https://www.youtube-nocookie.com/embed/" + v.id +
+                "?autoplay=1&rel=0&playsinline=1";
+    marco.title = v.titulo;
+    marco.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
+    marco.setAttribute("allowfullscreen", "");
+    return marco;
+  }
+
+  /* ---------- Visor de vídeo a pantalla completa (móvil) ----------
+     Un Short dentro de su marco mide poco mas de 200 px de ancho en un
+     telefono. Aqui ocupa la pantalla y se cierra con la X o con Escape. */
+  function abrirVisorVideo(v, origen) {
+    var caja = $(".visor-video");
+    if (!caja) { return; }
+    ultimoFoco = origen || document.activeElement;
+    var hueco = $(".marco-video", caja);
+    hueco.innerHTML = "";
+    hueco.appendChild(marcoDeVideo(v));
+    caja.classList.toggle("horizontal", !v.vertical);
+    caja.classList.add("abierto");
+    inertizarFondo(true);
+    $(".cerrar", caja).focus();
+  }
+
+  function visorVideo() {
+    var caja = $(".visor-video");
+    if (!caja) { return; }
+
+    function cerrar() {
+      caja.classList.remove("abierto");
+      /* Destruir el iframe, no solo esconderlo: si no, el vídeo sigue sonando. */
+      $(".marco-video", caja).innerHTML = "";
+      inertizarFondo(false);
+      if (ultimoFoco && document.contains(ultimoFoco)) { ultimoFoco.focus(); }
+      ultimoFoco = null;
+    }
+
+    $(".cerrar", caja).addEventListener("click", cerrar);
+    caja.addEventListener("click", function (e) { if (e.target === caja) { cerrar(); } });
+    document.addEventListener("keydown", function (e) {
+      if (!caja.classList.contains("abierto")) { return; }
+      if (e.key === "Escape") { cerrar(); return; }
+      if (e.key === "Tab") { e.preventDefault(); $(".cerrar", caja).focus(); }
     });
   }
 
@@ -373,6 +427,7 @@
     video();
     galeria();
     visor();
+    visorVideo();
     modelos();
   }
 

@@ -54,13 +54,20 @@
     <h1 class="titular entra" id="t-portada">La tienda que cobra sola<span class="punto">.</span></h1>
     <p class="apoyo entra">
       Abre con el móvil o la tarjeta, coge lo que quieras y cierra.
-      Las básculas lo detectan todo y cobran solas.
-      <strong>Rápido, fácil y sin complicaciones.</strong>
+      <strong>Las básculas cobran solas.</strong>
     </p>
-    <figure class="foto-portada entra">
-      <img src="assets/img/hero-lobby.jpg" width="1200" height="896" fetchpriority="high"
-           alt="SmartShop instalada en la recepción de un hotel, con una persona consultando la pantalla táctil.">
-    </figure>
+    <!-- El vídeo abre el recorrido en lugar de una foto fija: es lo primero que
+         ve quien recibe el enlace por WhatsApp. En móvil se reproduce a pantalla
+         completa; en escritorio, dentro de su marco. -->
+    <div class="portada-media entra">
+      <button class="video" type="button" data-video="entornoLaboral">
+        <span class="play">
+          <span>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+          </span>
+        </span>
+      </button>
+    </div>
     <div class="botones entra">
       <a class="btn btn-primario" href="#que-es">
         Ver cómo funciona
@@ -78,8 +85,8 @@
     <p class="kicker entra">SmartShops</p>
     <h2 class="titular entra" id="t-que-es">¿Qué es una SmartShop?</h2>
     <p class="apoyo entra">
-      Una solución de <strong>retail desatendido tipo <span lang="en">Grab &amp; Go</span></strong> que elimina
-      las barreras del vending tradicional. Sin espirales, sin colas y sin nada que teclear.
+      <strong>Retail desatendido tipo <span lang="en">Grab &amp; Go</span>.</strong>
+      Sin espirales, sin colas y sin nada que teclear.
     </p>
     <div class="duo">
     <figure class="duo-foto entra">
@@ -90,17 +97,17 @@
       <article class="tarjeta ac-naranja entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
         <h3 class="nombre">Se abre con tarjeta o móvil</h3>
-        <p class="desc">Basta acercar la tarjeta bancaria, el <span lang="en">wallet</span> del teléfono o usar la app.</p>
+        <p class="desc">Tarjeta bancaria, <span lang="en">wallet</span> del móvil o la app.</p>
       </article>
       <article class="tarjeta ac-verde entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 4h3a2 2 0 0 1 2 2v14"/><path d="M2 20h3"/><path d="M13 20h9"/><path d="M10 12v.01"/><path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z"/></svg></div>
         <h3 class="nombre">Coges lo que quieras</h3>
-        <p class="desc">Puerta abierta: miras, comparas y te llevas todo lo que necesites de una vez.</p>
+        <p class="desc">Puerta abierta: te llevas todo lo que quieras de una vez.</p>
       </article>
       <article class="tarjeta ac-azul entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"/><path d="M6.5 8h11l2.5 12H4Z"/></svg></div>
         <h3 class="nombre">Las básculas hacen el resto</h3>
-        <p class="desc">Al cerrar, el sistema identifica lo retirado y realiza el cobro automáticamente.</p>
+        <p class="desc">Al cerrar identifica lo retirado y cobra solo.</p>
       </article>
     </div>
     </div>
@@ -120,7 +127,7 @@
         <div class="num">1</div>
         <div>
           <b>Acerca la tarjeta al lector</b>
-          <span>El lector está anclado en la puerta. Vale la tarjeta bancaria, el <span lang="en">wallet</span> del móvil o la app.</span>
+          <span>Vale la tarjeta bancaria, el <span lang="en">wallet</span> del móvil o la app.</span>
         </div>
       </div>
       <div class="paso ac-azul entra">
@@ -128,7 +135,7 @@
         <div class="num">2</div>
         <div>
           <b>Se preautoriza un importe</b>
-          <span>No se cobra: se retiene, igual que en las gasolineras. Solo se cargará lo que te lleves.</span>
+          <span>No se cobra: se retiene, como en las gasolineras.</span>
         </div>
       </div>
       <div class="paso ac-verde entra">
@@ -136,7 +143,7 @@
         <div class="num">3</div>
         <div>
           <b>Se desbloquea la puerta</b>
-          <span>Abres, miras con calma y coges lo que quieras. Sin límite de unidades ni de tamaño.</span>
+          <span>Sin límite de unidades ni de tamaño.</span>
         </div>
       </div>
       <div class="paso ac-rosa entra">
@@ -144,7 +151,7 @@
         <div class="num">4</div>
         <div>
           <b>Cierras y ya está</b>
-          <span>El sistema detecta lo retirado, cobra el importe exacto y la pantalla muestra el resumen.</span>
+          <span>Cobra el importe exacto y muestra el resumen.</span>
         </div>
       </div>
     </div>
@@ -218,48 +225,37 @@
   <section class="pantalla" id="beneficios" tabindex="-1" aria-labelledby="t-beneficios">
     <p class="kicker entra">Ventajas únicas</p>
     <h2 class="titular entra" id="t-beneficios">¿Qué aporta al entorno laboral?</h2>
-    <div class="duo">
-    <div class="duo-media entra">
-      <button class="video entra" type="button" data-video="entornoLaboral">
-        <span class="play">
-          <span>
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
-          </span>
-        </span>
-      </button>
-    </div>
     <div class="rejilla dos">
       <article class="tarjeta ac-verde entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg></div>
         <h3 class="nombre">Equipos felices</h3>
-        <p class="desc">Acceso a comida real aunque no haya servicio de restauración.</p>
+        <p class="desc">Comida real aunque no haya restauración.</p>
       </article>
       <article class="tarjeta ac-naranja entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <h3 class="nombre">Servicio 24 horas</h3>
-        <p class="desc">Disponible siempre, sin gestión y sin costes de personal.</p>
+        <p class="desc">Siempre abierto, sin personal en sala.</p>
       </article>
       <article class="tarjeta ac-azul entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
         <h3 class="nombre">Flexibilidad total</h3>
-        <p class="desc">Cualquier producto es posible: de bombones a formatos grandes.</p>
+        <p class="desc">De un bombón a un formato grande.</p>
       </article>
       <article class="tarjeta ac-rosa entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div>
         <h3 class="nombre">Imagen</h3>
-        <p class="desc">Una solución de última generación que transforma el vending clásico.</p>
+        <p class="desc">Nada que ver con el vending clásico.</p>
       </article>
       <article class="tarjeta ac-cafe entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
         <h3 class="nombre">Calidad</h3>
-        <p class="desc">Alimentación de calidad con más de 30 variedades disponibles.</p>
+        <p class="desc">Más de 30 variedades de comida real.</p>
       </article>
       <article class="tarjeta ac-amarillo entra">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3 class="nombre">Experiencia</h3>
-        <p class="desc">Nos adaptamos a las necesidades de cada empresa y cada espacio.</p>
+        <p class="desc">Nos adaptamos a cada empresa y cada espacio.</p>
       </article>
-    </div>
     </div>
     <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
@@ -336,6 +332,17 @@
   <!-- Sin atributo src: un src="" hace que el navegador vuelva a descargar la
        propia pagina. El script lo rellena al abrir una foto. -->
   <img alt="">
+</div>
+
+<!-- Visor de vídeo. En móvil el reproductor se abre aquí, a pantalla completa,
+     en vez de dentro de su marco: un vídeo de 200 px de ancho no se ve. El
+     script mete el iframe al abrir y lo destruye al cerrar, para que el vídeo
+     pare de sonar. -->
+<div class="visor visor-video" role="dialog" aria-modal="true" aria-label="Vídeo">
+  <button class="cerrar" type="button" aria-label="Cerrar el vídeo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <div class="marco-video"></div>
 </div>
 
 <script src="assets/js/datos.js"></script>
