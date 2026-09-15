@@ -1041,15 +1041,6 @@ h2.titular.grande{
   .cierre .aviso b{font-size:14.5px; margin-bottom:1px}
   .cierre .aviso span{font-size:13px; line-height:1.4}
   .cierre .botones{gap:6px}
-  /* El enlace a la presentacion deja de ocupar un boton entero: sigue estando,
-     pero no compite con la llamada ni se come 60 px. */
-  .cierre .btn-secundario{
-    background:none; border:0; box-shadow:none;
-    min-height:0; padding:2px 6px;
-    font-size:13.5px; font-weight:700;
-    color:var(--naranja-d); text-decoration:underline;
-  }
-  .cierre .btn-secundario:hover{transform:none; box-shadow:none}
 }
 
 /* Moviles con la barra del navegador desplegada: un iPhone deja unos 600 px
