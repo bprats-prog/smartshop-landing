@@ -242,10 +242,11 @@
     /* nocookie: no deja rastro de YouTube hasta que el usuario decide ver el vídeo.
        playsinline evita que iOS se lleve el vídeo a su reproductor nativo y se
        salte el visor.
-       mute: Chrome y Safari bloquean el arranque automatico CON sonido en movil,
-       siempre, venga de donde venga el gesto. Silenciado si arranca solo, y el
-       propio reproductor de YouTube ofrece el boton para activar el sonido sin
-       reiniciar el video. En escritorio no hace falta. */
+       Sobre el arranque automatico: Chrome y Safari solo lo permiten SIN sonido.
+       Se decidio priorizar el audio, asi que en movil el reproductor se abre
+       listo y el visitante da un toque al play. El parametro silenciado sigue
+       aqui por si algun dia se prefiere lo contrario: basta pasarlo a true
+       desde abrirVisorVideo. */
     marco.src = "https://www.youtube-nocookie.com/embed/" + v.id +
                 "?autoplay=1&rel=0&playsinline=1" + (silenciado ? "&mute=1" : "");
     marco.title = v.titulo;
@@ -263,7 +264,7 @@
     ultimoFoco = origen || document.activeElement;
     var hueco = $(".marco-video", caja);
     hueco.innerHTML = "";
-    hueco.appendChild(marcoDeVideo(v, true));
+    hueco.appendChild(marcoDeVideo(v));
     caja.classList.toggle("horizontal", !v.vertical);
     caja.classList.add("abierto");
     inertizarFondo(true);
