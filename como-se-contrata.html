@@ -2,163 +2,35 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cómo se contrata una SmartShop — Arbitrade</title>
-<meta name="description" content="Qué incluye el servicio SmartShops de Arbitrade: proyecto a medida, planograma optimizado, mermas cubiertas, gestión y reposición profesional.">
-<meta name="theme-color" content="#F4F0EA">
-
-<meta property="og:url" content="https://bprats-prog.github.io/smartshop-landing/como-se-contrata.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Cómo se contrata una SmartShop">
-<meta property="og:description" content="Venta de producto más alquiler mensual del equipo, con proyecto a medida, planograma optimizado y mermas cubiertas.">
-<meta property="og:locale" content="es_ES">
-<meta property="og:image" content="https://bprats-prog.github.io/smartshop-landing/assets/img/pv-fila-smartshops.jpg">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/arbitrade.css">
+<!-- Esta pagina ya no existe como tal: su contenido vive al final del recorrido.
+     Se conserva redirigiendo porque hay enlaces circulando por WhatsApp, tanto a
+     la pagina como al fragmento #modelos, que ahora es la pantalla del surtido. -->
+<link rel="canonical" href="https://bprats-prog.github.io/smartshop-landing/">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=index.html#siguiente">
 <script>
-/* La animacion de entrada solo se activa si el script principal confirma que
-   ha arrancado (clase app-ok). Si app.js no llega —404, proxy, extension— el
-   temporizador retira la clase anim a los 3 s y el contenido aparece igual.
-   La clase js gobierna la degradacion del selector y se pone siempre. */
-(function (e) {
-  e.className += " js anim";
-  setTimeout(function () {
-    if (!e.classList.contains("app-ok")) { e.classList.remove("anim"); }
-  }, 3000);
-})(document.documentElement);
+/* El fragmento decide el destino: quien venia a ver los modelos aterriza en la
+   pantalla del surtido, y el resto en el bloque de contratacion. */
+(function () {
+  var destino = location.hash === "#modelos" ? "index.html#productos" : "index.html#siguiente";
+  location.replace(destino);
+})();
 </script>
-
+<style>
+  body{
+    margin:0; min-height:100vh; display:grid; place-items:center;
+    font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:#F4F0EA; color:#38191A; text-align:center; padding:24px;
+  }
+  a{color:#C72D07}
+</style>
 </head>
 <body>
-
-<header class="barra">
-  <a class="marca" href="index.html">
-    SmartShops<span class="punto">.</span>
-    <img class="wordmark" src="assets/img/arbitrade-wordmark.svg" alt="Arbitrade" width="86" height="14">
-  </a>
-  <a class="barra-cta" href="index.html">Qué es una SmartShop</a>
-</header>
-
-<main class="doc">
-
-  <!-- ============ PORTADA ============ -->
-  <section class="bloque hero">
-    <p class="kicker entra">El modelo</p>
-    <h1 class="titular entra">Cómo se contrata<span class="punto">.</span></h1>
-    <p class="apoyo entra">
-      Un modelo sencillo: <strong>compras el producto que consumes y pagas un alquiler
-      mensual por el equipo</strong>. Todo lo demás —proyecto, instalación, reposición,
-      mantenimiento y mermas— va incluido.
-    </p>
-  </section>
-
-  <!-- ============ QUÉ INCLUYE ============ -->
-  <!-- Eran seis tarjetas con su descripcion: demasiado para una pagina a la
-       que se llega ya convencido a medias. Lo fundamental cabe en una lista
-       corta, y lo siguiente que necesita el cliente es un telefono. -->
-  <section class="bloque crema">
-    <p class="kicker entra">Sin extras ni sorpresas</p>
-    <h2 class="titular entra">Qué incluye el servicio</h2>
-    <p class="apoyo entra">
-      Tú pones el espacio. <strong>Todo lo demás va incluido en el alquiler.</strong>
-    </p>
-    <ul class="puntos grande entra">
-      <li><b>El equipo y su instalación</b> — la SmartShop, la conexión y el proyecto a medida, con visita previa sin coste.</li>
-      <li><b>El surtido, diseñado contigo</b> — y revisado cada temporada.</li>
-      <li><b>La reposición y el mantenimiento</b> — incluido el servicio técnico. Tu equipo no gestiona nada.</li>
-      <li><b>Las mermas y las caducidades</b> — el coste lo asume Arbitrade, hasta el 10 %.</li>
-    </ul>
-    <div class="aviso entra">
-      <div class="icono">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      </div>
-      <div>
-        <b>El alquiler mensual del equipo es obligatorio</b>
-        <span>La tarifa se revisa cada ejercicio, así que no la publicamos aquí para no darte
-        un dato caducado. Consulta la vigente con tu gestor habitual o llámanos al
-        <a href="tel:+34900264134" data-telefono data-tel-enlace>900 264 134</a>.</span>
-      </div>
-    </div>
-    <div class="botones entra">
-      <a class="btn btn-primario" href="tel:+34900264134" data-tel-enlace>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-        Contacta con tu comercial · <span data-telefono>900 264 134</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- ============ EL SURTIDO (remite al recorrido) ============ -->
-  <!-- El selector vive ahora en la home, dentro de la pantalla del surtido.
-       Este bloque conserva el id="modelos" porque hay enlaces antiguos
-       circulando por WhatsApp que apuntan aqui. -->
-  <section class="bloque" id="modelos">
-    <p class="kicker entra">Dos modelos</p>
-    <h2 class="titular entra">Modelo autogestión o modelo Ametller</h2>
-    <p class="apoyo entra">
-      El equipo, la instalación y todo lo que acabas de leer son los mismos en
-      los dos. Lo único que cambia es <strong>lo que va dentro</strong>, y se
-      compara en el recorrido, junto a la foto del surtido.
-    </p>
-    <div class="botones entra">
-      <a class="btn btn-secundario" href="index.html#productos">
-        Ver y comparar los dos modelos
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-    <p class="nota entra">
-      ¿No sabes cuál encaja mejor? Lo vemos en la visita, o llámanos al
-      <a href="tel:+34900264134" data-telefono data-tel-enlace>900 264 134</a>.
-    </p>
-  </section>
-
-  <!-- ============ SIGUIENTE PASO ============ -->
-  <section class="bloque hero">
-    <p class="kicker entra">Siguiente paso</p>
-    <h2 class="titular entra">Una visita, sin coste y sin compromiso</h2>
-    <p class="apoyo entra">
-      Vamos a tu espacio, tomamos medidas y te devolvemos un proyecto con render
-      y propuesta de surtido. A partir de ahí, decides.
-    </p>
-    <div class="botones entra">
-      <a class="btn btn-primario" href="tel:+34900264134" data-tel-enlace>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-        <span data-telefono>900 264 134</span>
-      </a>
-      <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion>
-        <span class="etiqueta-presentacion">Ver la presentación completa</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-      </a>
-      <a class="btn btn-secundario" href="index.html">Volver a qué es una SmartShop</a>
-    </div>
-  </section>
-
-
-</main>
-
-<footer class="pie">
-  <p>Contacta con tu gestor habitual o llámanos al <a href="tel:+34900264134" data-telefono data-tel-enlace>900 264 134</a></p>
-  <p>Crea tu cuenta en <a href="https://arbitrade.tienda" target="_blank" rel="noopener" data-tienda>arbitrade.tienda</a></p>
-  <p class="legal">El alquiler mensual del equipo se revisa cada ejercicio; consulta la tarifa vigente con tu gestor.</p>
-</footer>
-
-<!-- Visor de presentaciones. Google Slides se abre aqui dentro, con un boton
-     de volver visible: abriendolo en una pestaña nueva el cliente se queda
-     fuera de la web y solo tiene el "atras" del navegador, que en movil no
-     siempre esta a mano. -->
-<div class="visor visor-doc" role="dialog" aria-modal="true" aria-label="Presentación">
-  <button class="cerrar volver" type="button">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-    Volver a la web
-  </button>
-  <div class="marco-doc"></div>
-</div>
-
-
-<script src="assets/js/datos.js"></script>
-<script src="assets/js/app.js"></script>
+  <p>
+    Esta página se ha unido al recorrido.<br>
+    <a href="index.html#siguiente">Ir a cómo se contrata</a>
+  </p>
 </body>
 </html>

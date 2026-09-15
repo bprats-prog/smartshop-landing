@@ -998,3 +998,18 @@ h2.titular.grande{
   #portada .video{height:clamp(220px,34svh,300px)}
 }
 
+
+/* ============================================================
+   EL CIERRE: la unica seccion que puede crecer
+   Aqui el visitante deja de pasar diapositivas y se pone a leer condiciones,
+   asi que se le quita el alto fijo y se deja que ocupe lo que necesite. El
+   resto del recorrido mantiene su regla de una pantalla por idea.
+   ============================================================ */
+.pantalla.cierre{
+  justify-content:flex-start;
+  padding-bottom:clamp(48px,7vh,72px);
+  gap:clamp(12px,2vh,22px);
+}
+.pantalla.cierre .puntos{width:min(640px,94vw)}
+.pantalla.cierre .aviso{width:min(640px,94vw)}
+.pantalla.cierre .apoyo{max-width:62ch}
