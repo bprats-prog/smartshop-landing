@@ -166,11 +166,17 @@ sensación de pase de diapositivas.
 
 - **La web no publica precios.** Ni cuota mensual, ni precios de producto, ni
   planogramas. El alquiler del equipo se menciona como obligatorio y se remite
-  al gestor, porque la tarifa se revisa cada ejercicio. Esto vale también para
-  el modelo Ametller: su presentación sí lleva una tarifa mensual por SmartShop,
-  y aquí se deja fuera a propósito. De ese deck solo se recoge la condición que
-  no caduca —los productos de Ametller cuestan lo mismo que en sus tiendas—, no
-  la cifra.
+  al gestor, porque la tarifa se revisa cada ejercicio. De los decks solo se
+  recoge la condición que no caduca —los productos de Ametller cuestan lo mismo
+  que en sus tiendas—, nunca la cifra.
+
+  Los dos decks enlazados cumplen ahora la misma regla: desde el 15 de
+  septiembre de 2026 su diapositiva de "Oferta económica" termina en *"Consulta
+  condiciones con tu comercial"* y ya no llevan tarifa mensual ni tabla de
+  precios de producto. Antes sí, y era la contradicción más visible de la
+  pieza. Si alguien sustituye esas presentaciones por otras, hay que volver a
+  comprobarlo: el botón de cada modelo abre el deck dentro de la propia web, así
+  que lo que diga el deck lo dice la web.
 - **Sin alcohol y solo marcas que están de verdad en las máquinas.** Las que se
   pueden verificar contra los planogramas de los decks son Bien Aparecida,
   Danet, Salgot, Activia, Florette, Jabugo, Natwins, Lay's y Milka. La foto de
