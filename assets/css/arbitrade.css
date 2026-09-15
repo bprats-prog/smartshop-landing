@@ -997,3 +997,17 @@ h2.titular.grande{
 @media (min-width:901px) and (max-height:820px){
   #portada .video{height:clamp(220px,34svh,300px)}
 }
+
+/* El aviso de que el video arranca en silencio. Va sobre el reproductor, junto
+   a la X, y se retira solo a los pocos segundos para no estorbar. */
+.visor-video .aviso-sonido{
+  position:absolute; top:clamp(12px,2.5vh,24px); left:clamp(12px,4vw,28px);
+  right:calc(46px + clamp(12px,3vw,28px) + 10px);
+  z-index:2; margin:0; text-align:left;
+  font-size:12.5px; line-height:1.35; color:rgba(255,255,255,.88);
+  animation:desvanecer 1s ease 5s forwards;
+}
+@keyframes desvanecer{ to{opacity:0; visibility:hidden} }
+@media (prefers-reduced-motion:reduce){
+  .visor-video .aviso-sonido{animation:none}
+}

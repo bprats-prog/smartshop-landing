@@ -237,13 +237,17 @@
     return window.matchMedia("(max-width:820px)").matches;
   }
 
-  function marcoDeVideo(v) {
+  function marcoDeVideo(v, silenciado) {
     var marco = document.createElement("iframe");
     /* nocookie: no deja rastro de YouTube hasta que el usuario decide ver el vídeo.
        playsinline evita que iOS se lleve el vídeo a su reproductor nativo y se
-       salte el visor. */
+       salte el visor.
+       mute: Chrome y Safari bloquean el arranque automatico CON sonido en movil,
+       siempre, venga de donde venga el gesto. Silenciado si arranca solo, y el
+       propio reproductor de YouTube ofrece el boton para activar el sonido sin
+       reiniciar el video. En escritorio no hace falta. */
     marco.src = "https://www.youtube-nocookie.com/embed/" + v.id +
-                "?autoplay=1&rel=0&playsinline=1";
+                "?autoplay=1&rel=0&playsinline=1" + (silenciado ? "&mute=1" : "");
     marco.title = v.titulo;
     marco.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
     marco.setAttribute("allowfullscreen", "");
@@ -259,7 +263,7 @@
     ultimoFoco = origen || document.activeElement;
     var hueco = $(".marco-video", caja);
     hueco.innerHTML = "";
-    hueco.appendChild(marcoDeVideo(v));
+    hueco.appendChild(marcoDeVideo(v, true));
     caja.classList.toggle("horizontal", !v.vertical);
     caja.classList.add("abierto");
     inertizarFondo(true);
