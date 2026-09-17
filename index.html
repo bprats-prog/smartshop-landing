@@ -50,12 +50,17 @@
 
   <!-- ============ 0 · PORTADA ============ -->
   <section class="pantalla hero" id="portada" tabindex="-1" aria-labelledby="t-portada">
-    <p class="kicker entra">Arbitrade presenta</p>
-    <h1 class="titular entra" id="t-portada">La tienda que cobra sola<span class="punto">.</span></h1>
-    <p class="apoyo entra">
-      Abre con el móvil, coge lo que quieras y cierra.
-      <strong>Las básculas cobran solas.</strong>
-    </p>
+    <!-- El texto va envuelto para que en escritorio la portada sea de dos
+         columnas —mensaje a la izquierda, vídeo a la derecha— sin que el vídeo,
+         al ser más alto, separe entre sí el kicker, el titular y el apoyo. -->
+    <div class="portada-texto">
+      <p class="kicker entra">Arbitrade presenta</p>
+      <h1 class="titular entra" id="t-portada">La tienda que cobra sola<span class="punto">.</span></h1>
+      <p class="apoyo entra">
+        Abre con el móvil, coge lo que quieras y cierra.
+        <strong>Las básculas cobran solas.</strong>
+      </p>
+    </div>
     <!-- El vídeo abre el recorrido en lugar de una foto fija: es lo primero que
          ve quien recibe el enlace por WhatsApp. En móvil se reproduce a pantalla
          completa; en escritorio, dentro de su marco. -->
@@ -67,12 +72,6 @@
           </span>
         </span>
       </button>
-    </div>
-    <div class="botones entra">
-      <a class="btn btn-primario" href="#que-es">
-        Ver cómo funciona
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
     </div>
     <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>

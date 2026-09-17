@@ -992,11 +992,6 @@ h2.titular.grande{
   .visor-doc iframe{border-radius:14px}
 }
 
-/* En un portatil bajo el titular de portada ocupa 175 px: el video no puede
-   llevarse ademas la mitad de la pantalla. */
-@media (min-width:901px) and (max-height:820px){
-  #portada .video{height:clamp(220px,34svh,300px)}
-}
 
 
 /* ============================================================
@@ -1056,4 +1051,127 @@ h2.titular.grande{
   #como-funciona .pasos{gap:5px}
   .paso .texto{padding:7px 11px}
   .paso{min-height:84px}
+}
+
+/* ============================================================
+   MOVIL: SCROLL CONTINUO EN VEZ DE PASE DE DIAPOSITIVAS
+   El recorrido se penso como diapositivas: cada seccion medida al pixel para
+   caber en un viewport y un snap que la reencaja al soltar el dedo. En un
+   movil eso obliga a recortar tipografia e imagenes hasta el limite —600 px
+   utiles con la barra de Safari desplegada— y ademas el gesto natural, deslizar
+   y seguir leyendo, se pelea con el encaje.
+   Aqui se suelta: sin snap, sin alto fijo y sin las compactaciones que existian
+   solo para hacer caber cada pantalla. El alto que se libera se devuelve al
+   texto y a las fotos. La portada es la unica excepcion: sigue ocupando la
+   pantalla entera porque es la primera impresion.
+   ============================================================ */
+@media (max-width:900px){
+  .deck{scroll-snap-type:none}
+
+  .pantalla{
+    min-height:0;
+    scroll-snap-align:none;
+    justify-content:flex-start;
+    /* El relleno superior conserva el alto de la barra fija: los enlaces
+       internos saltan al offsetTop de la seccion y sin este hueco el titular
+       aterrizaria debajo de la barra. */
+    padding-top:calc(var(--barra) + clamp(16px,2.6vh,26px));
+    padding-bottom:clamp(30px,5vh,48px);
+    gap:clamp(16px,2.6vh,26px);
+  }
+
+  #portada{
+    min-height:100svh;
+    justify-content:center;
+    gap:clamp(14px,2.4vh,24px);
+  }
+
+  /* La flecha era el control de "pasar diapositiva". Sin snap solo tiene
+     sentido en la portada, como pista de que debajo sigue habiendo web. */
+  .pantalla .avanzar{display:none}
+  #portada .avanzar{display:grid}
+
+  /* --- Lo que se compactaba para caber, devuelto a su tamano --- */
+  .apoyo{font-size:17.5px; line-height:1.5}
+  .puntos li,.pantalla .puntos li{font-size:15.5px; line-height:1.5}
+  .tarjeta{padding:14px 16px}
+  .tarjeta .nombre,#beneficios .tarjeta .nombre{font-size:16.5px}
+  .tarjeta .desc,#beneficios .tarjeta .desc{font-size:15px; line-height:1.45}
+  .paso{min-height:clamp(110px,17vh,150px)}
+  .paso b{font-size:18px}
+  .paso span{font-size:15.5px; line-height:1.45}
+  .paso .texto{padding:12px 15px 12px 13px}
+  .rejilla,.pasos,.galeria{gap:10px}
+  #como-funciona .pasos{gap:10px}
+  .pantalla .modelos{gap:14px}
+  .pantalla .panel{gap:14px}
+  .pantalla .puntos{gap:7px}
+  .pantalla .pestana{min-height:48px; padding:.7em 1.1em}
+  #productos{gap:clamp(16px,2.6vh,26px)}
+  .cinta{font-size:15.5px}
+
+  /* Las seis ventajas se apilaban en dos columnas de 11,5 px para que la
+     seccion cupiera de una pasada. Ya no tiene que caber: una columna, icono a
+     la izquierda y texto a tamano de lectura. */
+  #beneficios .rejilla{grid-template-columns:1fr; gap:10px}
+  #beneficios .tarjeta{
+    display:grid; grid-template-columns:auto 1fr;
+    column-gap:14px; row-gap:2px; align-items:start; padding:14px 16px;
+  }
+  #beneficios .tarjeta .icono{grid-column:1; grid-row:1 / span 2; margin-bottom:0}
+  #beneficios .tarjeta .nombre{grid-column:2; grid-row:1}
+  #beneficios .tarjeta .desc{grid-column:2; grid-row:2}
+
+  /* Imagenes: el alto ya no es un presupuesto cerrado */
+  #portada .video{height:min(46svh,420px)}
+  #que-es .duo-foto img{height:min(44svh,360px); max-width:80vw}
+  #productos .foto-gama{width:min(420px,82vw); height:auto}
+  .galeria figure,.galeria .pieza{height:min(42svh,340px)}
+
+  /* El cierre estaba apretado al limite para que el boton de llamada cupiera
+     en 600 px. Sin pantallas que encajar, tampoco hace falta apretarlo. */
+  .pantalla.cierre{
+    padding-top:calc(var(--barra) + clamp(16px,2.6vh,26px));
+    padding-bottom:clamp(36px,6vh,56px);
+    gap:clamp(12px,2vh,20px);
+  }
+  .cierre .apoyo{font-size:16.5px; line-height:1.5; max-width:46ch}
+  .cierre .puntos{gap:8px}
+  .cierre .puntos li{font-size:15.5px; padding-left:19px}
+  .cierre .aviso{padding:14px 16px; gap:12px}
+  .cierre .aviso .icono svg{height:24px; width:24px}
+  .cierre .aviso b{font-size:15.5px; margin-bottom:2px}
+  .cierre .aviso span{font-size:14px; line-height:1.45}
+  .cierre .botones{gap:10px}
+}
+
+/* ============================================================
+   LA PORTADA EN ESCRITORIO: MENSAJE A LA IZQUIERDA, VIDEO A LA DERECHA
+   Apilada y centrada, el Short vertical competia con el titular por el mismo
+   alto y se quedaba en 300 px: la cara de la web era un sello. En dos columnas
+   cada uno tiene el suyo, el video puede ocupar casi todo el alto util y el
+   titular gana la lectura en bandera que pide una portada.
+   ============================================================ */
+.portada-texto{
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(10px,1.7vh,22px);
+}
+@media (min-width:901px){
+  #portada{
+    flex-direction:row;
+    align-items:center; justify-content:center;
+    gap:clamp(32px,5vw,80px);
+    text-align:left;
+    padding-left:clamp(36px,6vw,96px);
+    padding-right:clamp(36px,6vw,96px);
+  }
+  #portada .portada-texto{
+    align-items:flex-start;
+    flex:1 1 auto; max-width:min(52ch,52%);
+  }
+  #portada .portada-media{flex:0 0 auto}
+  #portada h1.titular{max-width:12ch}
+  #portada .apoyo{max-width:36ch}
+  /* Sin el boton debajo, el alto libre es todo suyo. */
+  #portada .video{height:min(74svh,660px)}
 }
