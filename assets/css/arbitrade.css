@@ -1214,10 +1214,11 @@ h2.titular.grande{
    entero del bloque y son las tarjetas las que se centran a su lado.
    ============================================================ */
 @media (min-width:901px){
-  /* Las tarjetas se quedan a su alto natural y se centran al lado de la foto;
-     estirarlas con la fila solo les meteria aire dentro. */
-  #que-es .duo{align-items:center}
-  #que-es .duo > .rejilla{align-self:center}
+  /* Las tres tarjetas se reparten el alto de la foto en vez de quedarse
+     encogidas a su lado. Con el texto centrado dentro de cada una, el bloque
+     se lee como una sola pieza y no como una columna corta junto a otra alta. */
+  #que-es .duo{align-items:stretch}
+  #que-es .duo > .rejilla{align-self:stretch}
   #que-es .duo-foto{margin:0; display:flex; justify-content:center}
   /* Tres topes, y manda el menor:
        60svh  — el alto util de la seccion menos titular, apoyo y rellenos.
@@ -1241,4 +1242,43 @@ h2.titular.grande{
   #que-es .duo-foto img{
     height:auto; width:min(80vw,400px); max-width:80vw;
   }
+}
+
+/* ============================================================
+   LAS TARJETAS DE "QUE ES": ICONO A LA IZQUIERDA Y TEXTO MAS GRANDE
+   Medida a 1440: la tarjeta ocupaba 522 px de ancho y el texto llegaba a la
+   mitad; el icono, ademas, se llevaba una fila entera de 35 px para el solo.
+   Sobraba sitio a lo ancho y se desperdiciaba a lo alto.
+   El icono pasa a una columna propia a la izquierda —el patron que ya usaban
+   estas mismas tarjetas por debajo de 560 px— y el texto sube de tamano hasta
+   llenar el ancho disponible. Es una tarjeta de fila, no una de rejilla: no se
+   aplica a "Que aporta", donde son seis en dos columnas de 224 px y el icono
+   arriba sigue siendo lo correcto.
+   ============================================================ */
+#que-es .tarjeta{
+  display:grid; grid-template-columns:auto 1fr;
+  column-gap:clamp(14px,1.5vw,20px); row-gap:3px;
+  align-items:start; align-content:center;
+}
+#que-es .tarjeta .icono{
+  grid-column:1; grid-row:1 / span 2;
+  align-self:center; margin-bottom:0;
+}
+#que-es .tarjeta .nombre{grid-column:2; grid-row:1}
+#que-es .tarjeta .desc{grid-column:2; grid-row:2}
+
+@media (min-width:901px){
+  #que-es .tarjeta{padding:clamp(18px,2.2vh,26px) clamp(22px,2vw,30px)}
+  #que-es .tarjeta .icono svg{height:clamp(28px,2.6vw,36px)}
+  #que-es .tarjeta .nombre{font-size:clamp(19px,1.75vw,24px); line-height:1.15}
+  #que-es .tarjeta .desc{font-size:clamp(14.5px,1.3vw,17px); line-height:1.45}
+}
+
+/* En movil la tarjeta mide unos 360 px: no hay ancho que recuperar, pero si
+   tamano de letra. El titulo sube de 16,5 a 18 y la descripcion de 15 a 15,5. */
+@media (max-width:900px){
+  #que-es .tarjeta{padding:15px 17px; column-gap:14px}
+  #que-es .tarjeta .icono svg{height:26px}
+  #que-es .tarjeta .nombre{font-size:18px; line-height:1.2}
+  #que-es .tarjeta .desc{font-size:15.5px; line-height:1.4}
 }
