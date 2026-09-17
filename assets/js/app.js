@@ -421,31 +421,43 @@
     cont.appendChild(puntitos);
 
     var piezas = $$(".pieza", pista);
-    function actual() {
+    /* La foto que toca se guarda, no se deduce de la posicion en cada clic:
+       leyendola en marcha, dos toques seguidos en la flecha calculaban el mismo
+       destino y el segundo se perdia. La posicion real solo manda cuando el
+       visitante pasa la foto con el dedo, y se recoge al pararse. */
+    var indice = 0;
+    var reposo = null;
+
+    function medida() {
       /* El ancho exacto de una foto sale de la pista, no de clientWidth: con
          anchos fraccionarios los dos no coinciden y el indice bailaba. */
       var ancho = (pista.scrollWidth / total) || 1;
       return Math.max(0, Math.min(total - 1, Math.round(pista.scrollLeft / ancho)));
     }
-    function irA(i) {
-      var p = piezas[Math.max(0, Math.min(total - 1, i))];
-      if (p) { pista.scrollTo({ left: p.offsetLeft, behavior: "smooth" }); }
-    }
     function pintar() {
-      var i = actual();
       bolas.forEach(function (b, n) {
-        if (n === i) { b.setAttribute("aria-current", "true"); }
+        if (n === indice) { b.setAttribute("aria-current", "true"); }
         else { b.removeAttribute("aria-current"); }
       });
       /* En los extremos la flecha se esconde en vez de quedarse apagada: con
          tres fotos, media docena de pixeles grises no dicen nada. */
-      ant.disabled = i === 0;
-      sig.disabled = i === total - 1;
+      ant.disabled = indice === 0;
+      sig.disabled = indice === total - 1;
     }
-    ant.addEventListener("click", function () { irA(actual() - 1); });
-    sig.addEventListener("click", function () { irA(actual() + 1); });
-    pista.addEventListener("scroll", pintar, { passive: true });
-    window.addEventListener("resize", pintar);
+    function irA(i) {
+      indice = Math.max(0, Math.min(total - 1, i));
+      var p = piezas[indice];
+      if (p) { pista.scrollTo({ left: p.offsetLeft, behavior: "smooth" }); }
+      pintar();
+    }
+
+    ant.addEventListener("click", function () { irA(indice - 1); });
+    sig.addEventListener("click", function () { irA(indice + 1); });
+    pista.addEventListener("scroll", function () {
+      window.clearTimeout(reposo);
+      reposo = window.setTimeout(function () { indice = medida(); pintar(); }, 120);
+    }, { passive: true });
+    window.addEventListener("resize", function () { indice = medida(); pintar(); });
     pintar();
   }
 
