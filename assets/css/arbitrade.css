@@ -1507,3 +1507,34 @@ h2.titular.grande{
    derecha: en una tira de 345 px el hueco vacio no sirve de nada y lo que
    interesa es ver el producto grande. */
 #productos .gama .foto-gama img{object-position:left center}
+
+/* ============================================================
+   LA FOTO DEL LOBBY EN "QUE APORTA"
+   Estaba escondida por debajo de 820 px. Era una decision de la epoca del pase
+   de diapositivas: esa pantalla cabia al pixel en 600 px utiles y la foto la
+   desbordaba unos 200. Desde que el movil va a scroll libre, ese motivo ya no
+   existe, asi que vuelve, a todo el ancho.
+   Y esquinas redondeadas, que le faltaban: es la unica foto de la web que se
+   presentaba a bordes vivos.
+   El aspect-ratio es el de la imagen (1200/896), asi que object-fit:cover no
+   recorta nada; esta puesto para que la caja coincida con la foto y el radio y
+   la sombra no queden dibujados sobre franjas vacias.
+   ============================================================ */
+#beneficios .duo-foto img{
+  aspect-ratio:1200/896; object-fit:cover;
+  border-radius:var(--radio);
+  box-shadow:var(--sombra-m);
+}
+
+@media (min-width:901px){
+  #beneficios .duo-foto img{
+    width:clamp(280px,32vw,460px); height:auto; max-width:none;
+  }
+}
+
+@media (max-width:900px){
+  #beneficios .duo-foto{display:block; width:100%; justify-self:stretch; margin:0}
+  #beneficios .duo-foto img{
+    width:100%; height:auto; max-width:none;
+  }
+}
