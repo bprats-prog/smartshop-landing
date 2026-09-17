@@ -724,7 +724,7 @@ h2.titular{
    proyectarla en una reunion. Aqui sobra ancho y falta alto: la foto y el
    selector se ponen uno al lado del otro en vez de apilarse.
    ============================================================ */
-@media (min-width:1000px) and (max-height:940px){
+@media (min-width:1000px){
   #productos{
     display:grid; align-content:center; justify-items:center;
     grid-template-columns:auto minmax(0,540px);
@@ -1220,7 +1220,7 @@ h2.titular.grande{
   #que-es .duo > .rejilla{align-self:center}
   #que-es .duo-foto{margin:0; display:flex; justify-content:center}
   /* Tres topes, y manda el menor:
-       66svh  — el alto util de la seccion menos titular, apoyo y rellenos.
+       60svh  — el alto util de la seccion menos titular, apoyo y rellenos.
                 Por encima, la pantalla deja de caber en un portatil de 768.
        620px  — en un monitor alto, a partir de aqui la nevera ya no gana nada.
        47vw   — equivale a 38vw de ancho con la proporcion 760/943 de la foto.
@@ -1228,7 +1228,7 @@ h2.titular.grande{
                 recortaria la caja y la imagen quedaria flotando con aire.
      Se dimensiona por alto y no por ancho porque el alto es lo que escasea. */
   #que-es .duo-foto img{
-    height:min(66svh,620px,47vw);
+    height:min(60svh,620px,47vw);
     max-height:none; width:auto; max-width:38vw;
     object-fit:contain;
   }
