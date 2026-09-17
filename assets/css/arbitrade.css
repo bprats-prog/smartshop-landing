@@ -1214,20 +1214,22 @@ h2.titular.grande{
    entero del bloque y son las tarjetas las que se centran a su lado.
    ============================================================ */
 @media (min-width:901px){
-  #que-es{justify-content:flex-start}
-  #que-es .duo{
-    flex:1 1 auto; min-height:0;
-    align-items:stretch;
-  }
-  /* Las tarjetas no se estiran con la fila: se quedan a su alto natural y se
-     centran. Estirarlas solo les meteria aire dentro. */
+  /* Las tarjetas se quedan a su alto natural y se centran al lado de la foto;
+     estirarlas con la fila solo les meteria aire dentro. */
+  #que-es .duo{align-items:center}
   #que-es .duo > .rejilla{align-self:center}
-  #que-es .duo-foto{
-    min-height:0; margin:0;
-    display:flex; align-items:center; justify-content:center;
-  }
+  #que-es .duo-foto{margin:0; display:flex; justify-content:center}
+  /* Tres topes, y manda el menor:
+       66svh  — el alto util de la seccion menos titular, apoyo y rellenos.
+                Por encima, la pantalla deja de caber en un portatil de 768.
+       620px  — en un monitor alto, a partir de aqui la nevera ya no gana nada.
+       47vw   — equivale a 38vw de ancho con la proporcion 760/943 de la foto.
+                Sin esto, en una ventana estrecha y alta el ancho maximo
+                recortaria la caja y la imagen quedaria flotando con aire.
+     Se dimensiona por alto y no por ancho porque el alto es lo que escasea. */
   #que-es .duo-foto img{
-    height:100%; max-height:100%; width:auto; max-width:38vw;
+    height:min(66svh,620px,47vw);
+    max-height:none; width:auto; max-width:38vw;
     object-fit:contain;
   }
 }
