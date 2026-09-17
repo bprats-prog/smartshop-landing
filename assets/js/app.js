@@ -455,6 +455,15 @@
     if (!foto || !foto.src || !img) { return; }
     if (img.getAttribute("src") !== foto.src) { img.src = foto.src; }
     img.alt = foto.alt || "";
+    /* El fondo de la tarjeta es la propia foto, ampliada y desenfocada: asi el
+       rectangulo continua el fondo del bodegon en vez de imponerle un color.
+       Se pasa por variable y no por regla fija porque cambia con el modelo, y
+       desde aqui y no desde el CSS porque la ruta de datos.js es relativa al
+       documento (y es la que reescribe el script de empaquetado). */
+    var tarjeta = fig.closest && fig.closest(".gama");
+    if (tarjeta) {
+      tarjeta.style.setProperty("--gama-foto", 'url("' + foto.src + '")');
+    }
   }
 
   function montarSelector(caja) {

@@ -1385,37 +1385,55 @@ h2.titular.grande{
    bullets pegados al borde de la imagen. Son la misma idea —esto es lo que hay
    dentro, y cambia segun el modelo— asi que van dentro de un mismo rectangulo,
    con la foto a un lado y el texto al otro, bien separados.
-   La tarjeta es blanca, como el resto del sistema (.tarjeta, .aviso), y no una
-   prolongacion del fondo del bodegon: las dos fotos de modelo tienen fondos
-   distintos y degradados —F6EADE y DFD9C9 en sus esquinas— asi que ningun color
-   plano empalmaria con las dos. Lo que si comparten es la proporcion, 1,61,
-   y de ahi el aspect-ratio fijo: al cambiar de modelo la tarjeta no da un salto.
+   El rectangulo no es una tarjeta blanca: es el propio fondo del bodegon,
+   ampliado (ver .gama::before). Lo que las dos fotos si comparten es la
+   proporcion, 1,61, y de ahi el aspect-ratio fijo: al cambiar de modelo la
+   tarjeta no da un salto.
    ============================================================ */
 .gama{
+  position:relative; isolation:isolate;
   width:min(1060px,94vw);
-  background:#fff;
-  border:1px solid var(--cream-100);
-  border-radius:var(--radio);
+  border-radius:var(--radio); overflow:hidden;
   box-shadow:var(--sombra-m);
-  padding:clamp(13px,1.5vw,20px);
+  padding:clamp(15px,1.7vw,26px);
   display:grid;
   align-items:center;
 }
+/* El fondo del rectangulo es la propia foto, ampliada y desenfocada. No es un
+   color plano porque no existe uno que valga: el bodegon de autogestion va de
+   EEE1C7 a C9B39C de izquierda a derecha y el de Ametller de EFE6DB a C4AC99,
+   los dos con vineteado. Cualquier color fijo empalmaria por un lado y cantaria
+   por el otro, y ademas habria que revisarlo cada vez que cambien una foto.
+   Asi el fondo es siempre el de la imagen que haya puesta, sea cual sea.
+   La escala evita que el desenfoque chupe el crema de fuera por los bordes. */
+.gama::before{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:var(--gama-foto) center/cover no-repeat;
+  filter:blur(46px) saturate(1.15);
+  transform:scale(1.35);
+}
+.gama > *{position:relative; z-index:1}
 
-/* La foto pierde su sombra: dentro de la tarjeta la sombra ya la pone el
-   contenedor y duplicarla ensucia el borde. */
+/* La foto pierde sombra y borde: la sombra ya la pone el rectangulo, y un
+   filete crema sobre el fondo del propio bodegon marcaria justo la costura que
+   se trata de disimular. */
 #productos .gama .foto-gama{
   width:100%; max-width:none; height:auto;
   aspect-ratio:1400/869;
-  box-shadow:none;
-  border-radius:calc(var(--radio) - 8px);
+  box-shadow:none; border:0;
+  border-radius:calc(var(--radio) - 9px);
 }
 #productos .gama .modelos{width:auto; align-items:flex-start}
 #productos .gama .panel{align-items:flex-start}
 #productos .gama .puntos{width:100%}
-/* Un control blanco sobre una tarjeta blanca desaparece: el carril de las
-   pestañas necesita su propio fondo. */
-#productos .gama .pestanas{background:var(--cream-50)}
+
+/* --- Legibilidad sobre el fondo teñido ---
+   Los bullets van a rgba(56,25,26,.68), pensado para blanco. Sobre la zona mas
+   oscura del fondo del bodegon (C9B39C en autogestion) eso da 4,03:1 y se queda
+   por debajo del 4,5 que pide la AA. A .84 sube a 5,7:1 y sigue leyendose como
+   texto secundario. La nota de "Imagenes orientativas" vive fuera del
+   rectangulo, sobre crema, y no se toca. */
+#productos .gama .puntos li{color:rgba(56,25,26,.84)}
 
 @media (min-width:901px){
   .gama{
