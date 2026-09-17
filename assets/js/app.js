@@ -463,6 +463,11 @@
     var tarjeta = fig.closest && fig.closest(".gama");
     if (tarjeta) {
       tarjeta.style.setProperty("--gama-foto", 'url("' + foto.src + '")');
+      /* Fotos compuestas con el producto a un lado y el fondo libre al otro:
+         en escritorio la foto pasa a ocupar el rectangulo entero y el texto se
+         coloca sobre esa zona vacia. Lo declara datos.js, no el CSS, porque
+         depende de la foto que haya puesta. */
+      tarjeta.classList.toggle("con-hueco", !!foto.hueco);
     }
   }
 

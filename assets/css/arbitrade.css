@@ -1456,3 +1456,46 @@ h2.titular.grande{
    la foto se salia 14 px de la tarjeta en movil. En escritorio no pasaba porque
    ahi las columnas ya iban con minmax(0,...). */
 .gama > *{min-width:0}
+
+/* ============================================================
+   VARIANTE CON HUECO: LA FOTO OCUPA EL RECTANGULO ENTERO
+   La foto de Ametller esta compuesta a proposito con el producto en el tercio
+   izquierdo y el fondo libre a la derecha. En vez de meterla en una columna y
+   desaprovechar ese hueco, ocupa el rectangulo completo y el texto se coloca
+   encima de la zona vacia. Lo activa datos.js con hueco:true, no el CSS, porque
+   depende de como este compuesta cada foto: en un bodegon centrado —el de
+   autogestion— el texto caeria sobre el producto, y por eso ese modelo mantiene
+   la foto en su columna.
+   Solo en escritorio: en un movil no hay ancho para poner texto al lado de nada.
+   ============================================================ */
+@media (min-width:901px){
+  /* Las dos variantes miden lo mismo para que al cambiar de pestaña el
+     rectangulo no pegue un salto de 90 px. El tope en svh es lo que deja el
+     presupuesto de la pantalla: a 768 sobraban 108 px y se usan 91. */
+  .gama{min-height:min(58svh,470px)}
+
+  .gama.con-hueco{
+    grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);
+    padding:clamp(18px,2vw,30px);
+  }
+  /* Sin fondo desenfocado: aqui el fondo es la foto de verdad, a tamaño real. */
+  .gama.con-hueco::before{display:none}
+  #productos .gama.con-hueco .foto-gama{
+    position:absolute; inset:0; z-index:0; margin:0;
+    width:auto; height:auto; aspect-ratio:auto;
+    border-radius:0;
+  }
+  /* 70% y no "center": el recorte vertical se lo lleva casi todo la parte de
+     arriba, que esta vacia, y asi no se corta la base de las bandejas. */
+  #productos .gama.con-hueco .foto-gama img{object-position:left 70%}
+  #productos .gama.con-hueco .modelos{grid-column:2; z-index:1}
+  /* La columna de texto es mas estrecha que en la otra variante —tiene que
+     caber dentro del hueco— asi que las dos pestañas bajan un punto para
+     seguir entrando en una sola fila. */
+  #productos .gama.con-hueco .pestana{font-size:13px; padding:.7em 1.05em}
+}
+
+/* En movil la foto vuelve a su sitio, arriba del texto, y se recorta por la
+   derecha: en una tira de 345 px el hueco vacio no sirve de nada y lo que
+   interesa es ver el producto grande. */
+#productos .gama .foto-gama img{object-position:left center}

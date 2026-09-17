@@ -77,7 +77,13 @@ window.SMARTSHOP = {
     },
     ametller: {
       src: "assets/img/gama-ametller.jpg",
-      alt: "Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras y un gazpacho embotellado."
+      alt: "Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras, un tomate y un gazpacho embotellado.",
+      /* La foto está compuesta con el producto a la izquierda y el fondo vacío
+         a la derecha. Con hueco:true, en escritorio ocupa el rectángulo entero
+         y el texto se coloca encima de esa zona vacía, en vez de ir en una
+         columna al lado. Ponlo solo en fotos compuestas así: en un bodegón
+         centrado el texto caeria encima del producto. */
+      hueco: true
     }
   },
 
