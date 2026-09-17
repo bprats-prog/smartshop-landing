@@ -1334,3 +1334,32 @@ h2.titular.grande{
   #como-funciona .paso span{font-size:13.5px; line-height:1.4}
   #como-funciona .paso .texto{padding:11px 13px 13px}
 }
+
+/* ============================================================
+   LOS PASOS: MISMA ALTURA, NUMERO MAYOR, TITULO MENOR
+   Las cuatro tarjetas se dimensionaban cada una por su texto (align-items:start),
+   asi que la fila terminaba escalonada: 403, 365, 342, 365. Ahora se estiran a
+   la mas alta y el bloque de texto se lleva el sobrante, para que el hueco no
+   quede colgando debajo.
+   Y se invierte el peso dentro del texto: el numero manda —es lo que convierte
+   cuatro tarjetas en una secuencia— y el titulo cede un punto.
+   ============================================================ */
+#como-funciona .pasos{align-items:stretch}
+/* En movil son dos filas: sin esto cada fila se ajusta a su propio contenido
+   y las de abajo salen mas cortas que las de arriba. */
+#como-funciona .pasos{grid-auto-rows:1fr}
+/* El texto absorbe la altura sobrante en lugar de dejarla como aire al pie. */
+#como-funciona .paso .texto{flex:1 1 auto}
+
+#como-funciona .paso .num{
+  font-size:1.9em; line-height:1;
+  margin-right:.26em;
+}
+#como-funciona .paso b{line-height:1.25}
+
+@media (min-width:901px){
+  #como-funciona .paso b{font-size:clamp(14.5px,1.2vw,17px)}
+}
+@media (max-width:900px){
+  #como-funciona .paso b{font-size:14.5px}
+}
