@@ -1376,3 +1376,27 @@ h2.titular.grande{
    ============================================================ */
 .paso span{opacity:1}
 .paso .texto > span{color:rgba(56,25,26,.66)}
+
+/* ============================================================
+   EL NUMERO, A SU PROPIA LINEA
+   En linea con el titulo, el numero se comia unos 24 px de la primera linea y
+   cada titulo rompia por donde le tocaba: 1 y 3 cabian en una linea, 2 y 4 se
+   iban a dos. Con textos ya igualados en longitud (23-27 caracteres) la unica
+   forma de que rompan igual es que todos dispongan del ancho entero.
+   Sacandolo arriba, ademas, el numero gana la presencia que se le pedia sin
+   deformar la caja de linea del titulo.
+   El alto extra sale de la foto: la fila baja de 1140 a 1080 px de ancho, asi
+   que el cuadrado encoge lo justo para que la pantalla siga cabiendo en 768.
+   ============================================================ */
+#como-funciona .paso .num{
+  display:block;
+  line-height:1;
+  margin:0 0 3px;
+}
+@media (min-width:901px){
+  #como-funciona .pasos{width:min(1080px,94vw)}
+  #como-funciona .paso .num{font-size:clamp(26px,2.2vw,32px)}
+}
+@media (max-width:900px){
+  #como-funciona .paso .num{font-size:26px}
+}
