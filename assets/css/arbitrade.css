@@ -716,32 +716,10 @@ h2.titular{
   }
 }
 
-/* ============================================================
-   LA PANTALLA DEL SURTIDO EN PORTATIL
-   Medida a 1366x768: 965 px de contenido en 768 de alto. Se calibro al pixel
-   para 375x812 y en escritorio los clamp suben al maximo, asi que el
-   presupuesto se rompe y el selector se sale por abajo — justo el caso de
-   proyectarla en una reunion. Aqui sobra ancho y falta alto: la foto y el
-   selector se ponen uno al lado del otro en vez de apilarse.
-   ============================================================ */
-@media (min-width:1000px){
-  #productos{
-    display:grid; align-content:center; justify-items:center;
-    grid-template-columns:auto minmax(0,540px);
-    column-gap:clamp(24px,3vw,48px);
-    row-gap:clamp(6px,1.2vh,14px);
-  }
-  #productos > .kicker,
-  #productos > .titular,
-  #productos > .apoyo,
-  #productos > .nota{grid-column:1 / -1}
-  #productos > .apoyo{max-width:70ch}
-  #productos > .foto-gama{
-    grid-column:1; align-self:center;
-    height:clamp(190px,32svh,300px);
-  }
-  #productos > .modelos{grid-column:2; align-self:center; width:100%}
-}
+/* La rejilla que ponia la foto y el selector uno al lado del otro vivia aqui,
+   sobre #productos, y dependia de que ambos fueran hijos directos. Desde que
+   comparten la tarjeta .gama, esa tarjeta hace el trabajo por su cuenta y a
+   cualquier alto, no solo por debajo de 940 px. Ver "LA TARJETA DE LA GAMA". */
 
 /* ============================================================
    PORTATILES BAJOS (1366x768 y similares)
@@ -1399,4 +1377,57 @@ h2.titular.grande{
 }
 @media (max-width:900px){
   #como-funciona .paso .num{font-size:26px}
+}
+
+/* ============================================================
+   LA TARJETA DE LA GAMA
+   La foto y el selector eran dos bloques sueltos sobre el fondo crema, con los
+   bullets pegados al borde de la imagen. Son la misma idea —esto es lo que hay
+   dentro, y cambia segun el modelo— asi que van dentro de un mismo rectangulo,
+   con la foto a un lado y el texto al otro, bien separados.
+   La tarjeta es blanca, como el resto del sistema (.tarjeta, .aviso), y no una
+   prolongacion del fondo del bodegon: las dos fotos de modelo tienen fondos
+   distintos y degradados —F6EADE y DFD9C9 en sus esquinas— asi que ningun color
+   plano empalmaria con las dos. Lo que si comparten es la proporcion, 1,61,
+   y de ahi el aspect-ratio fijo: al cambiar de modelo la tarjeta no da un salto.
+   ============================================================ */
+.gama{
+  width:min(1060px,94vw);
+  background:#fff;
+  border:1px solid var(--cream-100);
+  border-radius:var(--radio);
+  box-shadow:var(--sombra-m);
+  padding:clamp(13px,1.5vw,20px);
+  display:grid;
+  align-items:center;
+}
+
+/* La foto pierde su sombra: dentro de la tarjeta la sombra ya la pone el
+   contenedor y duplicarla ensucia el borde. */
+#productos .gama .foto-gama{
+  width:100%; max-width:none; height:auto;
+  aspect-ratio:1400/869;
+  box-shadow:none;
+  border-radius:calc(var(--radio) - 8px);
+}
+#productos .gama .modelos{width:auto; align-items:flex-start}
+#productos .gama .panel{align-items:flex-start}
+#productos .gama .puntos{width:100%}
+/* Un control blanco sobre una tarjeta blanca desaparece: el carril de las
+   pestañas necesita su propio fondo. */
+#productos .gama .pestanas{background:var(--cream-50)}
+
+@media (min-width:901px){
+  .gama{
+    grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+    column-gap:clamp(26px,3.4vw,52px);
+  }
+}
+
+@media (max-width:900px){
+  .gama{
+    grid-template-columns:1fr;
+    row-gap:clamp(14px,2.2vh,20px);
+  }
+  #productos .gama .modelos{width:100%}
 }

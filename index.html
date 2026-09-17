@@ -166,12 +166,17 @@
       Más de <strong>30 variedades</strong> de comida real. Entre los dos modelos
       solo cambia el surtido.
     </p>
-    <figure class="foto-gama entra" data-foto-modelo>
-      <img src="assets/img/gama-productos.jpg" width="1400" height="869" loading="lazy" decoding="async"
+    <!-- La foto y el selector comparten una sola tarjeta: son la misma idea
+         —esto es lo que hay dentro, y cambia con el modelo— y separados en dos
+         bloques sueltos no se leian como una pieza. El contenido de dentro lo
+         intercambian las pestañas; el marco es siempre el mismo. -->
+    <div class="gama entra">
+      <figure class="foto-gama" data-foto-modelo>
+        <img src="assets/img/gama-productos.jpg" width="1400" height="869" loading="lazy" decoding="async"
              alt="Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.">
-    </figure>
+      </figure>
 
-    <div class="modelos entra" data-modelos>
+      <div class="modelos" data-modelos>
       <div class="pestanas" role="tablist" aria-label="Modelos de SmartShop">
         <button class="pestana" type="button" role="tab" id="tab-autogestion"
                 aria-controls="panel-autogestion" aria-selected="true">Modelo autogestión</button>
@@ -205,6 +210,7 @@
           <span class="etiqueta-presentacion">Ver la presentación de Ametller</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
         </a>
+      </div>
       </div>
     </div>
 
