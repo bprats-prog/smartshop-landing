@@ -335,49 +335,115 @@
   /* ========================================================
      5. Galería y visor a pantalla completa
      ======================================================== */
+  /* ---------- Carrusel de instalaciones ----------
+     Una foto por vista. El desplazamiento es scroll-snap nativo, asi que en un
+     movil se pasa con el dedo sin una linea de JavaScript; las flechas y los
+     puntos son para raton y teclado. El numero de fotos lo pone datos.js: los
+     puntos y los topes de las flechas salen de ahi, asi que anadir una foto es
+     anadir una entrada a la lista y nada mas. */
   function galeria() {
     var cont = $("[data-galeria]");
-    if (!cont || !D.galeria) { return; }
+    if (!cont || !D.galeria || !D.galeria.length) { return; }
 
-    var pesos = [];
+    var total = D.galeria.length;
 
-    D.galeria.forEach(function (foto) {
+    /* El marco envuelve la pista y las flechas para que estas se centren sobre
+       la foto y no sobre el conjunto foto + puntos, que las dejaria bajas. */
+    var marco = document.createElement("div");
+    marco.className = "marco-carrusel";
+    var pista = document.createElement("div");
+    pista.className = "pista";
+
+    D.galeria.forEach(function (foto, i) {
       /* Con foto es un <button>: colgar el clic de un <figure> dejaba la
          galeria sin abrir con teclado, que es como se navega al proyectar. */
-      var fig = document.createElement(foto.src ? "button" : "figure");
+      var pieza = document.createElement(foto.src ? "button" : "div");
+      pieza.className = "pieza";
       if (foto.src) {
-        fig.type = "button";
-        fig.className = "pieza";
-        fig.setAttribute("aria-label", "Ampliar la foto: " + (foto.alt || ""));
+        pieza.type = "button";
+        pieza.setAttribute("aria-label",
+          "Foto " + (i + 1) + " de " + total + ". Ampliar: " + (foto.alt || ""));
         var img = document.createElement("img");
         img.src = foto.src;
         img.alt = "";
-        img.loading = "lazy";
+        /* La primera entra en la primera pantalla de la seccion; las demas
+           solo cuando el visitante llega a ellas. */
+        img.loading = i === 0 ? "eager" : "lazy";
         img.decoding = "async";
-        /* Ancho y alto reales para reservar el hueco antes de que cargue y para
-           que la rejilla reparta las columnas segun la forma de cada foto. */
-        if (foto.ancho && foto.alto) {
-          img.width = foto.ancho;
-          img.height = foto.alto;
-          fig.style.setProperty("--proporcion", foto.ancho + "/" + foto.alto);
-          pesos.push((foto.ancho / foto.alto).toFixed(3) + "fr");
-        } else {
-          pesos.push("1fr");
-        }
-        fig.appendChild(img);
-        fig.addEventListener("click", function () { abrirVisor(foto.src, foto.alt, fig); });
+        if (foto.ancho && foto.alto) { img.width = foto.ancho; img.height = foto.alto; }
+        /* El marco es fijo y las fotos no tienen todas la misma forma, asi que
+           se recortan. Con encuadre ("center top", "left center"...) se elige
+           que parte manda; sin el, el centro. */
+        if (foto.encuadre) { img.style.objectPosition = foto.encuadre; }
+        pieza.appendChild(img);
+        pieza.addEventListener("click", function () { abrirVisor(foto.src, foto.alt, pieza); });
       } else {
         var hueco = document.createElement("div");
         hueco.className = "hueco";
         hueco.textContent = foto.alt || "Foto pendiente";
-        fig.appendChild(hueco);
-        fig.style.cursor = "default";
-        pesos.push("1fr");
+        pieza.appendChild(hueco);
       }
-      cont.appendChild(fig);
+      pista.appendChild(pieza);
     });
 
-    cont.style.setProperty("--columnas", pesos.join(" "));
+    marco.appendChild(pista);
+    cont.appendChild(marco);
+
+    /* Con una sola foto no hay nada que pasar: ni flechas ni puntos. */
+    if (total < 2) { return; }
+
+    function flecha(clase, etiqueta, trazo) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "flecha " + clase;
+      b.setAttribute("aria-label", etiqueta);
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+        ' stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"' +
+        ' aria-hidden="true"><path d="' + trazo + '"/></svg>';
+      return b;
+    }
+    var ant = flecha("ant", "Foto anterior", "m15 18-6-6 6-6");
+    var sig = flecha("sig", "Foto siguiente", "m9 18 6-6-6-6");
+    marco.appendChild(ant);
+    marco.appendChild(sig);
+
+    var puntitos = document.createElement("div");
+    puntitos.className = "puntitos";
+    var bolas = D.galeria.map(function (foto, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "bola";
+      b.setAttribute("aria-label", "Ir a la foto " + (i + 1) + " de " + total);
+      b.addEventListener("click", function () { irA(i); });
+      puntitos.appendChild(b);
+      return b;
+    });
+    cont.appendChild(puntitos);
+
+    function actual() {
+      var ancho = pista.clientWidth || 1;
+      return Math.max(0, Math.min(total - 1, Math.round(pista.scrollLeft / ancho)));
+    }
+    function irA(i) {
+      var n = Math.max(0, Math.min(total - 1, i));
+      pista.scrollTo({ left: n * pista.clientWidth, behavior: "smooth" });
+    }
+    function pintar() {
+      var i = actual();
+      bolas.forEach(function (b, n) {
+        if (n === i) { b.setAttribute("aria-current", "true"); }
+        else { b.removeAttribute("aria-current"); }
+      });
+      /* En los extremos la flecha se esconde en vez de quedarse apagada: con
+         tres fotos, media docena de pixeles grises no dicen nada. */
+      ant.disabled = i === 0;
+      sig.disabled = i === total - 1;
+    }
+    ant.addEventListener("click", function () { irA(actual() - 1); });
+    sig.addEventListener("click", function () { irA(actual() + 1); });
+    pista.addEventListener("scroll", pintar, { passive: true });
+    window.addEventListener("resize", pintar);
+    pintar();
   }
 
   /* Desde donde se abrio el visor, para devolver el foco al cerrarlo. */

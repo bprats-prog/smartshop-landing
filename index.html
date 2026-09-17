@@ -290,13 +290,11 @@
   <section class="pantalla" id="puntos-venta" tabindex="-1" aria-labelledby="t-puntos-venta">
     <p class="kicker entra">Instalaciones reales</p>
     <h2 class="titular entra" id="t-puntos-venta">Así queda en su sitio</h2>
-    <div class="galeria entra" data-galeria></div>
-    <p class="nota entra">
-      <span class="solo-tira">Desliza para ver las tres. </span>
-      Ocupa menos de un metro cuadrado: 1010 × 705 mm de planta y 1940 mm de alto.
-      Solo necesita un enchufe convencional y conexión a red.
-      La ficha técnica completa está en la presentación.
-    </p>
+    <!-- El carrusel lo monta app.js a partir de datos.js: una foto por vista,
+         con flechas y puntos. Para añadir fotos basta con añadirlas a la lista
+         galeria de datos.js; los puntos y los topes de las flechas se calculan
+         solos. -->
+    <div class="carrusel entra" data-galeria></div>
     <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </button>

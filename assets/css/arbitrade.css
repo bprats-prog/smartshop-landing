@@ -765,9 +765,6 @@ h2.titular.grande{
   font-variation-settings:"opsz" 96;
 }
 
-/* La pista de deslizar solo tiene sentido donde la galeria es una tira. */
-.solo-tira{display:none}
-@media (max-width:820px){ .solo-tira{display:inline} }
 
 /* ============================================================
    EL VIDEO DE LA PORTADA
@@ -1537,4 +1534,88 @@ h2.titular.grande{
   #beneficios .duo-foto img{
     width:100%; height:auto; max-width:none;
   }
+}
+
+/* ============================================================
+   CARRUSEL DE INSTALACIONES
+   Sustituye a la rejilla de tres fotos. Con tres ya se veian pequenas; con las
+   que vengan, una rejilla dejaria cada una en una miniatura. Aqui va una por
+   vista, a todo el ancho del bloque.
+   El desplazamiento es scroll-snap nativo: en un movil se pasa con el dedo sin
+   JavaScript de por medio, con la inercia del sistema. Las flechas y los puntos
+   son para raton y teclado.
+   ============================================================ */
+.carrusel{
+  width:min(1060px,94vw);
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(10px,1.6vh,16px);
+}
+/* Las flechas se centran sobre la foto, no sobre el conjunto foto + puntos:
+   de ahi que el marco sea un elemento aparte y no la propia .carrusel. */
+.marco-carrusel{position:relative; width:100%}
+
+.carrusel .pista{
+  display:flex; width:100%;
+  overflow-x:auto; overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth; scrollbar-width:none;
+  border-radius:var(--radio);
+  background:var(--cream-100);
+  box-shadow:var(--sombra-m);
+}
+.carrusel .pista::-webkit-scrollbar{display:none}
+
+.carrusel .pieza{
+  flex:0 0 100%; scroll-snap-align:center; scroll-snap-stop:always;
+  margin:0; padding:0; border:0; background:none;
+  display:block; aspect-ratio:16/10; cursor:zoom-in;
+}
+.carrusel .pieza img{width:100%; height:100%; object-fit:cover; display:block}
+.carrusel .pieza:focus-visible{outline-offset:-4px}
+
+/* El marco es fijo y las fotos no comparten forma, asi que se recortan al
+   centro. Con "encuadre" en datos.js se puede mover ese centro por foto. */
+
+.carrusel .flecha{
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:2; width:44px; height:44px; border-radius:50%;
+  display:grid; place-items:center; cursor:pointer; padding:0;
+  background:rgba(255,255,255,.94); color:var(--ink);
+  border:1px solid var(--cream-200); box-shadow:var(--sombra-m);
+  transition:opacity .2s, transform .2s;
+}
+.carrusel .flecha.ant{left:clamp(8px,1.2vw,16px)}
+.carrusel .flecha.sig{right:clamp(8px,1.2vw,16px)}
+.carrusel .flecha svg{height:20px; width:20px}
+@media (hover:hover){
+  .carrusel .flecha:hover{transform:translateY(-50%) scale(1.06)}
+}
+/* En los extremos desaparece en vez de quedarse apagada. */
+.carrusel .flecha[disabled]{opacity:0; pointer-events:none}
+
+.carrusel .puntitos{display:flex; gap:4px; justify-content:center}
+/* El punto se ve de 9 px pero el boton mide 24: es el minimo que pide WCAG
+   2.5.8 para un objetivo tactil, y aqui se pulsa con el pulgar. */
+.carrusel .bola{
+  width:24px; height:24px; padding:0; border:0; background:none;
+  display:grid; place-items:center; cursor:pointer;
+}
+.carrusel .bola::before{
+  content:""; width:9px; height:9px; border-radius:999px;
+  background:rgba(56,25,26,.28);
+  transition:background .2s, width .2s;
+}
+.carrusel .bola[aria-current="true"]::before{
+  background:var(--naranja-d); width:22px;
+}
+
+/* En escritorio manda el alto, que es lo que escasea en una pantalla del
+   recorrido: el ancho lo deduce la proporcion 16/10 del marco. */
+@media (min-width:901px){
+  .carrusel{width:min(94vw, calc(min(58svh,560px) * 1.6))}
+}
+/* En movil manda el ancho, y el marco se hace mas cuadrado para que la foto
+   tenga presencia en vertical. */
+@media (max-width:900px){
+  .carrusel .pieza{aspect-ratio:4/3}
 }
