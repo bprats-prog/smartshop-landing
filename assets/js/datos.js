@@ -92,7 +92,25 @@ window.SMARTSHOP = {
      Solo instalaciones: las fotos de uso se han repartido por el recorrido
      (los cuatro pasos de "¿Cómo funciona?"), así no se repite ninguna.
      Con src a null se pinta un marcador a rayas en su lugar. */
+  /* ---------- El carrusel de "Así queda en su sitio" ----------
+     Orden de aparición. Cada entrada admite "encuadre" (object-position): el
+     marco del carrusel es fijo y las fotos no comparten forma, así que se
+     recortan al centro salvo que se diga otra cosa. Hace falta en las muy
+     apaisadas, donde el equipo queda en un extremo y un recorte centrado lo
+     dejaría fuera. */
   galeria: [
+    { src: "assets/img/pv-oficina-bascula.jpg", ancho: 933, alto: 525,
+      alt: "Dos SmartShops de básculas en la zona de descanso de una oficina, con butacas azules; una persona abre una de las puertas" },
+    { src: "assets/img/pv-hotel-cafe.jpg", ancho: 1122, alto: 701,
+      alt: "Rincón de hotel con máquina de café y una SmartShop encastrada en un mueble de madera, junto a la zona de sofás" },
+    { src: "assets/img/pv-coworking.jpg", ancho: 1400, alto: 1048,
+      alt: "Máquina de café y SmartShop en un espacio de coworking, con personas trabajando con portátiles al fondo" },
+    { src: "assets/img/pv-gimnasio.jpg", ancho: 1350, alto: 520,
+      encuadre: "right center",
+      alt: "Dos SmartShops al final del pasillo de vestuarios de un gimnasio, con dos personas saliendo de entrenar" },
+    { src: "assets/img/pv-hostal.jpg", ancho: 1212, alto: 519,
+      encuadre: "left center",
+      alt: "Dos SmartShops junto a la recepción de un alojamiento, con butacas y mesa baja en la zona de espera" },
     { src: "assets/img/pv-office-empresa.jpg", ancho: 1900, alto: 1329,
       alt: "SmartShop instalada junto al office de una oficina, encastrada en un mueble negro" },
     { src: "assets/img/pv-hotel-grabandgo.jpg", ancho: 1600, alto: 1029,
