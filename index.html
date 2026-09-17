@@ -42,7 +42,13 @@
     SmartShops<span class="punto">.</span>
     <img class="wordmark" src="assets/img/arbitrade-wordmark.svg" alt="Arbitrade" width="86" height="14">
   </a>
-  <a class="barra-cta" href="#siguiente">Cómo se contrata</a>
+  <!-- La barra deja de mandar a leer condiciones y pasa a llamar. El número va
+       visible a partir de 700 px: en un escritorio un enlace tel: no siempre
+       hace nada, y ahí lo útil es poder leerlo y marcarlo a mano. -->
+  <a class="barra-cta" href="tel:+34900264134" data-tel-enlace>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+    Pide tu visita<span class="barra-num"> · <span data-telefono>900 264 134</span></span>
+  </a>
 </header>
 <div class="progreso" aria-hidden="true"></div>
 
@@ -306,29 +312,13 @@
        leyendo condiciones. Por eso lleva la clase cierre, que le quita el alto
        fijo y deja que crezca. -->
   <section class="pantalla hero cierre" id="siguiente" tabindex="-1" aria-labelledby="t-siguiente">
-    <p class="kicker entra">Sin extras ni sorpresas</p>
+    <!-- El titular se queda aunque el bloque se haya reducido a la llamada: es
+         lo que da nombre a la pantalla, lo que anuncia el lector de pantalla
+         (aria-labelledby) y el destino de los enlaces antiguos a #siguiente
+         repartidos por WhatsApp. El kicker sí se va: decía "Sin extras ni
+         sorpresas" como entradilla de la lista de lo incluido, y sin esa lista
+         prometía algo que ya no se desarrolla. -->
     <h2 class="titular grande entra" id="t-siguiente">Cómo se contrata<span class="punto">.</span></h2>
-    <p class="apoyo entra">
-      Compras el producto que necesitas y pagas un <strong>alquiler mensual por el
-      equipo</strong>. Todo lo demás está incluido:
-    </p>
-
-    <ul class="puntos grande entra">
-      <li>Equipo, instalación y conexión.</li>
-      <li>Diseño y adaptación del surtido.</li>
-      <li>Reposición y mantenimiento.</li>
-      <li>Mermas y caducidades, hasta el 10 %.</li>
-    </ul>
-
-    <div class="aviso entra">
-      <div class="icono">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-      </div>
-      <div>
-        <b>El alquiler mensual del equipo es obligatorio</b>
-        <span>La tarifa se revisa cada ejercicio y se comunica con antelación.</span>
-      </div>
-    </div>
 
     <p class="apoyo entra">
       <strong>El siguiente paso es una visita sin coste ni compromiso.</strong>

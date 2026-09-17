@@ -1623,3 +1623,30 @@ h2.titular.grande{
 @media (max-width:900px){
   .carrusel .pieza{aspect-ratio:4/3}
 }
+
+/* ============================================================
+   EL CTA DE LA BARRA, AHORA UN TELEFONO
+   Llevaba a leer condiciones; ahora llama. Con icono, para que se entienda
+   antes de leerlo, y con el numero visible solo cuando hay sitio: en un movil
+   se toca y marca, pero en un escritorio un enlace tel: a menudo no hace nada
+   y lo util es poder leer el numero.
+   ============================================================ */
+.barra-cta{
+  display:inline-flex; align-items:center; gap:.45em;
+}
+.barra-cta svg{height:1.05em; width:auto; flex:none}
+.barra-num{white-space:nowrap}
+@media (max-width:699px){
+  .barra-num{display:none}
+}
+
+/* El cierre se queda en titular, una frase y el boton. Sin la lista ni el
+   aviso puede respirar: el reparto apretado que necesitaba para caber en
+   600 px ya no hace falta. */
+@media (max-width:900px){
+  .pantalla.cierre{
+    padding-top:calc(var(--barra) + clamp(20px,3.4vh,34px));
+    gap:clamp(16px,2.6vh,24px);
+  }
+  .cierre .apoyo{font-size:17.5px; line-height:1.5; max-width:34ch}
+}
