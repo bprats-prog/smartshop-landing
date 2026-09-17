@@ -1363,3 +1363,16 @@ h2.titular.grande{
 @media (max-width:900px){
   #como-funciona .paso b{font-size:14.5px}
 }
+
+/* ============================================================
+   EL TEXTO DE LOS PASOS: ATENUAR CON COLOR, NO CON OPACITY
+   `.paso span` ponia opacity .66, y ese selector alcanza tres cosas: la
+   descripcion, el <span lang="en"> que lleva dentro y el numero del titulo.
+   La opacity crea un grupo y un hijo no puede recuperarla, asi que "wallet"
+   se pintaba al .66 de un padre ya al .66 —un 0,436 efectivo, claramente mas
+   claro que el resto de la frase— y el numero naranja se quedaba en 2,5:1
+   cuando el color elegido da 4,86:1. Es el mismo fallo que ya estaba
+   documentado en .apoyo: se atenua con color y la opacity vuelve a 1.
+   ============================================================ */
+.paso span{opacity:1}
+.paso .texto > span{color:rgba(56,25,26,.66)}
