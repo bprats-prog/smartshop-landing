@@ -1474,6 +1474,14 @@ h2.titular.grande{
      presupuesto de la pantalla: a 768 sobraban 108 px y se usan 91. */
   .gama{min-height:min(58svh,470px)}
 
+}
+
+/* El hueco solo da de si a partir de 1200 px. Por debajo, la tarjeta deja de
+   medir 1060 y pasa a valer 94vw: la foto se escala por alto, se recorta por la
+   derecha y el producto avanza hacia el centro justo cuando la columna de texto
+   se estrecha. A 1024 medido, el tomate quedaba 15 px por debajo del primer
+   bullet. Ahi Ametller vuelve al reparto normal, con la foto en su columna. */
+@media (min-width:1200px){
   .gama.con-hueco{
     grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);
     padding:clamp(18px,2vw,30px);
