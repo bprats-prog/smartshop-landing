@@ -1282,3 +1282,55 @@ h2.titular.grande{
   #que-es .tarjeta .nombre{font-size:18px; line-height:1.2}
   #que-es .tarjeta .desc{font-size:15.5px; line-height:1.4}
 }
+
+/* ============================================================
+   "COMO FUNCIONA": LOS CUATRO PASOS EN FILA
+   Estaban uno debajo de otro, cada uno con la foto en una franja vertical de
+   150 px. Las cuatro imagenes son cuadradas (320x320), asi que esa franja se
+   comia la mitad de cada escena: se veia un recorte, no la foto.
+   Ahora la tarjeta es una columna —foto cuadrada arriba, a todo el ancho, y
+   texto debajo— y las cuatro van en fila. Cuatro pasos en fila ademas se leen
+   como una secuencia de un vistazo, que es justo lo que son; apilados se leian
+   como una lista de caracteristicas.
+   ============================================================ */
+#como-funciona .paso{
+  flex-direction:column;
+  align-items:stretch;
+  min-height:0;
+}
+/* La caja es cuadrada como la imagen, asi que object-fit:cover ya no recorta
+   nada: entra entera. */
+#como-funciona .paso .foto{
+  width:100%; height:auto; aspect-ratio:1;
+  align-self:auto;
+}
+#como-funciona .paso .texto{
+  padding:clamp(11px,1.5vh,16px) clamp(13px,1.1vw,17px) clamp(13px,1.7vh,19px);
+}
+
+@media (min-width:901px){
+  /* Cuatro columnas piden mas ancho que los 820 px que necesitaba la lista. */
+  #como-funciona .pasos{
+    grid-template-columns:repeat(4,1fr);
+    width:min(1140px,94vw);
+    gap:clamp(14px,1.4vw,22px);
+    align-items:start;
+  }
+  #como-funciona .paso b{font-size:clamp(15.5px,1.35vw,18.5px); margin-bottom:4px}
+  #como-funciona .paso span{font-size:clamp(13px,1.1vw,15px); line-height:1.45}
+}
+
+/* En un movil cuatro columnas serian de 90 px: dos y dos. La letra baja un
+   punto respecto a la version en lista —la columna de texto pasa de 300 px a
+   150— pero la foto gana: de una franja recortada de 104 px a un cuadrado
+   completo de 178. */
+@media (max-width:900px){
+  #como-funciona .pasos{
+    grid-template-columns:1fr 1fr;
+    width:min(560px,94vw);
+    gap:12px;
+  }
+  #como-funciona .paso b{font-size:15.5px; line-height:1.25; margin-bottom:3px}
+  #como-funciona .paso span{font-size:13.5px; line-height:1.4}
+  #como-funciona .paso .texto{padding:11px 13px 13px}
+}
