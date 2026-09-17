@@ -73,7 +73,8 @@ window.SMARTSHOP = {
   fotosModelo: {
     autogestion: {
       src: "assets/img/gama-productos.jpg",
-      alt: "Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos."
+      alt: "Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.",
+      hueco: true
     },
     ametller: {
       src: "assets/img/gama-ametller.jpg",
