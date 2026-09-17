@@ -420,13 +420,16 @@
     });
     cont.appendChild(puntitos);
 
+    var piezas = $$(".pieza", pista);
     function actual() {
-      var ancho = pista.clientWidth || 1;
+      /* El ancho exacto de una foto sale de la pista, no de clientWidth: con
+         anchos fraccionarios los dos no coinciden y el indice bailaba. */
+      var ancho = (pista.scrollWidth / total) || 1;
       return Math.max(0, Math.min(total - 1, Math.round(pista.scrollLeft / ancho)));
     }
     function irA(i) {
-      var n = Math.max(0, Math.min(total - 1, i));
-      pista.scrollTo({ left: n * pista.clientWidth, behavior: "smooth" });
+      var p = piezas[Math.max(0, Math.min(total - 1, i))];
+      if (p) { pista.scrollTo({ left: p.offsetLeft, behavior: "smooth" }); }
     }
     function pintar() {
       var i = actual();

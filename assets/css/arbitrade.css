@@ -1566,7 +1566,11 @@ h2.titular.grande{
 .carrusel .pista::-webkit-scrollbar{display:none}
 
 .carrusel .pieza{
-  flex:0 0 100%; scroll-snap-align:center; scroll-snap-stop:always;
+  /* Sin scroll-snap-stop: Chrome lo aplica tambien al desplazamiento por
+     programa y aborta el salto de las flechas nada mas empezar —medido: la
+     pista se quedaba en 408 px en vez de llegar a 746—. El encaje obligatorio
+     ya impide saltarse fotos al deslizar. */
+  flex:0 0 100%; scroll-snap-align:center;
   margin:0; padding:0; border:0; background:none;
   display:block; aspect-ratio:16/10; cursor:zoom-in;
 }
