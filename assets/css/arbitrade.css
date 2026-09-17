@@ -1175,3 +1175,68 @@ h2.titular.grande{
   /* Sin el boton debajo, el alto libre es todo suyo. */
   #portada .video{height:min(74svh,660px)}
 }
+
+/* ============================================================
+   TARJETAS SIN COLOR DE ACENTO
+   Cada tarjeta traia su propio color: el icono teñido, un halo radial de fondo
+   y, al pasar el raton, la tarjeta entera inundada de ese color con el texto
+   en blanco. Seis colores distintos en una misma rejilla compiten entre si,
+   dan mas peso al adorno que al mensaje y no dicen nada —el color no codifica
+   ninguna informacion, es decoracion—. En una pieza B2B el color de marca ya lo
+   pone el degradado de la portada; aqui el trabajo de la tarjeta es que se lea.
+   Se queda el sistema (las clases ac-* siguen en el HTML), pero apagado: iconos
+   en tinta y realce de hover por elevacion, no por color.
+   ============================================================ */
+.tarjeta::before{display:none}
+.tarjeta .icono{color:rgba(56,25,26,.72)}
+
+@media (hover:hover){
+  .tarjeta:hover{
+    background:#fff;
+    border-color:var(--cream-200);
+    transform:translateY(-3px);
+    box-shadow:var(--sombra-l);
+  }
+  .tarjeta:hover .icono{color:var(--ink)}
+  .tarjeta:hover .nombre{color:var(--ink)}
+  .tarjeta:hover .desc{color:inherit; opacity:.64}
+}
+
+/* Los numeros de "Como funciona" seguian la misma paleta rotatoria. Un numero
+   de paso si codifica algo —el orden— y por eso conserva acento, pero uno solo:
+   el naranja oscuro de marca, que ademas da 4,86:1 sobre blanco. */
+.paso .num{color:var(--naranja-d)}
+
+/* ============================================================
+   LA FOTO DE "QUE ES": QUE MANDE ELLA
+   Estaba limitada a 430 px de alto contra una columna de tarjetas de casi el
+   doble, asi que flotaba pequena en medio de su hueco. Ahora ocupa el alto
+   entero del bloque y son las tarjetas las que se centran a su lado.
+   ============================================================ */
+@media (min-width:901px){
+  #que-es{justify-content:flex-start}
+  #que-es .duo{
+    flex:1 1 auto; min-height:0;
+    align-items:stretch;
+  }
+  /* Las tarjetas no se estiran con la fila: se quedan a su alto natural y se
+     centran. Estirarlas solo les meteria aire dentro. */
+  #que-es .duo > .rejilla{align-self:center}
+  #que-es .duo-foto{
+    min-height:0; margin:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  #que-es .duo-foto img{
+    height:100%; max-height:100%; width:auto; max-width:38vw;
+    object-fit:contain;
+  }
+}
+
+/* En movil manda el ancho, no el alto: con scroll libre el alto ya no es un
+   presupuesto cerrado y dimensionar por svh dejaba la foto en 264 px en un
+   telefono con la barra desplegada. */
+@media (max-width:900px){
+  #que-es .duo-foto img{
+    height:auto; width:min(80vw,400px); max-width:80vw;
+  }
+}
