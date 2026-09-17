@@ -455,9 +455,11 @@
     sig.addEventListener("click", function () { irA(indice + 1); });
 
     /* ---- Flechas del teclado ----
-       Mientras el foco esté dentro del carrusel —una foto, una flecha o un
-       punto—, izquierda y derecha pasan de foto. El evento se escucha en el
-       contenedor y llega por burbujeo desde el elemento enfocado.
+       Se escucha en el documento y no en el carrusel. Al llegar a esta pantalla
+       el foco está en el <body>, o en la <section> si se ha llegado con la
+       flecha de avance: ninguno de los dos pasa por dentro del carrusel, así que
+       un listener colgado de él solo respondía después de hacer clic o tabular
+       dentro. Lo que manda es lo que se está viendo, no dónde está el foco.
        Arriba y abajo se dejan en paz a propósito: son las del recorrido, y
        secuestrarlas aquí dejaría al visitante encerrado en esta pantalla.
        Con una tecla modificadora tampoco se toca nada, que Alt+Izquierda es el
@@ -465,10 +467,26 @@
     cont.setAttribute("role", "group");
     cont.setAttribute("aria-roledescription", "carrusel");
     cont.setAttribute("aria-label", "Instalaciones reales");
-    cont.addEventListener("keydown", function (e) {
+
+    function aLaVista() {
+      var r = cont.getBoundingClientRect();
+      var alto = window.innerHeight || document.documentElement.clientHeight;
+      var visible = Math.min(r.bottom, alto) - Math.max(r.top, 0);
+      return r.height > 0 && visible > r.height / 2;
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") { return; }
       if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) { return; }
-      if (e.key === "ArrowLeft") { e.preventDefault(); irA(indice - 1); }
-      else if (e.key === "ArrowRight") { e.preventDefault(); irA(indice + 1); }
+      /* Con una foto abierta a pantalla completa manda el visor, no el fondo. */
+      if ($(".visor.abierto")) { return; }
+      var t = e.target.tagName;
+      if (t === "INPUT" || t === "TEXTAREA") { return; }
+      /* Las pestañas de los modelos gobiernan sus propias izquierda y derecha. */
+      if (e.target.closest && e.target.closest('[role="tablist"]')) { return; }
+      if (!aLaVista()) { return; }
+      e.preventDefault();
+      irA(indice + (e.key === "ArrowRight" ? 1 : -1));
     });
 
     pista.addEventListener("scroll", function () {
