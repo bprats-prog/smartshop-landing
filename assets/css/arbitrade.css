@@ -1426,8 +1426,15 @@ h2.titular.grande{
 
 @media (max-width:900px){
   .gama{
-    grid-template-columns:1fr;
+    grid-template-columns:minmax(0,1fr);
     row-gap:clamp(14px,2.2vh,20px);
   }
   #productos .gama .modelos{width:100%}
 }
+
+/* El minimo automatico de un elemento de rejilla es su tamano min-content, y
+   el de una figura con una imagen dentro es el ancho intrinseco de la imagen.
+   Con la columna declarada como 1fr a secas, ese minimo ensanchaba el carril y
+   la foto se salia 14 px de la tarjeta en movil. En escritorio no pasaba porque
+   ahi las columnas ya iban con minmax(0,...). */
+.gama > *{min-width:0}
