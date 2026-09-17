@@ -453,6 +453,24 @@
 
     ant.addEventListener("click", function () { irA(indice - 1); });
     sig.addEventListener("click", function () { irA(indice + 1); });
+
+    /* ---- Flechas del teclado ----
+       Mientras el foco esté dentro del carrusel —una foto, una flecha o un
+       punto—, izquierda y derecha pasan de foto. El evento se escucha en el
+       contenedor y llega por burbujeo desde el elemento enfocado.
+       Arriba y abajo se dejan en paz a propósito: son las del recorrido, y
+       secuestrarlas aquí dejaría al visitante encerrado en esta pantalla.
+       Con una tecla modificadora tampoco se toca nada, que Alt+Izquierda es el
+       "atrás" del navegador. */
+    cont.setAttribute("role", "group");
+    cont.setAttribute("aria-roledescription", "carrusel");
+    cont.setAttribute("aria-label", "Instalaciones reales");
+    cont.addEventListener("keydown", function (e) {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) { return; }
+      if (e.key === "ArrowLeft") { e.preventDefault(); irA(indice - 1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); irA(indice + 1); }
+    });
+
     pista.addEventListener("scroll", function () {
       window.clearTimeout(reposo);
       reposo = window.setTimeout(function () { indice = medida(); pintar(); }, 120);
