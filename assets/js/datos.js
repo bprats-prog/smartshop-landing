@@ -26,7 +26,7 @@ window.SMARTSHOP = {
     },
     autogestion: {
       url: "https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview",
-      texto: "Descubre el modelo de autogestión"
+      texto: "Descubre el modelo Arbitrade"
     },
     ametller: {
       url: "https://docs.google.com/presentation/d/1snA9x6OPckMfcblX6bZ9dxsgJNU4aM3cipMY53DxbmA/preview",

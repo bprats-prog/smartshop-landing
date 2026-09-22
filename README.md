@@ -63,9 +63,10 @@ modelo.
 
 ## Los dos modelos de surtido
 
-Los dos modelos con los que se trabaja —el de **autogestión** y el de
-**Ametller**— se comparan en un selector de dos pestañas que vive en la
-**pantalla 3 del recorrido**, "¿Qué hay dentro?", junto a la foto del surtido.
+Los dos modelos con los que se trabaja —el **Arbitrade** (clave interna
+`autogestion`) y el **Ametller**— se comparan en un selector de dos pestañas
+que vive en la **pantalla 3 del recorrido**, "Dos modelos. La misma gestión.",
+junto a la foto del surtido.
 El equipo, la instalación y todo lo que incluye el servicio son idénticos: lo
 único que cambia es el surtido, y así se dice.
 
