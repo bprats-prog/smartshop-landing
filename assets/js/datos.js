@@ -30,7 +30,7 @@ window.SMARTSHOP = {
     },
     ametller: {
       url: "https://docs.google.com/presentation/d/1snA9x6OPckMfcblX6bZ9dxsgJNU4aM3cipMY53DxbmA/preview",
-      texto: "Descubre el modelo Ametller"
+      texto: "Descubre el modelo Ametller Origen"
     }
   },
 
