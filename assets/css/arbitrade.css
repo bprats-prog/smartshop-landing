@@ -290,16 +290,70 @@ h2.titular{
 .js .panel.activo{display:flex}
 .panel:focus-visible{outline:2px solid var(--naranja); outline-offset:6px; border-radius:8px}
 
-/* ---- Vídeo del modelo: boton + selector de idioma ----
+/* ---- Vídeo del modelo: tarjeta con miniatura + selector de idioma ----
    El selector va en tinta oscura y no en naranja: las pestanas de modelo ya son
-   naranja, y dos selectores del mismo color se leerian como el mismo control. */
+   naranja, y dos selectores del mismo color se leerian como el mismo control.
+   La tarjeta entera es pulsable: el boton del titulo estira su ::after sobre
+   ella (el propio boton no esta posicionado, asi que el ::after se ancla a
+   .video-modelo) y el selector de idioma se coloca por encima con z-index. */
 .video-modelo{
-  display:none; flex-wrap:wrap; align-items:center; justify-content:center;
-  gap:10px 12px;
+  position:relative; display:none; width:100%;
+  grid-template-columns:auto minmax(0,1fr); align-items:center; gap:0 14px;
+  padding:10px; text-align:left;
+  background:#fff; border:1px solid var(--cream-200); border-radius:var(--radio);
+  box-shadow:var(--sombra-m);
+  transition:transform .2s, box-shadow .2s;
 }
 /* Solo con el script vivo (app-ok, que pone iniciar()): sin JS los botones no
    harian nada, y esta web no deja controles muertos. */
-.app-ok .video-modelo{display:flex}
+.app-ok .video-modelo{display:grid}
+@media (hover:hover){
+  .video-modelo:hover{transform:translateY(-2px); box-shadow:var(--sombra-l)}
+}
+/* Miniatura apaisada, no vertical como el vídeo: esta pantalla va justa de alto
+   en un portatil (800 px) y una miniatura 9:16 de 76 px de ancho sacaba el
+   panel de la ventana. La portada es vertical, asi que se recorta a la cara y
+   a la rotulacion de la maquina (object-position), no al centro. */
+.miniatura{
+  position:relative; display:block; width:124px; aspect-ratio:16/9;
+  border-radius:12px; overflow:hidden; background:var(--ink);
+}
+.miniatura img{width:100%; height:100%; object-fit:cover; object-position:50% 24%; display:block}
+.miniatura-play{
+  position:absolute; inset:0; margin:auto; width:34px; height:34px; border-radius:50%;
+  display:grid; place-items:center; color:#fff;
+  background:linear-gradient(120deg,var(--naranja),var(--naranja-d));
+  box-shadow:0 8px 18px -8px rgba(199,45,7,.9);
+}
+.miniatura-play svg{width:46%; height:auto; margin-left:8%}   /* el triangulo parece centrado si se corre un poco a la derecha */
+.miniatura-duracion{
+  position:absolute; right:5px; bottom:5px;
+  font-size:10.5px; font-weight:700; line-height:1; color:#fff;
+  background:rgba(56,25,26,.8); padding:.3em .55em; border-radius:999px;
+}
+.miniatura-duracion:empty{display:none}
+.video-modelo-texto{display:flex; flex-direction:column; align-items:flex-start; gap:3px; min-width:0}
+.video-modelo-titulo{
+  font-family:"Fraunces",Georgia,serif; font-weight:600;
+  font-variation-settings:"opsz" 40;
+  font-size:clamp(16px,1.6vw,19px); line-height:1.2; color:var(--ink);
+  background:none; border:0; padding:0; text-align:left; cursor:pointer;
+}
+.video-modelo-titulo::after{content:""; position:absolute; inset:0; border-radius:var(--radio)}
+.video-modelo-titulo:focus-visible{outline:none}
+.video-modelo-titulo:focus-visible::after{outline:2px solid var(--naranja); outline-offset:3px}
+.video-modelo .idiomas{position:relative; z-index:1; margin-top:5px}
+.video-modelo .idiomas button{min-height:34px}
+/* Con raton la tarjeta se compacta: esta pantalla va justa de alto a 800 px, y
+   con la tarjeta entera pasaba de 803 a 819. En tactil no se toca: ahi las
+   dianas grandes pesan mas que el alto. */
+@media (pointer:fine){
+  .video-modelo{padding:5px 8px}
+  .miniatura{width:108px}
+  .video-modelo-texto{gap:1px}
+  .video-modelo .idiomas{margin-top:2px; padding:2px}
+  .video-modelo .idiomas button{min-height:30px}
+}
 .idiomas{
   display:inline-flex; gap:2px; padding:3px;
   background:var(--cream-100); border:1px solid var(--cream-200); border-radius:999px;

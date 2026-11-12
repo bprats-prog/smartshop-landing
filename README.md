@@ -121,10 +121,22 @@ blanco.
 
 ## Los vídeos de Ametller Origen
 
-El panel «Modelo Ametller Origen» de la pantalla *Gama y modelos* tiene un botón
-**Ver el vídeo** y un selector **Español | Català**. Abre el visor a pantalla
-completa con la versión elegida. Son la misma pieza (37 s, vertical 9:16) en dos
-idiomas, y viven en `assets/video/`:
+El panel «Modelo Ametller Origen» de la pantalla *Gama y modelos* tiene una
+tarjeta **Míralo en vídeo**: la portada con un play y la duración, y debajo un
+selector **Español | Català**. La tarjeta entera es pulsable (el botón del título
+estira su `::after` sobre ella) y abre el visor a pantalla completa con la
+versión elegida; el selector solo cambia de idioma, no abre nada. Son la misma
+pieza (37 s, vertical 9:16) en dos idiomas, y viven en `assets/video/`.
+
+La miniatura es **apaisada** aunque el vídeo sea vertical, a propósito: esta
+pantalla mide 803 px a 1280×800 y una miniatura 9:16 la sacaba de la ventana. Con
+ratón la tarjeta se compacta algo más (`pointer:fine`); con el dedo se queda
+como está, con dianas grandes. La duración de la etiqueta (`duracion` en
+`datos.js`) no se lee del archivo: si sustituyes un vídeo por otro de distinta
+duración, actualízala a mano. La portada del HTML y la de `datos.js` son la
+misma: si cambias una, cambia la otra.
+
+Los archivos:
 
 - `ametller-origen-es.mp4` — versión con música y sin subtítulos.
 - `ametller-origen-ca.mp4` — versión con música y sin subtítulos.

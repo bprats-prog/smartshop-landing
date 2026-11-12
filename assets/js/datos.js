@@ -78,6 +78,7 @@ window.SMARTSHOP = {
       src: "assets/video/ametller-origen-es.mp4",
       titulo: "Modelo Ametller Origen, en español",
       idioma: "Español",
+      duracion: "0:37",   /* la etiqueta de la miniatura; no se lee del archivo, hay que mantenerla */
       vertical: true,
       poster: "assets/img/poster-ametller-origen.jpg"
     },
@@ -85,6 +86,7 @@ window.SMARTSHOP = {
       src: "assets/video/ametller-origen-ca.mp4",
       titulo: "Modelo Ametller Origen, en catalán",
       idioma: "Català",
+      duracion: "0:37",
       vertical: true,
       poster: "assets/img/poster-ametller-origen.jpg"
     }
