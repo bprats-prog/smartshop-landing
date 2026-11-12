@@ -75,10 +75,29 @@
       barra.style.width = pct.toFixed(2) + "%";
     }
 
+    /* Donde hay que llevar el scroll para que una seccion quede bien colocada:
+       su offsetTop menos su scroll-margin-top (en escritorio, la altura de la
+       barra fija). El scroll es del .deck y no del documento, y estos saltos
+       los hace el script con scrollTo: el navegador solo aplica scroll-margin a
+       los saltos nativos (el fragmento de la URL), no a estos. */
+    function posicion(p) {
+      var m = parseFloat(getComputedStyle(p).scrollMarginTop) || 0;
+      return Math.max(0, p.offsetTop - m);
+    }
+    /* La animacion de los saltos del script. Se pide explicita (el .deck ya no
+       lleva scroll-behavior:smooth) y respeta prefers-reduced-motion. */
+    function suave() {
+      return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto" : "smooth";
+    }
+    /* Sin encaje el recorrido es scroll libre (movil y escritorio). Con encaje,
+       el teclado pasa de pantalla en pantalla. */
+    function continuo() { return getComputedStyle(deck).scrollSnapType === "none"; }
+
     function pantallaActual() {
       var mejor = 0, dist = Infinity;
       pantallas.forEach(function (p, i) {
-        var d = Math.abs(p.offsetTop - deck.scrollTop);
+        var d = Math.abs(posicion(p) - deck.scrollTop);
         if (d < dist) { dist = d; mejor = i; }
       });
       return mejor;
@@ -87,12 +106,30 @@
     function irA(i) {
       var p = pantallas[Math.max(0, Math.min(pantallas.length - 1, i))];
       if (!p) { return; }
-      deck.scrollTo({ top: p.offsetTop, behavior: "smooth" });
+      deck.scrollTo({ top: posicion(p), behavior: suave() });
       /* El foco viaja con la vista: sin esto un lector de pantalla no anuncia
          nada al avanzar, y el siguiente tabulador devolvia al usuario a la
          pantalla anterior. Las secciones llevan tabindex="-1" en el HTML. */
       p.focus({ preventScroll: true });
     }
+
+    /* Salto por fragmento (#productos: el de los enlaces compartidos, el de
+       como-se-contrata.html#modelos). Lo hace el navegador por su cuenta y, sin
+       scroll-behavior:smooth en el .deck, es instantaneo; antes, con la
+       animacion, podia quedarse a medias, y lo disimulaba el encaje obligatorio
+       al recolocar la seccion. Se repite aqui una vez cargada la pagina y al
+       cambiar el hash (atras y adelante del navegador) con la misma posicion()
+       que el resto de saltos, por si el navegador lo hizo antes de componerse
+       el diseño. */
+    function irAlFragmento() {
+      var id = (window.location.hash || "").slice(1);
+      var destino = id ? document.getElementById(id) : null;
+      if (!destino || !deck.contains(destino)) { return; }
+      deck.scrollTop = posicion(destino);
+    }
+    if (document.readyState === "complete") { irAlFragmento(); }
+    else { window.addEventListener("load", irAlFragmento); }
+    window.addEventListener("hashchange", irAlFragmento);
 
     deck.addEventListener("scroll", actualizarProgreso, { passive: true });
     window.addEventListener("resize", actualizarProgreso);
@@ -107,17 +144,20 @@
     $$('a[href^="#"]', deck).forEach(function (a) {
       a.addEventListener("click", function (e) {
         var destino = $(a.getAttribute("href"));
-        if (destino) { e.preventDefault(); deck.scrollTo({ top: destino.offsetTop, behavior: "smooth" }); }
+        if (destino) { e.preventDefault(); deck.scrollTo({ top: posicion(destino), behavior: suave() }); }
       });
     });
     $$('.barra a[href^="#"]').forEach(function (a) {
       a.addEventListener("click", function (e) {
         var destino = $(a.getAttribute("href"));
-        if (destino) { e.preventDefault(); deck.scrollTo({ top: destino.offsetTop, behavior: "smooth" }); }
+        if (destino) { e.preventDefault(); deck.scrollTo({ top: posicion(destino), behavior: suave() }); }
       });
     });
 
-    /* Teclado: útil al proyectar en una sala */
+    /* Teclado. Con encaje (pase de diapositivas) salta de pantalla en pantalla,
+       util al proyectar en una sala; sin encaje hace el scroll de siempre, pero
+       a mano: el scroll es del .deck, y hasta que no se hace clic dentro el foco
+       esta en el body y el navegador no sabe que .deck es lo que hay que mover. */
     document.addEventListener("keydown", function (e) {
       if ($(".visor.abierto")) { return; }
       var t = e.target.tagName;
@@ -132,6 +172,17 @@
          pone y lo para, y las flechas avanzan y retroceden. Si se capturaran
          aqui, un espacio sobre el video saltaria a la pantalla siguiente. */
       if (t === "VIDEO") { return; }
+      if (continuo() && !e.altKey && !e.ctrlKey && !e.metaKey) {
+        var pagina = Math.round(deck.clientHeight * 0.85);
+        var modo = suave();
+        if (e.key === "ArrowDown") { e.preventDefault(); deck.scrollBy({ top: 80, behavior: modo }); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); deck.scrollBy({ top: -80, behavior: modo }); }
+        else if (e.key === "PageDown" || (e.key === " " && !e.shiftKey)) { e.preventDefault(); deck.scrollBy({ top: pagina, behavior: modo }); }
+        else if (e.key === "PageUp" || (e.key === " " && e.shiftKey)) { e.preventDefault(); deck.scrollBy({ top: -pagina, behavior: modo }); }
+        else if (e.key === "Home") { e.preventDefault(); deck.scrollTo({ top: 0, behavior: modo }); }
+        else if (e.key === "End") { e.preventDefault(); deck.scrollTo({ top: deck.scrollHeight, behavior: modo }); }
+        return;
+      }
       /* Si la pantalla no cabe entera —a zoom 200 %, o en un movil bajo— el
          scroll nativo es la unica forma de leer su mitad inferior. Secuestrar
          las flechas ahi deja contenido inalcanzable con teclado. */

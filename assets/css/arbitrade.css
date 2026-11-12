@@ -76,7 +76,10 @@ a{color:inherit}
   transition:width .25s ease-out;
 }
 
-/* ============ EL RECORRIDO (scroll-snap) ============ */
+/* ============ EL RECORRIDO ============ */
+/* El encaje por pantallas (scroll-snap) solo queda en una franja que ya no
+   existe: en movil se quita en "SCROLL CONTINUO" y en escritorio en "ESCRITORIO:
+   SCROLL CONTINUO". Se conserva aqui por si se vuelve al pase de diapositivas. */
 /* Contenedor propio en lugar del scroll del documento: en movil evita que la
    barra de direcciones cambie de alto y descoloque las pantallas. */
 .deck{
@@ -86,7 +89,11 @@ a{color:inherit}
   /* Sin esto, al tabular a un elemento de otra pantalla el snap lo reencaja y
      puede dejarlo debajo de la barra fija. */
   scroll-padding-block-start:calc(var(--barra) + 8px);
-  scroll-behavior:smooth;
+  /* Sin scroll-behavior:smooth a proposito. Con el, un salto por #fragmento
+     (enlaces compartidos, como-se-contrata.html#modelos) se animaba y pelea con
+     el salto del script: acababa unos 70 px mas abajo. Ahora los saltos nativos
+     son instantaneos y exactos, y la animacion se pide explicitamente donde se
+     quiere (flecha, enlaces internos, teclado: ver suave() en app.js). */
   scrollbar-width:none;
 }
 .deck::-webkit-scrollbar{display:none}
@@ -918,6 +925,60 @@ h2.titular.grande{
   .cierre .aviso b{font-size:15.5px; margin-bottom:2px}
   .cierre .aviso span{font-size:14px; line-height:1.45}
   .cierre .botones{gap:10px}
+}
+
+/* ============================================================
+   ESCRITORIO: SCROLL CONTINUO
+   En escritorio cada seccion era una diapositiva: medida a 100svh, con el
+   contenido centrado y un encaje que la reenganchaba al soltar la rueda. Las
+   secciones cortas dejaban entre 200 y 410 px en blanco entre un contenido y el
+   siguiente (medido a 1440×900), y el salto de una en una se sentia raro.
+   Igual que en movil, se suelta: sin encaje, y cada seccion mide lo que
+   necesita mas un espacio fijo. Entre el ultimo contenido de una y el primero
+   de la siguiente quedan unos 100-130 px, no la mitad de la ventana.
+   La portada es la excepcion: sigue ocupando la pantalla entera, que es la
+   primera impresion, y conserva la flecha.
+   El relleno superior NO suma la barra fija (en movil si, y es hueco muerto
+   entre secciones): los saltos a una seccion restan su scroll-margin-top, que
+   es la altura de la barra (ver posicion() en app.js).
+   ============================================================ */
+@media (min-width:901px){
+  .deck{scroll-snap-type:none}
+
+  .pantalla{
+    min-height:0;
+    scroll-snap-align:none;
+    scroll-margin-top:var(--barra);
+    justify-content:flex-start;
+    padding-top:clamp(44px,6.5vh,64px);
+    padding-bottom:clamp(44px,6.5vh,64px);
+    gap:clamp(14px,2.2vh,24px);
+  }
+
+  /* La portada ya no es una pantalla entera: es solo texto (260 px de
+     contenido), y a 100svh dejaba mas de 320 px en blanco arriba y abajo. Con
+     ~62svh respira y todavia asoma el principio de la siguiente seccion, que
+     es la pista de que se puede seguir bajando. */
+  #portada{
+    min-height:min(62svh,600px);
+    scroll-margin-top:0;
+    justify-content:center;
+    padding-top:calc(var(--barra) + clamp(18px,3vh,34px));
+    padding-bottom:clamp(48px,7vh,72px);
+  }
+
+  /* El cierre es el final de la pagina y lleva el degradado de la marca: un
+     poco mas de relleno que una seccion normal para que no se quede en una
+     franja, sin altura minima para que no deje un hueco de mas. */
+  #siguiente{
+    padding-top:clamp(56px,9vh,88px);
+    padding-bottom:clamp(56px,9vh,88px);
+  }
+
+  /* La flecha era el control de "pasar diapositiva": sin encaje solo tiene
+     sentido en la portada, como pista de que debajo sigue habiendo web. */
+  .pantalla .avanzar{display:none}
+  #portada .avanzar{display:grid}
 }
 
 /* ============================================================

@@ -101,8 +101,7 @@ bloques".
 
 **Es una pantalla alta a propósito.** Mide unos 1350 px a 1280×800 y unos
 2400 px en un móvil de 375×812: no se intenta que quepa en 100svh. El recorrido
-ya trata las pantallas más altas que el viewport (con teclado, las flechas y el
-espacio dejan de saltar de pantalla; con el dedo es scroll libre). Como nada
+ya es de scroll continuo en móvil y en escritorio (ver «El scroll»). Como nada
 está oculto, **ya no hay restricción sobre dónde poner `.entra`**.
 
 - Las listas del bloque son `.detalle-lista` y **no** `.puntos`. `.puntos` está
@@ -268,9 +267,51 @@ funciona, los dos modelos, qué aporta, dónde está instalada y el cierre— y
 todo lo demás (requisitos de instalación, medidas completas, cifras de
 solvencia del grupo) vive en la presentación enlazada.
 
-Si vuelves a añadir contenido a la home, comprueba que las pantallas siguen
-cabiendo en un móvil de 812 px de alto: es el criterio que mantiene la
-sensación de pase de diapositivas.
+Si vuelves a añadir contenido a la home, ya no hace falta que cada pantalla
+quepa en un viewport: el recorrido es de scroll continuo (ver «El scroll»). Lo
+que sí conviene mirar es que ninguna sección deje un hueco desproporcionado.
+
+## El scroll
+
+El recorrido es de **scroll continuo en móvil y en escritorio**: sin encaje por
+pantallas y con cada sección midiendo lo que necesita. Primero se quitó en móvil
+(commit `28e76b9`, septiembre: el pase de diapositivas obligaba a encoger
+tipografía e imágenes para caber en 600 px útiles) y después en escritorio
+(noviembre), porque las secciones cortas dejaban entre 200 y 410 px en blanco
+entre un contenido y el siguiente (medido a 1440×900) y el salto de una en una
+se sentía raro.
+
+- **El espacio entre secciones** lo fija el relleno vertical de `.pantalla`
+  (`clamp(44px,6.5vh,64px)` arriba y abajo en escritorio): unos 100-130 px
+  entre el último contenido de una y el primero de la siguiente.
+- **La portada mide ~62svh** (máximo 600 px) y conserva la flecha de avance. Antes
+  ocupaba la pantalla entera, pero desde que es solo texto (260 px de contenido)
+  dejaba más de 320 px en blanco arriba y abajo. Asoma el principio de la
+  siguiente sección, que es la pista de que se puede seguir bajando. En móvil la
+  portada sí sigue a pantalla entera. El cierre lleva algo más de relleno que una
+  sección normal, sin altura mínima.
+- **El relleno superior no suma la barra fija** en escritorio: los saltos del
+  script (flecha, enlaces internos, teclado) restan el `scroll-margin-top` de la
+  sección, que es la altura de la barra (`posicion()` en `app.js`). En móvil el
+  relleno sí la incluye, y ahí `scroll-margin-top` vale 0.
+- **El `.deck` no lleva `scroll-behavior:smooth`, a propósito.** Con él, un salto
+  por `#fragmento` se animaba, a veces se quedaba a medias (antes lo disimulaba el
+  encaje obligatorio, que recolocaba la sección al final) y, al cambiar de hash
+  dentro de la misma página, acababa unos 70 px más abajo. Hoy los saltos
+  nativos son instantáneos y exactos (aplican el `scroll-margin-top` de la
+  sección), `irAlFragmento` los repite una vez cargada la página y al cambiar el
+  hash, y la animación se pide explícita donde se quiere —flecha, enlaces
+  internos y teclado— con `suave()`, que respeta `prefers-reduced-motion`. Esto
+  importa: hay enlaces con `#modelos` circulando por WhatsApp
+  (`como-se-contrata.html` los redirige a `#productos`).
+- **El teclado hace scroll normal** cuando no hay encaje (`continuo()`): flechas
+  80 px, espacio y AvPág el 85 % de la ventana, Inicio y Fin. Se hace a mano
+  porque el scroll es del `.deck` y no del documento, y hasta hacer clic dentro
+  el foco está en el `<body>`. Con encaje, el código antiguo salta de pantalla
+  en pantalla.
+- **Para volver al pase de diapositivas** en escritorio basta quitar el bloque
+  «ESCRITORIO: SCROLL CONTINUO» del CSS: el encaje y las alturas de 100svh siguen
+  ahí debajo.
 
 ## Decisiones que conviene no romper
 
