@@ -43,9 +43,12 @@ window.SMARTSHOP = {
   },
 
   /* ---------- Vídeos ----------
-     Cada clave se corresponde con un data-video="..." del HTML.
-     'id' es el identificador de YouTube. El reproductor NO se carga hasta que
-     el usuario pulsa, y lo hace contra youtube-nocookie.
+     Cada clave se corresponde con un data-video="..." del HTML (o, en los
+     de Ametller, con el data-idioma del selector).
+     Una entrada lleva 'id' (identificador de YouTube) O 'src' (archivo propio
+     en assets/video/), nunca las dos. El de YouTube NO se carga hasta que el
+     usuario pulsa, y lo hace contra youtube-nocookie; el propio tampoco
+     descarga nada hasta entonces y no llama a ningún tercero.
      'vertical' a true para los Shorts, que se encuadran en 9:16.
      'poster' es opcional: con null se pinta el degradado de marca, para no
      llamar a Google antes de que el visitante lo decida. */
@@ -62,6 +65,27 @@ window.SMARTSHOP = {
       titulo: "La forma más fácil de comer bien en tu espacio de trabajo",
       vertical: true,
       poster: "assets/img/poster-video-entorno.jpg"
+    },
+
+    /* El vídeo del modelo Ametller Origen, una entrada por idioma. La clave es
+       el data-idioma del selector del panel de Ametller ("es", "ca"); el texto
+       del botón sale de 'idioma'. Son la misma pieza (37 s, vertical 9:16)
+       recomprimida a 720×1280: los originales pesaban 104 y 134 MB y GitHub no
+       admite archivos de más de 100 MB. El poster es un fotograma sin
+       subtítulos, para que sirva a las dos versiones. */
+    es: {
+      src: "assets/video/ametller-origen-es.mp4",
+      titulo: "Modelo Ametller Origen, en español",
+      idioma: "Español",
+      vertical: true,
+      poster: "assets/img/poster-ametller-origen.jpg"
+    },
+    ca: {
+      src: "assets/video/ametller-origen-ca.mp4",
+      titulo: "Modelo Ametller Origen, en catalán",
+      idioma: "Català",
+      vertical: true,
+      poster: "assets/img/poster-ametller-origen.jpg"
     }
   },
 

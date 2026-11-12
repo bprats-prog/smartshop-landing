@@ -289,6 +289,32 @@ h2.titular{
 .js .panel{display:none}
 .js .panel.activo{display:flex}
 .panel:focus-visible{outline:2px solid var(--naranja); outline-offset:6px; border-radius:8px}
+
+/* ---- Vídeo del modelo: boton + selector de idioma ----
+   El selector va en tinta oscura y no en naranja: las pestanas de modelo ya son
+   naranja, y dos selectores del mismo color se leerian como el mismo control. */
+.video-modelo{
+  display:none; flex-wrap:wrap; align-items:center; justify-content:center;
+  gap:10px 12px;
+}
+/* Solo con el script vivo (app-ok, que pone iniciar()): sin JS los botones no
+   harian nada, y esta web no deja controles muertos. */
+.app-ok .video-modelo{display:flex}
+.idiomas{
+  display:inline-flex; gap:2px; padding:3px;
+  background:var(--cream-100); border:1px solid var(--cream-200); border-radius:999px;
+}
+.idiomas button{
+  font:inherit; font-size:clamp(12.5px,1.2vw,14px); font-weight:700; color:var(--ink);
+  background:none; border:0; border-radius:999px; cursor:pointer;
+  padding:.45em 1em; min-height:40px;
+  transition:background .2s, color .2s;
+}
+.idiomas button[aria-pressed="true"]{background:var(--ink); color:#fff}
+@media (hover:hover){
+  .idiomas button[aria-pressed="false"]:hover{background:#fff}
+}
+.idiomas button:focus-visible{outline:2px solid var(--naranja); outline-offset:2px}
 .panel-nombre{
   font-family:"Fraunces",Georgia,serif; font-weight:600;
   font-variation-settings:"opsz" 40;
@@ -784,10 +810,21 @@ h2.titular.grande{
    En un movil, un Short dentro de su marco mide poco mas de 200 px de ancho.
    Al pulsarlo se abre aqui, ocupando la pantalla, con una X para cerrar.
    ============================================================ */
-.visor-video{padding:0}
+.visor-video{
+  padding:0;
+  /* Una sola fila y columna del tamaño del visor. El .visor es un grid con
+     fila automatica: un <video> aporta su tamaño intrinseco (720x1280) y la
+     fila crece hasta sacarlo de la ventana. Un iframe no tiene tamaño
+     intrinseco y por eso nunca lo habia notado. */
+  grid-template:minmax(0,1fr) / minmax(0,1fr);
+}
 .visor-video .marco-video{
   width:100%; height:100%;
   display:grid; place-items:center;
+  /* Fila y columna fijas al tamaño del visor. Con auto, un <video> aporta su
+     tamaño intrinseco (720x1280) al calcular la fila y se sale de la ventana;
+     un iframe no tiene tamaño intrinseco y por eso no le pasaba. */
+  grid-template:minmax(0,1fr) / minmax(0,1fr);
 }
 .visor-video iframe{
   width:100%; height:100%; border:0; display:block;
@@ -796,6 +833,14 @@ h2.titular.grande{
 .visor-video.horizontal iframe{
   max-width:100vw; max-height:calc(100vw * 9 / 16);
   height:auto; aspect-ratio:16/9;
+}
+/* Archivo propio (modelo Ametller Origen): vertical 9:16, a toda la altura que
+   deje el visor y sin pasarse del ancho. Con object-fit:contain, si la caja
+   queda mas ancha que el vídeo (un movil estrecho) sobran bandas negras en vez
+   de recortarse. */
+.visor-video video{
+  display:block; height:100%; width:auto; aspect-ratio:9/16;
+  max-width:100%; max-height:100%; object-fit:contain; background:#000;
 }
 /* La X va por encima del reproductor y con fondo propio: sobre el video negro
    de YouTube, una X translucida no se distingue. */
@@ -806,7 +851,7 @@ h2.titular.grande{
 @media (min-width:821px){
   /* En escritorio el visor deja aire alrededor; en movil va a sangre. */
   .visor-video{padding:clamp(24px,5vh,64px)}
-  .visor-video iframe{border-radius:14px}
+  .visor-video iframe,.visor-video video{border-radius:14px}
 }
 
 /* ============================================================

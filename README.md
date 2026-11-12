@@ -31,6 +31,7 @@ smartshop-landing/
     ├── css/arbitrade.css   Colores, tipografías y componentes (compartido)
     ├── js/app.js           Comportamiento (compartido)
     ├── js/datos.js         ← LOS DATOS EDITABLES
+    ├── video/              Vídeos propios (Ametller Origen, en español y catalán)
     └── img/                Fotos, alzado técnico y wordmark
 ```
 
@@ -52,6 +53,11 @@ Casi todo está en **`assets/js/datos.js`**. No hace falta abrir el HTML para:
   con un `data-video="..."` del HTML. `id` es el identificador de YouTube,
   `vertical: true` encuadra los Shorts en 9:16, y `poster` es la imagen de
   portada (con `null` se dibuja el rótulo de marca).
+  Una entrada lleva `id` (YouTube) **o** `src` (un archivo de `assets/video/`),
+  nunca las dos. Los del modelo Ametller Origen son de `src` y sus claves, `es`
+  y `ca`, son las del selector de idioma del panel de Ametller. Para cambiar
+  uno, sustituye el MP4 (ver «Los vídeos de Ametller Origen») y, si cambia su
+  forma o su duración, nada más: el visor se adapta solo.
 - **Cambiar una foto** → bloque `galeria`: cada entrada es una ruta `src` y su
   `alt`. Poniendo `src: null` vuelve a verse un marcador a rayas con el texto del
   `alt`, útil mientras esperas una foto nueva.
@@ -113,6 +119,51 @@ nombre visible. El CSS solo esconde el panel inactivo cuando el script ha
 cargado (clase `js` en `<html>`), así que no hay forma de que quede un panel en
 blanco.
 
+## Los vídeos de Ametller Origen
+
+El panel «Modelo Ametller Origen» de la pantalla *Gama y modelos* tiene un botón
+**Ver el vídeo** y un selector **Español | Català**. Abre el visor a pantalla
+completa con la versión elegida. Son la misma pieza (37 s, vertical 9:16) en dos
+idiomas, y viven en `assets/video/`:
+
+- `ametller-origen-es.mp4` — versión con música y sin subtítulos.
+- `ametller-origen-ca.mp4` — versión sin música y con subtítulos.
+
+Las dos versiones no son equivalentes a propósito: son las que se eligieron
+entre las cuatro variantes (con/sin música, con/sin subtítulos) que hay de cada
+idioma en la carpeta de vídeos de Ametller. Si se quiere otra combinación, hay
+que recomprimir la variante correspondiente y sustituir el archivo.
+
+**Por qué están recomprimidos.** Los originales pesan 104 y 134 MB, y GitHub
+rechaza cualquier archivo de más de 100 MB. Los de aquí pesan unos 8 MB cada
+uno. Los originales no se tocan: se parte siempre de ellos, nunca del archivo ya
+comprimido.
+
+**La receta** (ffmpeg; H.264 a 720×1280 con un techo de bitrate, que a un
+vídeo de móvil le sobra):
+
+```
+ffmpeg -i ORIGINAL.mp4 \
+  -vf "scale=720:1280:flags=lanczos,format=yuv420p" \
+  -c:v libx264 -preset slow -profile:v high -level 4.0 -crf 25 \
+  -maxrate 3500k -bufsize 7000k \
+  -c:a aac -b:a 128k -ar 48000 \
+  -movflags +faststart ametller-origen-XX.mp4
+```
+
+`-movflags +faststart` mueve el índice al principio del archivo: el navegador
+puede empezar a reproducir y saltar a un punto sin descargarlo entero. Conviene
+mirar el resultado antes de publicarlo, sobre todo los subtítulos. Y mantén cada
+archivo muy por debajo de los 100 MB de GitHub (el límite que obligó a todo
+esto); GitHub Pages sirve los MP4 con soporte de `Range`.
+
+La portada (`poster-ametller-origen.jpg`) se saca de un fotograma sin texto:
+
+```
+ffmpeg -ss 1.5 -i ametller-origen-es.mp4 -frames:v 1 \
+  -vf "scale=540:960:flags=lanczos" -q:v 4 poster-ametller-origen.jpg
+```
+
 ## De dónde salen las imágenes
 
 Están extraídas de las presentaciones de Google Slides y reescaladas a 1400 px
@@ -147,6 +198,10 @@ castigue una conexión móvil.
   miniatura de YouTube. Es lo primero que se ve del recorrido: el Short abre la
   portada en lugar de una foto fija. El vídeo horizontal no lleva foto: su
   portada es un rótulo de marca que dibuja el propio HTML.
+- `poster-ametller-origen.jpg` — la portada de los dos vídeos de Ametller
+  Origen: un fotograma a 1,5 s de la versión en español, que es la que no lleva
+  subtítulos. Sirve a las dos versiones, así no hay una portada con texto en un
+  idioma y el vídeo en otro. 540×960, unos 55 KB.
 - `arbitrade-wordmark.svg` — el wordmark de la barra superior. Venía con
   `fill="currentColor"`; se le fijó el tinta de marca (`#38191A`) porque dentro
   de un `<img>` no hereda el color de la página.
@@ -183,13 +238,24 @@ sensación de pase de diapositivas.
   Danet, Salgot, Activia, Florette, Jabugo, Natwins, Lay's y Milka. La foto de
   bebidas es una balda del interior de una SmartShop, que es la prueba más
   directa. Tampoco se cita ninguna marca de partner ni de cliente.
-- **Los vídeos no cargan hasta que se pulsan**, y lo hacen contra
-  `youtube-nocookie.com`. Así la página no llama a Google sin que el visitante
-  lo decida, y no gasta datos de más en móvil.
-- **En móvil el vídeo se abre a pantalla completa**, en el visor `.visor-video`,
-  y en escritorio se incrusta en su sitio. El corte está en 820 px. Al cerrar se
-  **destruye el iframe**, no se esconde: si solo se oculta, el vídeo sigue
-  sonando por detrás.
+- **Los vídeos no cargan hasta que se pulsan.** Los de YouTube lo hacen contra
+  `youtube-nocookie.com`, así la página no llama a Google sin que el visitante
+  lo decida. Los propios llevan `preload="none"`: ni siquiera piden el MP4 hasta
+  el clic, y no llaman a ningún tercero. En los dos casos, nada de datos de más
+  en móvil.
+- **En móvil el vídeo de YouTube se abre a pantalla completa**, en el visor
+  `.visor-video`, y en escritorio se incrusta en su sitio. El corte está en
+  820 px. Al cerrar se **destruye el iframe** (o el `<video>`), no se esconde:
+  si solo se oculta, el vídeo sigue sonando por detrás. Los vídeos de Ametller
+  Origen abren siempre ese visor, también en escritorio: no tienen un recuadro
+  que sustituir por el reproductor y un vídeo vertical necesita la pantalla.
+- **El visor de vídeo fija su fila de grid** (`grid-template: minmax(0,1fr)`).
+  No lo quites: sin ello, un `<video>` aporta su tamaño intrínseco (720×1280) al
+  cálculo del grid y se sale de la ventana. Con iframe no pasaba, porque un
+  iframe no tiene tamaño intrínseco, y por eso solo se notó al llegar el primer
+  vídeo propio.
+- **Los botones de vídeo del panel de Ametller solo existen con el script
+  vivo** (`app-ok`). Sin JS no harían nada, y la web no deja controles muertos.
 - **El texto de móvil es deliberadamente grande y corto.** El bloque
   "TIPOGRAFÍA EN MÓVIL" del final del CSS sube los tamaños, y lo que lo paga es
   el recorte de los párrafos. Si vuelves a alargar un texto, mide: las ocho

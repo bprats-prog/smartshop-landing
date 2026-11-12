@@ -213,7 +213,9 @@
          haga falta. En escritorio el boton se sustituye por el reproductor, asi
          que el oyente muere con el nodo y no hace falta desengancharlo. */
       caja.addEventListener("click", function () {
-        if (enDisco) {
+        /* Solo el de YouTube se manda fuera: un archivo propio es una ruta
+           relativa y se reproduce igual abierto con doble clic. */
+        if (enDisco && !v.src) {
           window.open("https://www.youtube.com/watch?v=" + v.id, "_blank", "noopener");
           return;
         }
@@ -238,6 +240,22 @@
   }
 
   function marcoDeVideo(v, arrancarSolo) {
+    /* Archivo propio: un <video> nativo, sin tercero de por medio.
+       preload="none" mantiene la regla de la web: no se descarga nada hasta que
+       el visitante pulsa. Quien lo monte llama a play() dentro del clic: asi el
+       navegador lo cuenta como gesto del usuario y lo deja sonar con audio, tambien
+       en movil (el iframe de YouTube no puede aprovechar eso). */
+    if (v.src) {
+      var vid = document.createElement("video");
+      vid.src = v.src;
+      vid.controls = true;
+      vid.preload = "none";
+      vid.setAttribute("playsinline", "");   /* iOS: dentro del visor, no a su reproductor nativo */
+      if (v.poster) { vid.poster = v.poster; }
+      vid.setAttribute("aria-label", v.titulo);
+      return vid;
+    }
+
     var marco = document.createElement("iframe");
     /* nocookie: no deja rastro de YouTube hasta que el usuario decide ver el
        vídeo. playsinline evita que iOS se lleve el vídeo a su reproductor
@@ -267,11 +285,53 @@
     ultimoFoco = origen || document.activeElement;
     var hueco = $(".marco-video", caja);
     hueco.innerHTML = "";
-    hueco.appendChild(marcoDeVideo(v));
+    var marco = marcoDeVideo(v);
+    hueco.appendChild(marco);
     caja.classList.toggle("horizontal", !v.vertical);
     caja.classList.add("abierto");
     inertizarFondo(true);
     $(".cerrar", caja).focus();
+    /* Un <video> propio arranca aqui, dentro del clic. Si el navegador lo
+       rechazara, quedan los controles con su boton de play. */
+    if (marco.play) { var p = marco.play(); if (p && p.catch) { p.catch(function () {}); } }
+  }
+
+  /* ---------- Vídeo del modelo Ametller Origen ----------
+     Un selector de idioma (data-idiomas, con un data-idioma por botón) y un
+     botón (data-ver-video) que abre el visor con el vídeo elegido. Las claves
+     de data-idioma son las de D.videos. Un idioma sin vídeo configurado se
+     retira, y sin ninguno desaparece el bloque entero (data-video-modelo), como
+     los botones de presentación sin URL: nunca queda un control muerto.
+     Abre el visor tambien en escritorio: aqui no hay un recuadro que
+     sustituir por el reproductor, y un vídeo vertical necesita pantalla. */
+  function videoModelo() {
+    var bloque = $("[data-video-modelo]");
+    if (!bloque) { return; }
+    var grupo = $("[data-idiomas]", bloque);
+    var boton = $("[data-ver-video]", bloque);
+    var V = D.videos || {};
+    if (!grupo || !boton) { return; }
+
+    var opciones = $$("[data-idioma]", grupo).filter(function (b) {
+      var hay = !!V[b.getAttribute("data-idioma")];
+      if (!hay) { b.remove(); }
+      return hay;
+    });
+    if (!opciones.length) { bloque.remove(); return; }
+
+    var actual = opciones[0].getAttribute("data-idioma");
+    function elegir(clave) {
+      actual = clave;
+      opciones.forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-idioma") === clave ? "true" : "false");
+      });
+    }
+    opciones.forEach(function (b) {
+      b.addEventListener("click", function () { elegir(b.getAttribute("data-idioma")); });
+    });
+    elegir(actual);
+
+    boton.addEventListener("click", function () { abrirVisorVideo(V[actual], boton); });
   }
 
   /* ---------- Visor de presentaciones ---------- */
@@ -324,7 +384,12 @@
     }
 
     $(".cerrar", caja).addEventListener("click", cerrar);
-    caja.addEventListener("click", function (e) { if (e.target === caja) { cerrar(); } });
+    /* Cuenta como "fuera" tanto el borde del visor como el hueco que rodea al
+       vídeo (.marco-video ocupa todo el visor, y un vídeo vertical en una
+       ventana ancha deja bandas a los lados). */
+    caja.addEventListener("click", function (e) {
+      if (e.target === caja || e.target.classList.contains("marco-video")) { cerrar(); }
+    });
     document.addEventListener("keydown", function (e) {
       if (!caja.classList.contains("abierto")) { return; }
       if (e.key === "Escape") { cerrar(); return; }
@@ -631,6 +696,7 @@
     recorrido();
     animarEntradas();
     video();
+    videoModelo();
     galeria();
     visor();
     visorVideo();

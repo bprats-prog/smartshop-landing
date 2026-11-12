@@ -213,6 +213,20 @@
           <li><b>Una oferta reconocible</b> — productos de una marca consolidada y valorada por el consumidor.</li>
           <li><b>Completado por Arbitrade</b> — ampliamos el surtido con otras referencias para ofrecer una solución más completa.</li>
         </ul>
+        <!-- El vídeo del modelo, en dos idiomas. Los botones llevan el idioma en
+             data-idioma y la clave es la de "videos" en datos.js; app.js retira
+             el idioma que no tenga vídeo y, sin ninguno, el bloque entero.
+             Sin clase .entra: este panel puede estar oculto. -->
+        <div class="video-modelo" data-video-modelo>
+          <button class="btn btn-primario" type="button" data-ver-video>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+            Ver el vídeo
+          </button>
+          <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
+            <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
+            <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
+          </div>
+        </div>
         <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion="ametller">
           <span class="etiqueta-presentacion">Descubre el modelo Ametller Origen</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
