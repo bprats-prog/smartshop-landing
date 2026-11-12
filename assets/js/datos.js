@@ -70,9 +70,10 @@ window.SMARTSHOP = {
     /* El vídeo del modelo Ametller Origen, una entrada por idioma. La clave es
        el data-idioma del selector del panel de Ametller ("es", "ca"); el texto
        del botón sale de 'idioma'. Son la misma pieza (37 s, vertical 9:16)
-       recomprimida a 720×1280: los originales pesaban 104 y 134 MB y GitHub no
-       admite archivos de más de 100 MB. El poster es un fotograma sin
-       subtítulos, para que sirva a las dos versiones. */
+       recomprimida a 720×1280: el original en español pesaba 134 MB y GitHub no
+       admite archivos de más de 100 MB. Las dos versiones son la misma variante
+       (con música, sin subtítulos), así que el poster —un fotograma sin texto—
+       sirve a las dos. */
     es: {
       src: "assets/video/ametller-origen-es.mp4",
       titulo: "Modelo Ametller Origen, en español",

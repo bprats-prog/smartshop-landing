@@ -127,16 +127,18 @@ completa con la versión elegida. Son la misma pieza (37 s, vertical 9:16) en do
 idiomas, y viven en `assets/video/`:
 
 - `ametller-origen-es.mp4` — versión con música y sin subtítulos.
-- `ametller-origen-ca.mp4` — versión sin música y con subtítulos.
+- `ametller-origen-ca.mp4` — versión con música y sin subtítulos.
 
-Las dos versiones no son equivalentes a propósito: son las que se eligieron
-entre las cuatro variantes (con/sin música, con/sin subtítulos) que hay de cada
-idioma en la carpeta de vídeos de Ametller. Si se quiere otra combinación, hay
-que recomprimir la variante correspondiente y sustituir el archivo.
+Son la misma variante en los dos idiomas, elegida entre las cuatro que hay de
+cada uno en la carpeta de vídeos de Ametller (con/sin música, con/sin
+subtítulos). Si se quiere otra combinación, hay que recomprimir la variante
+correspondiente y sustituir el archivo. Ojo: el catalán se cambió una vez; las
+dos primeras versiones no coincidían (el catalán llevaba subtítulos y no música).
 
-**Por qué están recomprimidos.** Los originales pesan 104 y 134 MB, y GitHub
-rechaza cualquier archivo de más de 100 MB. Los de aquí pesan unos 8 MB cada
-uno. Los originales no se tocan: se parte siempre de ellos, nunca del archivo ya
+**Por qué están recomprimidos.** GitHub rechaza cualquier archivo de más de
+100 MB y el original en español pesa 134 MB (el catalán, 37 MB). Se recomprimen
+los dos con la misma receta para que se vean y pesen igual: unos 8 MB cada uno.
+Los originales no se tocan: se parte siempre de ellos, nunca del archivo ya
 comprimido.
 
 **La receta** (ffmpeg; H.264 a 720×1280 con un techo de bitrate, que a un
