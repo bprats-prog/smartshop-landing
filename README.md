@@ -52,7 +52,7 @@ Casi todo está en **`assets/js/datos.js`**. No hace falta abrir el HTML para:
 - **Cambiar o añadir un vídeo** → bloque `videos`. Cada clave se corresponde
   con un `data-video="..."` del HTML. `id` es el identificador de YouTube,
   `vertical: true` encuadra los Shorts en 9:16, y `poster` es la imagen de
-  portada (con `null` se dibuja el rótulo de marca).
+  portada.
   Una entrada lleva `id` (YouTube) **o** `src` (un archivo de `assets/video/`),
   nunca las dos. Los del modelo Ametller Origen son de `src` y sus claves, `es`
   y `ca`, son las del selector de idioma del bloque de Ametller. Para cambiar
@@ -225,8 +225,7 @@ castigue una conexión móvil.
   su `ancho` y `alto` o el hueco quedará mal calculado.
 - `poster-video-entorno.jpg` — la portada del Short, recortada a 9:16 desde la
   miniatura de YouTube. Es lo primero que se ve del recorrido: el Short abre la
-  portada en lugar de una foto fija. El vídeo horizontal no lleva foto: su
-  portada es un rótulo de marca que dibuja el propio HTML.
+  portada en lugar de una foto fija.
 - `poster-ametller-origen.jpg` — la portada de los dos vídeos de Ametller
   Origen: un fotograma a 1,5 s de la versión en español, que es la que no lleva
   subtítulos. Sirve a las dos versiones, así no hay una portada con texto en un
@@ -238,9 +237,9 @@ castigue una conexión móvil.
 ## Qué va en la web y qué en la presentación
 
 La web convence en noventa segundos en un móvil; la presentación es la
-profundidad. Por eso el recorrido son ocho pantallas —qué es, cómo funciona,
-qué hay dentro y con qué modelo, qué aporta, el vídeo, dónde está instalada—
-y todo lo demás (requisitos de instalación, medidas completas, cifras de
+profundidad. Por eso el recorrido son siete pantallas —la portada, qué es, cómo
+funciona, los dos modelos, qué aporta, dónde está instalada y el cierre— y
+todo lo demás (requisitos de instalación, medidas completas, cifras de
 solvencia del grupo) vive en la presentación enlazada.
 
 Si vuelves a añadir contenido a la home, comprueba que las pantallas siguen

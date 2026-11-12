@@ -191,10 +191,6 @@
        el archivo suelto (doble clic) el video se abre en una pestana; servido
        por HTTP se reproduce dentro de la pagina, como debe ser. */
     var enDisco = desdeDisco();
-    if (enDisco) {
-      var aviso = $("#video .nota");
-      if (aviso) { aviso.textContent = "Los vídeos se abren en YouTube, en una pestaña nueva."; }
-    }
 
     $$("[data-video]").forEach(function (caja) {
       var v = D.videos[caja.getAttribute("data-video")];

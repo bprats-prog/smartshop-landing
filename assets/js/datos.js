@@ -50,16 +50,9 @@ window.SMARTSHOP = {
      usuario pulsa, y lo hace contra youtube-nocookie; el propio tampoco
      descarga nada hasta entonces y no llama a ningún tercero.
      'vertical' a true para los Shorts, que se encuadran en 9:16.
-     'poster' es opcional: con null se pinta el degradado de marca, para no
-     llamar a Google antes de que el visitante lo decida. */
+     'poster' es la imagen de portada; sin ella la caja queda en el color de
+     fondo del reproductor hasta que se pulsa. */
   videos: {
-    principal: {
-      id: "8mZNGqLMprg",
-      titulo: "Así funciona una SmartShop",
-      vertical: false,
-      /* Sin poster: la portada es el rotulo de marca que dibuja el propio HTML. */
-      poster: null
-    },
     entornoLaboral: {
       id: "8QLeAxdFQgw",
       titulo: "La forma más fácil de comer bien en tu espacio de trabajo",
