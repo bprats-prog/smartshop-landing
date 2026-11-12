@@ -117,16 +117,29 @@ está oculto, **ya no hay restricción sobre dónde poner `.entra`**.
 - El botón de la presentación va siempre al final del bloque (`margin-top:auto`),
   así los dos quedan a la misma altura aunque un bloque lleve más contenido.
 - **Los dos bloques miden lo mismo en escritorio, y no por casualidad.** La
-  rejilla estira el más corto, pero estirar deja un hueco muerto dentro. Para
-  que apenas haga falta, el tamaño del vídeo (190 px de ancho) y el número de
-  viñetas (6 en Arbitrade, 3 en Ametller) están ajustados para que a 1024 y a
-  1280 px midan lo mismo de forma natural. En otros anchos un salto de línea
-  puede dejar 20-35 px de diferencia, que se queda como aire antes del botón.
-  Si cambias el vídeo o añades o quitas una viñeta, compara las alturas
-  naturales de los dos bloques (con `align-self:start` en cada uno).
-- En el bloque de Ametller la lista va centrada verticalmente junto al vídeo
-  (solo en escritorio): con tres viñetas es más corta que el vídeo, y alineada
-  arriba dejaría un hueco debajo del texto.
+  rejilla estira el más corto; para que estirar no deje un hueco muerto, los dos
+  bloques tienen la misma estructura —título, un cuerpo con la lista a un lado
+  y un vídeo vertical al otro, y el botón abajo— y el vídeo es del mismo tamaño
+  en los dos (190 px de ancho a 1280). El cuerpo ocupa todo el alto que sobra
+  (`flex:1`) y el vídeo va pegado abajo (`align-self:end`), así los dos vídeos
+  quedan a la misma altura aunque el de Ametller lleve el selector de idioma
+  encima. La lista va centrada junto al vídeo. En algunos anchos un salto de
+  línea deja unos píxeles de diferencia natural; se queda como aire. Si cambias
+  el tamaño de un vídeo o el número de viñetas, compara las alturas naturales
+  de los dos bloques (con `align-self:start` en cada uno).
+- **Los dos vídeos usan el mismo componente `.video`** (radio, sombra y el play
+  naranja), aunque uno sea un `<video>` y el otro un Short de YouTube. En el de
+  Ametller el play es un elemento decorativo encima del `<video>`: solo existe
+  con el script vivo (`app-ok`), se esconde al arrancar (`.reproduciendo`) y
+  vuelve al cambiar de idioma. Los controles nativos son los que cuentan para
+  el teclado y los lectores de pantalla.
+- **El vídeo del bloque de Arbitrade es el Short de YouTube** (`entornoLaboral`
+  en `datos.js`), el mismo que antes abría la portada. Funciona como siempre:
+  no carga nada hasta pulsar, y en móvil se abre a pantalla completa. Lleva
+  `data-video`, no `data-video-modelo`: es un vídeo de YouTube y no tiene
+  selector de idioma.
+- **La portada es solo texto**, centrada: el kicker, el titular y el apoyo. Antes
+  era de dos columnas con el vídeo a la derecha.
 - **Qué va en cada bloque.** El bloque desarrolla lo que la tarjeta resume, no
   lo repite: si una viñeta dice lo mismo que las dos líneas de la tarjeta, sobra.
   Por eso el de Ametller no lista los productos ni habla de «marca consolidada».
@@ -215,9 +228,8 @@ Están extraídas de las presentaciones de Google Slides y reescaladas a 1400 px
 de lado mayor con calidad 80, para que la web entera pese menos de 2 MB y no
 castigue una conexión móvil.
 
-- `hero-lobby.jpg` — **sin usar desde que el vídeo ocupa la portada.** Se
-  conserva porque es la única foto con una persona dentro y es la mejor
-  candidata a miniatura al compartir el enlace.
+- `hero-lobby.jpg` — la foto del lobby, en «Qué aporta». Es la única foto con
+  una persona dentro y la mejor candidata a miniatura al compartir el enlace.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
 - `gama-ametller.jpg` — el surtido del modelo Ametller Origen, en su tarjeta.
   Es una **fotografía real** de producto, no una imagen generada. La tarjeta la
@@ -238,8 +250,8 @@ castigue una conexión móvil.
   coinciden solas y ninguna se recorta. Si cambias una foto, actualiza también
   su `ancho` y `alto` o el hueco quedará mal calculado.
 - `poster-video-entorno.jpg` — la portada del Short, recortada a 9:16 desde la
-  miniatura de YouTube. Es lo primero que se ve del recorrido: el Short abre la
-  portada en lugar de una foto fija.
+  miniatura de YouTube. El Short vive en el bloque del modelo Arbitrade; antes
+  abría la portada, que ahora es solo texto.
 - `poster-ametller-origen.jpg` — la portada de los dos vídeos de Ametller
   Origen: un fotograma a 1,5 s de la versión en español, que es la que no lleva
   subtítulos. Sirve a las dos versiones, así no hay una portada con texto en un

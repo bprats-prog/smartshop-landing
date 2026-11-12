@@ -342,6 +342,23 @@
     opciones.forEach(function (b) {
       b.addEventListener("click", function () { elegir(b.getAttribute("data-idioma")); });
     });
+
+    /* El play grande de encima (el mismo del Short de Arbitrade) se ve mientras
+       el video esta en su portada: al cargar y tras cambiar de idioma. Al
+       arrancar se esconde y quedan los controles nativos. */
+    var caja = player.parentNode;
+    var play = $(".play", caja);
+    player.addEventListener("play", function () { caja.classList.add("reproduciendo"); });
+    player.addEventListener("ended", function () { caja.classList.remove("reproduciendo"); });
+    /* load() al cambiar de archivo vacia el elemento: vuelve la portada. */
+    player.addEventListener("emptied", function () { caja.classList.remove("reproduciendo"); });
+    if (play) {
+      play.addEventListener("click", function () {
+        var p = player.play();
+        if (p && p.catch) { p.catch(function () {}); }
+      });
+    }
+
     elegir(opciones[0].getAttribute("data-idioma"));
   }
 

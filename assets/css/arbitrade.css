@@ -623,19 +623,6 @@ h2.titular.grande{
 
 
 /* ============================================================
-   EL VIDEO DE LA PORTADA
-   Sustituye a la foto fija: es lo primero que ve quien abre el enlace. Es un
-   Short vertical, asi que manda el alto y el ancho lo deduce la proporcion.
-   ============================================================ */
-.portada-media{display:flex; justify-content:center; align-items:center; margin:0}
-#portada .video{
-  aspect-ratio:9/16;
-  height:clamp(190px,34svh,380px);
-  width:auto;
-}
-@media (max-height:740px){ #portada .video{height:clamp(170px,30svh,300px)} }
-
-/* ============================================================
    VISOR DE VIDEO A PANTALLA COMPLETA
    En un movil, un Short dentro de su marco mide poco mas de 200 px de ancho.
    Al pulsarlo se abre aqui, ocupando la pantalla, con una X para cerrar.
@@ -732,57 +719,10 @@ h2.titular.grande{
    ITERACION: miniatura mayor, pasos con foto a sangre, texto mas grande
    ============================================================ */
 
-/* --- La miniatura de la portada era de 155 px de ancho: se veia diminuta.
-       El alto extra sale de apretar las separaciones de esa pantalla. --- */
-#portada{gap:clamp(10px,1.7vh,22px)}
-#portada .video{height:clamp(240px,44svh,430px)}
-@media (max-height:740px){ #portada .video{height:clamp(200px,38svh,320px)} }
-
-/* --- Los pasos: la foto ocupaba 48 px dentro de una tarjeta de 110 y se
-       perdia. Ahora la tarjeta no tiene relleno propio y la foto va a sangre,
-       de borde a borde del rectangulo blanco. --- */
-.paso{
-  align-items:stretch; gap:0;
-  padding:0; overflow:hidden;
-}
-.paso .foto{
-  flex:none; width:clamp(104px,30vw,150px);
-  aspect-ratio:auto; height:auto; align-self:stretch;
-  border-radius:0;
-}
-.paso .texto{
-  padding:clamp(12px,1.8vh,18px) clamp(14px,2.4vw,22px)
-          clamp(12px,1.8vh,18px) clamp(10px,1.6vw,14px);
-}
-
-/* --- Segunda subida de tamano en movil. La anterior se quedo corta. --- */
-@media (max-width:820px){
-  .apoyo{font-size:17.5px; line-height:1.45}
-  .tarjeta .nombre,#beneficios .tarjeta .nombre{font-size:16.5px}
-  .tarjeta .desc,#beneficios .tarjeta .desc{font-size:15px; line-height:1.4}
-  .paso b{font-size:18px}
-  .paso span{font-size:15.5px; line-height:1.4}
-  .puntos li,.pantalla .puntos li{font-size:15.5px; line-height:1.4}
-  .cinta{font-size:15px}
-  .nota{font-size:12.5px}
-  .btn{font-size:15.5px}
-}
-@media (max-width:820px) and (max-height:700px){
-  .apoyo{font-size:16px}
-  .puntos li,.pantalla .puntos li{font-size:14.5px}
-  .tarjeta .desc,#beneficios .tarjeta .desc{font-size:14px}
-  .paso b{font-size:16.5px}
-  .paso span{font-size:14.5px}
-}
-
-/* La lista de "Que incluye" no vive en una pantalla apretada como la de los
-   modelos: puede respirar. */
 .puntos.grande{width:min(680px,94vw); gap:clamp(10px,1.6vh,16px)}
 .puntos.grande li{font-size:clamp(15.5px,1.5vw,18px); line-height:1.5}
 
-/* Ajuste fino tras agrandar miniatura, fotos y texto: tres pantallas se
-   pasaban por menos de 15 px. */
-#portada .video{height:clamp(255px,50svh,470px)}
+/* Ajuste fino en movil: "Como funciona" se pasaba por menos de 15 px. */
 @media (max-width:820px){
   #como-funciona .pasos{gap:6px}
 }
@@ -799,8 +739,6 @@ h2.titular.grande{
 /* Moviles bajos y portatiles bajos: el alto vuelve a ser el recurso escaso. */
 @media (max-width:820px) and (max-height:700px){
   .paso{min-height:92px}
-  #portada .video{height:clamp(190px,33svh,250px)}
-  #portada{gap:9px}
   #que-es .duo-foto img{height:min(13svh,120px)}
 }
 
@@ -962,7 +900,6 @@ h2.titular.grande{
   #beneficios .tarjeta .desc{grid-column:2; grid-row:2}
 
   /* Imagenes: el alto ya no es un presupuesto cerrado */
-  #portada .video{height:min(46svh,420px)}
   #que-es .duo-foto img{height:min(44svh,360px); max-width:80vw}
   .galeria figure,.galeria .pieza{height:min(42svh,340px)}
 
@@ -981,37 +918,6 @@ h2.titular.grande{
   .cierre .aviso b{font-size:15.5px; margin-bottom:2px}
   .cierre .aviso span{font-size:14px; line-height:1.45}
   .cierre .botones{gap:10px}
-}
-
-/* ============================================================
-   LA PORTADA EN ESCRITORIO: MENSAJE A LA IZQUIERDA, VIDEO A LA DERECHA
-   Apilada y centrada, el Short vertical competia con el titular por el mismo
-   alto y se quedaba en 300 px: la cara de la web era un sello. En dos columnas
-   cada uno tiene el suyo, el video puede ocupar casi todo el alto util y el
-   titular gana la lectura en bandera que pide una portada.
-   ============================================================ */
-.portada-texto{
-  display:flex; flex-direction:column; align-items:center;
-  gap:clamp(10px,1.7vh,22px);
-}
-@media (min-width:901px){
-  #portada{
-    flex-direction:row;
-    align-items:center; justify-content:center;
-    gap:clamp(32px,5vw,80px);
-    text-align:left;
-    padding-left:clamp(36px,6vw,96px);
-    padding-right:clamp(36px,6vw,96px);
-  }
-  #portada .portada-texto{
-    align-items:flex-start;
-    flex:1 1 auto; max-width:min(52ch,52%);
-  }
-  #portada .portada-media{flex:0 0 auto}
-  #portada h1.titular{max-width:12ch}
-  #portada .apoyo{max-width:36ch}
-  /* Sin el boton debajo, el alto libre es todo suyo. */
-  #portada .video{height:min(74svh,660px)}
 }
 
 /* ============================================================
@@ -1343,9 +1249,27 @@ h2.titular.grande{
   align-items:start;
 }
 @media (min-width:901px){
-  /* La lista centrada junto al video: con tres viñetas es mas corta que el
-     video, y arriba dejaria un hueco debajo del texto. */
-  .detalle-cuerpo{grid-template-columns:minmax(0,1fr) auto; align-items:center}
+  /* El cuerpo ocupa todo el alto que sobra del bloque (flex:1): asi, aunque un
+     bloque sea mas bajo que el otro, el video queda pegado abajo y los dos
+     videos coinciden. La lista va centrada junto al video; el selector de
+     idioma de Ametller sube por encima del suyo sin mover el video. */
+  .detalle-cuerpo{grid-template-columns:minmax(0,1fr) auto; flex:1}
+  .detalle-cuerpo .detalle-lista{align-self:center}
+  .detalle-media{align-self:end}
+}
+/* Los dos videos de los bloques (el Short de YouTube de Arbitrade y el MP4 de
+   Ametller) comparten tamaño. 190 px a 1280: con ese ancho el bloque de Ametller
+   mide lo mismo que el de Arbitrade sin estirar; si lo cambias, o cambias el
+   numero de viñetas, vuelve a comparar las alturas naturales de los dos.
+   Especificidad mayor que .video.vertical, que le pone un alto en svh pensado
+   para la columna de medios de otras pantallas. */
+.modelo-detalle .video{
+  width:clamp(170px,15vw,190px); height:auto; aspect-ratio:9/16;
+  box-shadow:var(--sombra-m); border-radius:16px;
+}
+@media (max-width:900px){
+  .detalle-media{justify-self:center}
+  .modelo-detalle .video{width:min(240px,64vw)}
 }
 
 /* --- El video con selector de idioma ---
@@ -1357,17 +1281,14 @@ h2.titular.grande{
    cambio, va en el HTML y se reproduce igual. */
 .video-modelo .idiomas{display:none}
 .app-ok .video-modelo .idiomas{display:inline-flex}
-/* 190 px a 1280: con ese ancho el bloque de Ametller mide lo mismo que el de
-   Arbitrade sin estirar. Si cambias el tamaño del video o el numero de viñetas
-   de un bloque, vuelve a comparar las alturas naturales de los dos. */
-.video-modelo-player{
-  display:block; width:clamp(170px,15vw,190px); aspect-ratio:9/16;
-  border-radius:16px; background:#000; object-fit:contain;
-  box-shadow:var(--sombra-m);
-}
-@media (max-width:900px){
-  .video-modelo-player{width:min(240px,64vw)}
-}
+/* El <video> rellena su .video (que es el que lleva el tamaño, el radio y la
+   sombra: ver ".modelo-detalle .video"). */
+.video-modelo-player{display:block; width:100%; height:100%; object-fit:contain; background:#000}
+/* El play de encima solo existe con el script vivo (si no, taparia los
+   controles nativos sin hacer nada) y se va en cuanto el video arranca. */
+.video-modelo .video .play{display:none}
+.app-ok .video-modelo .video:not(.reproduciendo) .play{display:grid}
+.video-modelo .video.reproduciendo{cursor:default}
 .idiomas{
   display:inline-flex; gap:2px; padding:3px;
   background:#fff; border:1px solid var(--cream-200); border-radius:999px;
