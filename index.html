@@ -217,26 +217,14 @@
              data-idioma y la clave es la de "videos" en datos.js; app.js retira
              el idioma que no tenga vídeo y, sin ninguno, el bloque entero.
              Sin clase .entra: este panel puede estar oculto. -->
-        <!-- Es una tarjeta con la portada del vídeo. El botón de "Míralo en
-             vídeo" es el único control de la tarjeta y su ::after la cubre
-             entera, así que se puede pulsar en cualquier punto; el selector de
-             idioma va por encima. La miniatura es decorativa (aria-hidden).
-             La portada es la misma de datos.js: si cambias una, cambia la otra. -->
         <div class="video-modelo" data-video-modelo>
-          <span class="miniatura" aria-hidden="true">
-            <img src="assets/img/poster-ametller-origen.jpg" width="540" height="960" loading="lazy" decoding="async" alt="">
-            <span class="miniatura-play">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
-            </span>
-            <span class="miniatura-duracion" data-duracion></span>
-          </span>
-          <div class="video-modelo-texto">
-            <button class="video-modelo-titulo" type="button" data-ver-video
-                    aria-label="Ver el vídeo del modelo Ametller Origen">Míralo en vídeo</button>
-            <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
-              <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
-              <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
-            </div>
+          <button class="btn btn-primario" type="button" data-ver-video>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+            Ver el vídeo
+          </button>
+          <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
+            <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
+            <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
           </div>
         </div>
         <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion="ametller">

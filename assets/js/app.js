@@ -325,9 +325,6 @@
       opciones.forEach(function (b) {
         b.setAttribute("aria-pressed", b.getAttribute("data-idioma") === clave ? "true" : "false");
       });
-      /* La duración de la etiqueta de la miniatura sale de datos.js; sin ella la
-         etiqueta se queda vacía y el CSS la oculta (:empty). */
-      $$("[data-duracion]", bloque).forEach(function (el) { texto(el, V[clave].duracion || ""); });
     }
     opciones.forEach(function (b) {
       b.addEventListener("click", function () { elegir(b.getAttribute("data-idioma")); });
