@@ -91,25 +91,19 @@ window.SMARTSHOP = {
   },
 
 
-  /* ---------- La foto de "Qué hay dentro", una por modelo ----------
-     La clave se corresponde con el id del panel sin el prefijo "panel-", que
-     es el mismo vocabulario que usan data-presentacion y presentaciones.
-     Si un modelo no tiene entrada, se queda la que hubiera puesta en el HTML. */
+  /* ---------- La foto de cada modelo ----------
+     La clave se corresponde con el data-foto-modelo de la tarjeta, que es el
+     mismo vocabulario que usan data-presentacion y presentaciones. Si un modelo
+     no tiene entrada, se queda la que hubiera puesta en el HTML. La foto se
+     recorta a 2:1 en la tarjeta: las dos actuales miden 2,2 y 2,3. */
   fotosModelo: {
     autogestion: {
       src: "assets/img/gama-productos.jpg",
-      alt: "Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.",
-      hueco: true
+      alt: "Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos."
     },
     ametller: {
       src: "assets/img/gama-ametller.jpg",
-      alt: "Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras, un tomate y un gazpacho embotellado.",
-      /* La foto está compuesta con el producto a la izquierda y el fondo vacío
-         a la derecha. Con hueco:true, en escritorio ocupa el rectángulo entero
-         y el texto se coloca encima de esa zona vacía, en vez de ir en una
-         columna al lado. Ponlo solo en fotos compuestas así: en un bodegón
-         centrado el texto caeria encima del producto. */
-      hueco: true
+      alt: "Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras, un tomate y un gazpacho embotellado."
     }
   },
 

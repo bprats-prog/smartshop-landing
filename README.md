@@ -55,7 +55,7 @@ Casi todo está en **`assets/js/datos.js`**. No hace falta abrir el HTML para:
   portada (con `null` se dibuja el rótulo de marca).
   Una entrada lleva `id` (YouTube) **o** `src` (un archivo de `assets/video/`),
   nunca las dos. Los del modelo Ametller Origen son de `src` y sus claves, `es`
-  y `ca`, son las del selector de idioma del panel de Ametller. Para cambiar
+  y `ca`, son las del selector de idioma del bloque de Ametller. Para cambiar
   uno, sustituye el MP4 (ver «Los vídeos de Ametller Origen») y, si cambia su
   forma o su duración, nada más: el visor se adapta solo.
 - **Cambiar una foto** → bloque `galeria`: cada entrada es una ruta `src` y su
@@ -64,67 +64,93 @@ Casi todo está en **`assets/js/datos.js`**. No hace falta abrir el HTML para:
 
 Los textos de las secciones sí están en el HTML, con un comentario por bloque
 para localizarlos rápido. Eso incluye las características de cada modelo de
-surtido: viven en la pantalla `QUÉ HAY DENTRO` de `index.html`, un panel por
-modelo.
+surtido: viven en la pantalla `LOS DOS MODELOS` de `index.html`, una tarjeta y
+un bloque por modelo.
 
 ## Los dos modelos de surtido
 
 Los dos modelos con los que se trabaja —el **Arbitrade** (clave interna
-`autogestion`) y el **Ametller**— se comparan en un selector de dos pestañas
-que vive en la **pantalla 3 del recorrido**, "Dos modelos. La misma gestión.",
-junto a la foto del surtido.
+`autogestion`) y el **Ametller Origen**— se presentan a la vez en la **pantalla 3
+del recorrido**, "Dos modelos. La misma gestión.". Cada uno tiene dos piezas:
+
+- Una **tarjeta** (`.modelo-tarjeta`) con su foto y dos líneas de resumen.
+- Debajo, un **bloque** (`.modelo-detalle`) que desarrolla el modelo con una
+  lista (`.detalle-lista`) y el botón de su presentación. El de Ametller lleva
+  además el vídeo, con el selector de idioma.
+
 El equipo, la instalación y todo lo que incluye el servicio son idénticos: lo
 único que cambia es el surtido, y así se dice.
 
+**No hay pestañas: los dos modelos se ven a la vez**, para poder compararlos sin
+pulsar nada. Antes eran un selector de dos pestañas que mostraba un panel cada
+vez, y el vídeo de Ametller quedaba escondido tras la pestaña que no se abría
+por defecto.
+
 **Están en la home a propósito, y conviene no moverlos de ahí.** Antes vivían
-en `como-se-contrata.html`, y para verlos había que cambiar de página. Además
-el surtido se contaba dos veces: "¿Qué puedo encontrar dentro?" en el recorrido
-y "Elige el surtido" en la otra página. Al fusionarlos, el selector queda en el
-camino que recorre todo el mundo y el contenido deja de estar en dos sitios. En
-`como-se-contrata.html` queda un bloque puente que conserva el `id="modelos"`,
-porque hay enlaces con ese fragmento circulando por WhatsApp.
+en `como-se-contrata.html`, y para verlos había que cambiar de página. Hoy esa
+página solo redirige: quien traiga el fragmento `#modelos` (hay enlaces con él
+circulando por WhatsApp) aterriza en `index.html#productos`.
 
-**Esa pantalla va al límite de alto y hay que tratarla con cuidado.** Mide
-exactamente 100svh con los dos paneles: 812 px en un móvil estándar y 667 en un
-iPhone SE, sin un píxel de sobra. Por eso:
+**La rejilla.** En escritorio (≥ 901 px) son dos columnas, cada tarjeta sobre su
+bloque: `.modelos-duo` coloca los cuatro elementos con `grid-template-areas`, y
+las áreas están asignadas por `id` (`#modelo-arbitrade`, `#detalle-arbitrade`…).
+En móvil es una sola columna con el orden del HTML —tarjeta A, bloque A,
+tarjeta B, bloque B—, que es el que une a cada modelo con su desarrollo. Por eso
+el HTML está escrito en ese orden y no "todas las tarjetas y luego todos los
+bloques".
 
-- Cada panel lleva una lista `.puntos` de tres líneas, no tarjetas: una
-  `.tarjeta` ocupa unos 108 px y un punto unos 38.
-- El `.panel-nombre` se esconde cuando hay JavaScript (`.js .pantalla
-  .panel-nombre`): ya lo dice la pestaña activa. Sin JS reaparece, que es
-  cuando hace falta para distinguir los dos paneles apilados.
-- La foto se encoge **por ancho**, nunca por alto: la caja mantiene la
-  proporción 1400/869 de la imagen y así no se recorta ningún producto.
-- Si añades una línea, mide antes de subirlo. Cualquier texto que pase de una
-  línea a dos cuesta unos 20 px y saca el botón de la presentación fuera de
-  la pantalla.
+**Es una pantalla alta a propósito.** Mide unos 1350 px a 1280×800 y unos
+2400 px en un móvil de 375×812: no se intenta que quepa en 100svh. El recorrido
+ya trata las pantallas más altas que el viewport (con teclado, las flechas y el
+espacio dejan de saltar de pantalla; con el dedo es scroll libre). Como nada
+está oculto, **ya no hay restricción sobre dónde poner `.entra`**.
 
-**Nada con clase `.entra` dentro de un `.panel`.** Un panel oculto no interseca
-nunca, así que el observador que revela las animaciones no llegaría a mostrarlo
-y quedaría invisible para siempre. La clase va en el envoltorio `.modelos`.
+- Las listas del bloque son `.detalle-lista` y **no** `.puntos`. `.puntos` está
+  pensada para pantallas apretadas y varias reglas de alto la encogen (12,5 px
+  en móviles bajos); aquí no hay límite de alto y no debe heredarlas.
+- La foto de cada tarjeta se recorta a 2:1 (las dos actuales miden 2,2 y 2,3).
+  Se cambia en `fotosModelo` de `datos.js`, con la misma clave que
+  `data-foto-modelo` en el HTML (`autogestion`, `ametller`). Sin entrada en
+  `datos.js` se queda la que lleva el HTML.
+- Cada modelo tiene su acento: naranja el Arbitrade y verde el Ametller
+  (`--ac`, que pinta la rayita bajo el nombre y los puntos de la lista).
+- El botón de la presentación va siempre al final del bloque (`margin-top:auto`),
+  así los dos quedan a la misma altura aunque un bloque lleve más contenido.
+
+**El copy de los bloques sale de las presentaciones, pero es un primer
+borrador.** Las líneas de los bloques desarrollan lo que ya decían las viñetas
+con datos de los decks (más de 30 variedades, 24 horas, planograma conjunto…).
+No lleva ningún precio, ni la tarifa de Ametller ni los precios de producto: ver
+«La web no publica precios». Se edita directamente en `index.html`.
 
 **Las dos URLs de `presentaciones` son provisionales.** Hoy apuntan al deck
 general de Empresas y al de Ametller Origen, pero los definitivos de cada
 modelo están pendientes. Cuando lleguen, se cambian en `datos.js` y no hay que
 tocar nada más.
 
-Para añadir un tercer modelo: duplica una pestaña y su panel en el HTML
-(cuidando que `aria-controls` y `aria-labelledby` se apunten entre sí) y añade
-su entrada en `presentaciones`. El script no lleva la lista de modelos: recorre
-las pestañas y los paneles que encuentre, en orden. Con tres modelos la
-pantalla ya no cabrá: habrá que quitar la foto o mover el selector.
+Para añadir un tercer modelo: duplica una tarjeta y su bloque en el HTML, ponles
+`id` nuevos y ajusta `.modelos-duo` (las áreas del grid están puestas a mano
+para dos modelos), y añade su entrada en `presentaciones` y en `fotosModelo`.
 
-Sin JavaScript los dos paneles se muestran uno tras otro, cada uno con su
-nombre visible. El CSS solo esconde el panel inactivo cuando el script ha
-cargado (clase `js` en `<html>`), así que no hay forma de que quede un panel en
-blanco.
+Sin JavaScript se ve todo: no hay nada oculto. Lo único que desaparece es el
+selector de idioma del vídeo, que sin script no cambiaría nada; el vídeo sigue
+ahí, en español y con sus controles.
 
 ## Los vídeos de Ametller Origen
 
-El panel «Modelo Ametller Origen» de la pantalla *Gama y modelos* tiene un botón
-**Ver el vídeo** y un selector **Español | Català**. Abre el visor a pantalla
-completa con la versión elegida. Son la misma pieza (37 s, vertical 9:16) en dos
-idiomas, y viven en `assets/video/`:
+El bloque de «Modelo Ametller Origen», en la pantalla *Gama y modelos*, lleva el
+vídeo con un selector **Español | Català**. Son la misma pieza (37 s, vertical
+9:16) en dos idiomas, y viven en `assets/video/`.
+
+El `<video>` va escrito en el HTML con el español, así que se reproduce aunque no
+cargue el script, y lleva `preload="none"` y su portada. `app.js` (`videoModelo`)
+añade el selector: cada botón (`data-idioma`) cambia el archivo por el de
+`datos.js` (claves `es` y `ca` de `videos`). Si el vídeo estaba sonando al
+cambiar de idioma, el nuevo arranca solo desde el principio; si estaba parado,
+se queda parado en su portada. La portada del HTML y la de `datos.js` son la
+misma: si cambias una, cambia la otra.
+
+Los archivos:
 
 - `ametller-origen-es.mp4` — versión con música y sin subtítulos.
 - `ametller-origen-ca.mp4` — versión con música y sin subtítulos.
@@ -176,16 +202,14 @@ castigue una conexión móvil.
   conserva porque es la única foto con una persona dentro y es la mejor
   candidata a miniatura al compartir el enlace.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
-- `gama-ametller.jpg` — el surtido del modelo Ametller Origen, que sustituye al
-  bodegón cuando se elige esa pestaña. Es una **fotografía real** de producto,
-  no una imagen generada. Recortada 34 px por arriba para que comparta la
-  proporción exacta del otro bodegón: así la pantalla no cambia de alto al
-  cambiar de modelo, que es lo que la sacaría del viewport.
-- `gama-productos.jpg` — el bodegón de "¿Qué hay dentro?". Está
+- `gama-ametller.jpg` — el surtido del modelo Ametller Origen, en su tarjeta.
+  Es una **fotografía real** de producto, no una imagen generada. La tarjeta la
+  recorta a 2:1, así que pierde un poco por los lados; el producto está en el
+  centro y a la izquierda, y no se toca.
+- `gama-productos.jpg` — el bodegón de la tarjeta del modelo Arbitrade. Está
   recortado para dejar la cerveza fuera de cuadro; con ella se van también el
   agua y la Coca-Cola que había a su derecha, así que la sección no muestra
-  ninguna bebida. La caja respeta la proporción exacta de la foto, de modo que
-  no se recorta nada al mostrarla. El original venía a 959 px de ancho:
+  ninguna bebida. La tarjeta la recorta a 2:1, un poco por los lados. El original venía a 959 px de ancho:
   suficiente para el tamaño al que se ve, pero si aparece la versión de estudio
   en alta, conviene sustituirlo.
 - `pv-desbloqueo-movil`, `pv-lector-pantalla`, `pv-fila-smartshops` y
@@ -249,22 +273,24 @@ sensación de pase de diapositivas.
   `.visor-video`, y en escritorio se incrusta en su sitio. El corte está en
   820 px. Al cerrar se **destruye el iframe** (o el `<video>`), no se esconde:
   si solo se oculta, el vídeo sigue sonando por detrás. Los vídeos de Ametller
-  Origen abren siempre ese visor, también en escritorio: no tienen un recuadro
-  que sustituir por el reproductor y un vídeo vertical necesita la pantalla.
+  Origen no pasan por ese visor: son un `<video>` dentro de su bloque, con los
+  controles nativos del navegador.
 - **El visor de vídeo fija su fila de grid** (`grid-template: minmax(0,1fr)`).
-  No lo quites: sin ello, un `<video>` aporta su tamaño intrínseco (720×1280) al
-  cálculo del grid y se sale de la ventana. Con iframe no pasaba, porque un
-  iframe no tiene tamaño intrínseco, y por eso solo se notó al llegar el primer
-  vídeo propio.
-- **Los botones de vídeo del panel de Ametller solo existen con el script
-  vivo** (`app-ok`). Sin JS no harían nada, y la web no deja controles muertos.
+  No lo quites: sin ello, un `<video>` abierto en el visor aporta su tamaño
+  intrínseco al cálculo del grid y se sale de la ventana (un iframe no tiene
+  tamaño intrínseco y por eso nunca pasó). Hoy ningún vídeo abre el visor con un
+  `<video>`, pero `marcoDeVideo` lo sigue soportando para las entradas de
+  `datos.js` con `src` que se asocien a un `data-video`.
+- **El selector de idioma del vídeo solo existe con el script vivo**
+  (`app-ok`). Sin JS no cambiaría nada, y la web no deja controles muertos; el
+  `<video>` sí va en el HTML y se reproduce igual.
 - **El texto de móvil es deliberadamente grande y corto.** El bloque
   "TIPOGRAFÍA EN MÓVIL" del final del CSS sube los tamaños, y lo que lo paga es
   el recorte de los párrafos. Si vuelves a alargar un texto, mide: las ocho
   pantallas caben hoy al píxel en 375×812 y en 375×667.
 - **El contenido es visible aunque `app.js` no llegue.** El script del `<head>`
-  pone dos clases: `js`, que gobierna la degradación del selector de modelos, y
-  `anim`, que activa las animaciones de entrada. Si `app.js` no confirma que ha
+  pone dos clases: `js` y `anim`, que juntas activan las animaciones de entrada
+  (`.js.anim .entra`). Si `app.js` no confirma que ha
   arrancado —añade `app-ok`— ese mismo script retira `anim` a los tres segundos
   y el contenido aparece sin animar. No toques ese bloque: sin él, un 404 o un
   proxy corporativo dejan la web en blanco, porque quien revela los `.entra` es

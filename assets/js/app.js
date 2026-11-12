@@ -122,15 +122,16 @@
       if ($(".visor.abierto")) { return; }
       var t = e.target.tagName;
       if (t === "INPUT" || t === "TEXTAREA") { return; }
-      /* El espacio activa el elemento enfocado. Desde que las pestañas de los
-         modelos viven dentro del recorrido, capturarlo aqui haria avanzar de
-         pantalla en vez de cambiar de panel. Solo se exime el espacio: si se
+      /* El espacio activa el elemento enfocado: sobre un boton (el selector de
+         idioma del video, por ejemplo), capturarlo aqui haria avanzar de
+         pantalla en vez de pulsarlo. Solo se exime el espacio: si se
          eximiera cualquier tecla, tras pulsar una flecha .avanzar con el raton
          el foco se quedaria ahi y la flecha abajo dejaria de funcionar. */
       if (e.key === " " && (t === "BUTTON" || t === "A")) { return; }
-      /* Las pestañas de los modelos gobiernan sus propias flechas, y Home/End
-         mueven entre pestañas: capturarlas aqui sacaba al usuario del selector. */
-      if (e.target.closest && e.target.closest('[role="tablist"]')) { return; }
+      /* Un <video> con controles gobierna sus propias teclas: el espacio lo
+         pone y lo para, y las flechas avanzan y retroceden. Si se capturaran
+         aqui, un espacio sobre el video saltaria a la pantalla siguiente. */
+      if (t === "VIDEO") { return; }
       /* Si la pantalla no cabe entera —a zoom 200 %, o en un movil bajo— el
          scroll nativo es la unica forma de leer su mitad inferior. Secuestrar
          las flechas ahi deja contenido inalcanzable con teclado. */
@@ -297,41 +298,55 @@
   }
 
   /* ---------- Vídeo del modelo Ametller Origen ----------
-     Un selector de idioma (data-idiomas, con un data-idioma por botón) y un
-     botón (data-ver-video) que abre el visor con el vídeo elegido. Las claves
-     de data-idioma son las de D.videos. Un idioma sin vídeo configurado se
-     retira, y sin ninguno desaparece el bloque entero (data-video-modelo), como
-     los botones de presentación sin URL: nunca queda un control muerto.
-     Abre el visor tambien en escritorio: aqui no hay un recuadro que
-     sustituir por el reproductor, y un vídeo vertical necesita pantalla. */
+     El <video> va escrito en el HTML con el español (se reproduce aunque no
+     cargue el script) y aqui se le añade el selector de idioma: cada boton
+     (data-idioma) cambia el archivo por el de datos.js. Las claves de
+     data-idioma son las de D.videos, y solo valen las entradas con "src". Un
+     idioma sin video configurado se retira, y sin ninguno desaparece el bloque
+     entero (data-video-modelo), como los botones de presentacion sin URL: nunca
+     queda un control muerto.
+     Si se esta reproduciendo al cambiar de idioma, el nuevo arranca solo: el
+     clic en el selector es un gesto del usuario, asi que el navegador lo deja
+     sonar. Si estaba parado, queda parado en su portada. */
   function videoModelo() {
     var bloque = $("[data-video-modelo]");
     if (!bloque) { return; }
     var grupo = $("[data-idiomas]", bloque);
-    var boton = $("[data-ver-video]", bloque);
+    var player = $("[data-video-player]", bloque);
     var V = D.videos || {};
-    if (!grupo || !boton) { return; }
+    if (!grupo || !player) { return; }
 
     var opciones = $$("[data-idioma]", grupo).filter(function (b) {
-      var hay = !!V[b.getAttribute("data-idioma")];
+      var v = V[b.getAttribute("data-idioma")];
+      var hay = !!(v && v.src);
       if (!hay) { b.remove(); }
       return hay;
     });
     if (!opciones.length) { bloque.remove(); return; }
 
-    var actual = opciones[0].getAttribute("data-idioma");
     function elegir(clave) {
-      actual = clave;
+      var v = V[clave];
       opciones.forEach(function (b) {
         b.setAttribute("aria-pressed", b.getAttribute("data-idioma") === clave ? "true" : "false");
       });
+      if (player.getAttribute("src") === v.src) { return; }
+      var sonaba = !player.paused && !player.ended;
+      player.pause();
+      player.setAttribute("src", v.src);
+      if (v.poster) { player.setAttribute("poster", v.poster); }
+      if (v.titulo) { player.setAttribute("aria-label", v.titulo); }
+      /* preload="none": load() vuelve a la portada y no descarga nada hasta
+         que se le da a reproducir. */
+      player.load();
+      if (sonaba) {
+        var p = player.play();
+        if (p && p.catch) { p.catch(function () {}); }
+      }
     }
     opciones.forEach(function (b) {
       b.addEventListener("click", function () { elegir(b.getAttribute("data-idioma")); });
     });
-    elegir(actual);
-
-    boton.addEventListener("click", function () { abrirVisorVideo(V[actual], boton); });
+    elegir(opciones[0].getAttribute("data-idioma"));
   }
 
   /* ---------- Visor de presentaciones ---------- */
@@ -547,8 +562,8 @@
       if ($(".visor.abierto")) { return; }
       var t = e.target.tagName;
       if (t === "INPUT" || t === "TEXTAREA") { return; }
-      /* Las pestañas de los modelos gobiernan sus propias izquierda y derecha. */
-      if (e.target.closest && e.target.closest('[role="tablist"]')) { return; }
+      /* Un <video> usa izquierda y derecha para avanzar y retroceder. */
+      if (t === "VIDEO") { return; }
       if (!aLaVista()) { return; }
       e.preventDefault();
       irA(indice + (e.key === "ArrowRight" ? 1 : -1));
@@ -612,78 +627,21 @@
 
 
   /* ========================================================
-     6. Los dos modelos de surtido: pestañas
+     6. Los dos modelos: fotos
      ======================================================== */
-  /* Sin JS los dos paneles se ven uno tras otro, cada uno con su nombre: el
-     CSS solo esconde el inactivo cuando hay script (clase .js en <html>). */
-  function modelos() {
-    /* Recorre todas las cajas, no solo la primera: si alguna vez hay dos
-       selectores en la misma pagina, con querySelector el segundo se quedaria
-       en blanco (el CSS esconde los paneles inactivos en cuanto hay JS). */
-    $$("[data-modelos]").forEach(montarSelector);
-  }
-
-  /* La foto que acompaña al selector cambia con el modelo elegido. La clave
-     sale del id del panel sin el prefijo "panel-", que es el mismo vocabulario
-     de data-presentacion y de presentaciones: asi no hay una lista de modelos
+  /* Cada tarjeta lleva en el HTML su foto por defecto (para que se vea sin JS)
+     y datos.js puede sustituirla. La clave de data-foto-modelo es la misma que
+     usan data-presentacion y "presentaciones": asi no hay una lista de modelos
      repartida por el codigo. Sin entrada en datos.js se queda la del HTML. */
-  function pintarFotoDelModelo(caja, panel) {
-    var seccion = caja.closest ? caja.closest("section") : null;
-    var fig = seccion && $("[data-foto-modelo]", seccion);
-    if (!fig || !panel) { return; }
-    var clave = (panel.id || "").replace(/^panel-/, "");
-    var foto = (D.fotosModelo || {})[clave];
-    var img = $("img", fig);
-    if (!foto || !foto.src || !img) { return; }
-    if (img.getAttribute("src") !== foto.src) { img.src = foto.src; }
-    img.alt = foto.alt || "";
-    /* El fondo de la tarjeta es la propia foto, ampliada y desenfocada: asi el
-       rectangulo continua el fondo del bodegon en vez de imponerle un color.
-       Se pasa por variable y no por regla fija porque cambia con el modelo, y
-       desde aqui y no desde el CSS porque la ruta de datos.js es relativa al
-       documento (y es la que reescribe el script de empaquetado). */
-    var tarjeta = fig.closest && fig.closest(".gama");
-    if (tarjeta) {
-      tarjeta.style.setProperty("--gama-foto", 'url("' + foto.src + '")');
-      /* Fotos compuestas con el producto a un lado y el fondo libre al otro:
-         en escritorio la foto pasa a ocupar el rectangulo entero y el texto se
-         coloca sobre esa zona vacia. Lo declara datos.js, no el CSS, porque
-         depende de la foto que haya puesta. */
-      tarjeta.classList.toggle("con-hueco", !!foto.hueco);
-    }
-  }
-
-  function montarSelector(caja) {
-    var pestanas = $$(".pestana", caja);
-    var paneles  = $$(".panel", caja);
-    if (!pestanas.length || pestanas.length !== paneles.length) { return; }
-
-    function activar(i, moverFoco) {
-      pestanas.forEach(function (p, n) {
-        var elegida = n === i;
-        p.setAttribute("aria-selected", elegida ? "true" : "false");
-        /* Solo la pestaña activa entra en el tabulador: el panel es el
-           siguiente destino natural, no la otra pestaña. */
-        p.tabIndex = elegida ? 0 : -1;
-        paneles[n].classList.toggle("activo", elegida);
-      });
-      pintarFotoDelModelo(caja, paneles[i]);
-      if (moverFoco) { pestanas[i].focus(); }
-    }
-
-    pestanas.forEach(function (pestana, i) {
-      pestana.addEventListener("click", function () { activar(i, false); });
-      pestana.addEventListener("keydown", function (e) {
-        var salto = 0;
-        if (e.key === "ArrowRight") { salto = 1; }
-        else if (e.key === "ArrowLeft") { salto = -1; }
-        if (!salto) { return; }
-        e.preventDefault();
-        activar((i + salto + pestanas.length) % pestanas.length, true);
-      });
+  function fotosModelo() {
+    var F = D.fotosModelo || {};
+    $$("[data-foto-modelo]").forEach(function (fig) {
+      var f = F[fig.getAttribute("data-foto-modelo")];
+      var img = $("img", fig);
+      if (!f || !f.src || !img) { return; }
+      if (img.getAttribute("src") !== f.src) { img.src = f.src; }
+      if (f.alt) { img.alt = f.alt; }
     });
-
-    activar(0, false);
   }
 
   /* ---------- Arranque ---------- */
@@ -701,7 +659,7 @@
     visor();
     visorVideo();
     visorDoc();
-    modelos();
+    fotosModelo();
   }
 
   if (document.readyState === "loading") {

@@ -250,87 +250,6 @@ h2.titular{
 .ac-cafe{--ac:var(--cafe); --ac-d:var(--cafe-d)}
 .ac-amarillo{--ac:var(--amarillo); --ac-d:var(--cafe-d)}
 
-/* ============ SELECTOR DE MODELOS (pestanas) ============ */
-/* Compartido: vive en la pantalla del surtido del recorrido y puede
-   reutilizarse en la pagina larga. No lo metas bajo la cabecera de una
-   de las dos paginas o la otra se quedara sin estilos al limpiar. */
-.modelos{
-  width:min(1040px,94vw);
-  display:flex; flex-direction:column; align-items:center;
-  gap:clamp(16px,2.6vh,28px);
-}
-.pestanas{
-  display:inline-flex; gap:4px; padding:4px; max-width:100%;
-  background:#fff; border:1px solid var(--cream-200); border-radius:999px;
-  box-shadow:var(--sombra-s);
-}
-.pestana{
-  font-family:inherit; font-size:clamp(12.5px,1.3vw,15px); font-weight:700;
-  color:var(--ink); background:none; border:0; cursor:pointer;
-  padding:.7em 1.35em; border-radius:999px; min-height:44px; white-space:nowrap;
-  transition:background .2s, color .2s, box-shadow .2s;
-}
-.pestana[aria-selected="true"]{
-  background:linear-gradient(120deg,var(--naranja),var(--naranja-d));
-  color:#fff; box-shadow:0 10px 20px -12px rgba(199,45,7,.9);
-}
-@media (hover:hover){
-  .pestana:not([aria-selected="true"]):hover{background:var(--cream-100)}
-}
-
-.panel{
-  width:100%;
-  display:flex; flex-direction:column; align-items:center;
-  gap:clamp(12px,2vh,20px);
-}
-/* Sin JS los dos paneles se ven uno tras otro, cada uno con su nombre visible,
-   asi el contenido nunca depende del script. Con JS (clase .js en <html>) solo
-   se muestra el panel elegido, y desde el primer pintado: nada de parpadeo. */
-.js .panel{display:none}
-.js .panel.activo{display:flex}
-.panel:focus-visible{outline:2px solid var(--naranja); outline-offset:6px; border-radius:8px}
-
-/* ---- Vídeo del modelo: boton + selector de idioma ----
-   El selector va en tinta oscura y no en naranja: las pestanas de modelo ya son
-   naranja, y dos selectores del mismo color se leerian como el mismo control. */
-.video-modelo{
-  display:none; flex-wrap:wrap; align-items:center; justify-content:center;
-  gap:10px 12px;
-}
-/* Solo con el script vivo (app-ok, que pone iniciar()): sin JS los botones no
-   harian nada, y esta web no deja controles muertos. */
-.app-ok .video-modelo{display:flex}
-.idiomas{
-  display:inline-flex; gap:2px; padding:3px;
-  background:var(--cream-100); border:1px solid var(--cream-200); border-radius:999px;
-}
-.idiomas button{
-  font:inherit; font-size:clamp(12.5px,1.2vw,14px); font-weight:700; color:var(--ink);
-  background:none; border:0; border-radius:999px; cursor:pointer;
-  padding:.45em 1em; min-height:40px;
-  transition:background .2s, color .2s;
-}
-.idiomas button[aria-pressed="true"]{background:var(--ink); color:#fff}
-@media (hover:hover){
-  .idiomas button[aria-pressed="false"]:hover{background:#fff}
-}
-.idiomas button:focus-visible{outline:2px solid var(--naranja); outline-offset:2px}
-.panel-nombre{
-  font-family:"Fraunces",Georgia,serif; font-weight:600;
-  font-variation-settings:"opsz" 40;
-  font-size:clamp(18px,2.2vw,26px); margin:0; line-height:1.2;
-}
-.panel-resumen{
-  margin:0; max-width:56ch;
-  font-size:clamp(13.5px,1.4vw,16.5px); opacity:.7; line-height:1.5;
-}
-
-/* Dentro del recorrido el nombre del modelo sobra: ya lo dice la pestana
-   activa, y una pantalla mide 100svh. Se esconde solo cuando hay JS, que es
-   cuando las pestanas funcionan; sin JS vuelve a hacer falta para distinguir
-   los dos paneles apilados. */
-.js .pantalla .panel-nombre{display:none}
-
 /* ---- Los tres puntos de cada modelo ----
    Version compacta de las tarjetas: dentro de una pantalla del recorrido no
    hay alto para tres .tarjeta apiladas (unos 108 px cada una frente a 38). */
@@ -349,21 +268,6 @@ h2.titular{
   width:7px; height:7px; border-radius:50%; background:var(--naranja);
 }
 .puntos li b{color:var(--ink); font-weight:700}
-
-/* Esta pantalla lleva foto y selector a la vez, asi que el espaciado entre
-   bloques va mas apretado que en el resto del recorrido: si no, la flecha de
-   avance se come la nota del pie. */
-#productos{gap:clamp(10px,1.9vh,22px)}
-
-@media (max-width:520px){
-  /* Los dos nombres no caben en una fila: el selector pasa a dos columnas
-     iguales a todo el ancho en vez de desbordar la pantalla. */
-  .pestanas{
-    display:grid; grid-template-columns:1fr 1fr;
-    width:min(420px,94vw); border-radius:18px;
-  }
-  .pestana{padding:.7em .6em; white-space:normal}
-}
 
 /* ============ PASOS NUMERADOS ============ */
 .pasos{
@@ -569,14 +473,8 @@ h2.titular{
   .tarjeta{padding:11px 14px}
   .paso{padding:11px 14px}
   .apoyo{font-size:14px; line-height:1.45}
-  /* El selector convive con la foto de gama en una sola pantalla: aqui hay
-     que recuperar cada pixel o el boton de la presentacion se sale por abajo. */
-  #productos{gap:9px}
-  .pantalla .modelos{gap:10px}
-  .pantalla .panel{gap:11px}
   .pantalla .puntos{gap:4px}
   .pantalla .puntos li{font-size:12.5px; line-height:1.4}
-  .pantalla .pestana{min-height:40px; padding:.55em 1em}
 }
 
 /* ============================================================
@@ -611,18 +509,6 @@ h2.titular{
   object-fit:contain; margin:0 auto;
 }
 .duo .rejilla{width:100%}
-
-/* --- Banda apaisada (gama de productos) --- */
-/* --- Foto de gama: una sola pieza, dimensionada por alto para que la
-       pantalla mande sobre la imagen y no al reves. --- */
-.foto-gama{
-  height:clamp(200px,46svh,470px);
-  aspect-ratio:1400/869;
-  max-width:94vw; margin:0;
-  border-radius:var(--radio); overflow:hidden;
-  box-shadow:var(--sombra-m); border:1px solid var(--cream-100);
-}
-.foto-gama img{width:100%; height:100%; object-fit:cover}
 
 /* --- Miniatura dentro de cada paso --- */
 .paso .foto{
@@ -708,23 +594,6 @@ h2.titular{
   #que-es .duo-foto img{height:min(20svh,220px)}
 }
 
-@media (max-width:700px){
-  /* En pantalla estrecha el ancho es el recurso escaso: si se sigue mandando
-     por alto, el max-width recorta la foto por los lados y se comen productos.
-     Aqui manda el ancho y el alto lo deduce la proporcion. */
-  .foto-gama{height:auto; width:min(400px,78vw); max-width:none}
-}
-
-/* La foto comparte pantalla con el selector, asi que en moviles bajos cede
-   ancho. Se encoge por ancho y no por alto a proposito: la caja mantiene la
-   proporcion 1400/869 de la imagen y no se recorta ningun producto. */
-@media (max-width:700px) and (max-height:740px){
-  .foto-gama{width:min(300px,72vw)}
-}
-@media (min-width:701px) and (max-height:740px){
-  .foto-gama{height:clamp(150px,26svh,240px)}
-}
-
 @media (max-width:820px){
   /* Tres fotos apiladas suman mas de 1000 px: en un movil de 812 solo se veia
      una y media, y debajo del corte quedaba justo la prueba social. En tira
@@ -741,11 +610,6 @@ h2.titular{
     width:auto; max-width:none;
   }
 }
-
-/* La rejilla que ponia la foto y el selector uno al lado del otro vivia aqui,
-   sobre #productos, y dependia de que ambos fueran hijos directos. Desde que
-   comparten la tarjeta .gama, esa tarjeta hace el trabajo por su cuenta y a
-   cualquier alto, no solo por debajo de 940 px. Ver "LA TARJETA DE LA GAMA". */
 
 /* ============================================================
    PORTATILES BAJOS (1366x768 y similares)
@@ -770,9 +634,9 @@ h2.titular{
 
 /* ============================================================
    FOCO VISIBLE
-   Solo habia :focus-visible en .panel. El resto dependia del anillo por
-   defecto del navegador, que sobre el degradado naranja de las pestañas y de
-   los botones primarios es distinto en cada uno y a veces no se ve.
+   Antes solo habia :focus-visible en el panel de los modelos. El resto
+   dependia del anillo por defecto del navegador, que sobre el degradado
+   naranja de los botones primarios es distinto en cada uno y a veces no se ve.
    ============================================================ */
 :is(a,button,[tabindex]):focus-visible{
   outline:3px solid var(--naranja-d);
@@ -870,7 +734,6 @@ h2.titular.grande{
   .paso b{font-size:16.5px}
   .paso span{font-size:14.5px; line-height:1.45}
   .puntos li,.pantalla .puntos li{font-size:14.5px; line-height:1.4}
-  .panel-resumen{font-size:15px}
   .cinta{font-size:14px}
   .nota{font-size:11.5px; line-height:1.4}
   .aviso b{font-size:15.5px}
@@ -888,7 +751,6 @@ h2.titular.grande{
    encogerlo: son las dos pantallas que se pasaban al subir los tamanos. */
 @media (max-width:820px){
   #que-es .duo-foto img{height:min(15svh,150px)}
-  #productos .foto-gama{width:min(340px,68vw)}
 }
 
 /* La foto del lobby vuelve a la columna de medios de "Que aporta", donde
@@ -957,7 +819,6 @@ h2.titular.grande{
 #portada .video{height:clamp(255px,50svh,470px)}
 @media (max-width:820px){
   #como-funciona .pasos{gap:6px}
-  #productos .foto-gama{width:min(320px,64vw)}
 }
 
 /* La foto del paso debe RELLENAR la tarjeta, no marcar su alto. Con la imagen
@@ -974,7 +835,6 @@ h2.titular.grande{
   .paso{min-height:92px}
   #portada .video{height:clamp(190px,33svh,250px)}
   #portada{gap:9px}
-  #productos .foto-gama{width:min(280px,58vw)}
   #que-es .duo-foto img{height:min(13svh,120px)}
 }
 
@@ -1062,10 +922,7 @@ h2.titular.grande{
    utiles y estas tres pantallas se pasaban por poco. Solo aqui: a 667 y a 812
    ya estan ajustadas y no conviene tocarlas. */
 @media (max-width:820px) and (max-height:640px){
-  #productos{gap:7px}
-  #productos .foto-gama{width:min(190px,42vw)}
   .pantalla .puntos{gap:3px}
-  .pantalla .pestana{min-height:38px; padding:.45em .9em}
   #beneficios .rejilla{gap:7px}
   #beneficios .tarjeta{padding:8px 11px}
   #como-funciona .pasos{gap:5px}
@@ -1123,11 +980,7 @@ h2.titular.grande{
   .paso .texto{padding:12px 15px 12px 13px}
   .rejilla,.pasos,.galeria{gap:10px}
   #como-funciona .pasos{gap:10px}
-  .pantalla .modelos{gap:14px}
-  .pantalla .panel{gap:14px}
   .pantalla .puntos{gap:7px}
-  .pantalla .pestana{min-height:48px; padding:.7em 1.1em}
-  #productos{gap:clamp(16px,2.6vh,26px)}
   .cinta{font-size:15.5px}
 
   /* Las seis ventajas se apilaban en dos columnas de 11,5 px para que la
@@ -1145,7 +998,6 @@ h2.titular.grande{
   /* Imagenes: el alto ya no es un presupuesto cerrado */
   #portada .video{height:min(46svh,420px)}
   #que-es .duo-foto img{height:min(44svh,360px); max-width:80vw}
-  #productos .foto-gama{width:min(420px,82vw); height:auto}
   .galeria figure,.galeria .pieza{height:min(42svh,340px)}
 
   /* El cierre estaba apretado al limite para que el boton de llamada cupiera
@@ -1422,133 +1274,143 @@ h2.titular.grande{
 }
 
 /* ============================================================
-   LA TARJETA DE LA GAMA
-   La foto y el selector eran dos bloques sueltos sobre el fondo crema, con los
-   bullets pegados al borde de la imagen. Son la misma idea —esto es lo que hay
-   dentro, y cambia segun el modelo— asi que van dentro de un mismo rectangulo,
-   con la foto a un lado y el texto al otro, bien separados.
-   El rectangulo no es una tarjeta blanca: es el propio fondo del bodegon,
-   ampliado (ver .gama::before). Lo que las dos fotos si comparten es la
-   proporcion, 1,61, y de ahi el aspect-ratio fijo: al cambiar de modelo la
-   tarjeta no da un salto.
+   LOS DOS MODELOS
+   Dos tarjetas (foto y dos lineas) y, debajo de cada una, un bloque que
+   desarrolla el modelo; el de Ametller lleva el video con selector de idioma.
+   En escritorio van en dos columnas, cada tarjeta sobre su bloque. En movil,
+   una columna con el orden del DOM (tarjeta A, bloque A, tarjeta B, bloque B),
+   que es el que une a cada modelo con su desarrollo.
+   Es una pantalla alta a proposito: no se intenta que quepa en 100svh.
    ============================================================ */
-.gama{
-  position:relative; isolation:isolate;
-  width:min(1060px,94vw);
-  border-radius:var(--radio); overflow:hidden;
-  box-shadow:var(--sombra-m);
-  padding:clamp(15px,1.7vw,26px);
-  display:grid;
-  align-items:center;
+.modelos-duo{
+  width:min(1060px,94vw); text-align:left;
+  display:grid; grid-template-columns:minmax(0,1fr);
+  gap:clamp(12px,1.6vw,18px);
 }
-/* El fondo del rectangulo es la propia foto, ampliada y desenfocada. No es un
-   color plano porque no existe uno que valga: el bodegon de autogestion va de
-   EEE1C7 a C9B39C de izquierda a derecha y el de Ametller de EFE6DB a C4AC99,
-   los dos con vineteado. Cualquier color fijo empalmaria por un lado y cantaria
-   por el otro, y ademas habria que revisarlo cada vez que cambien una foto.
-   Asi el fondo es siempre el de la imagen que haya puesta, sea cual sea.
-   La escala evita que el desenfoque chupe el crema de fuera por los bordes. */
-.gama::before{
-  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:var(--gama-foto) center/cover no-repeat;
-  filter:blur(46px) saturate(1.15);
-  transform:scale(1.35);
-}
-.gama > *{position:relative; z-index:1}
-
-/* La foto pierde sombra y borde: la sombra ya la pone el rectangulo, y un
-   filete crema sobre el fondo del propio bodegon marcaria justo la costura que
-   se trata de disimular. */
-#productos .gama .foto-gama{
-  width:100%; max-width:none; height:auto;
-  aspect-ratio:1400/869;
-  box-shadow:none; border:0;
-  border-radius:calc(var(--radio) - 9px);
-}
-#productos .gama .modelos{width:auto; align-items:flex-start}
-#productos .gama .panel{align-items:flex-start}
-#productos .gama .puntos{width:100%}
-
-/* --- Legibilidad sobre el fondo teñido ---
-   Los bullets van a rgba(56,25,26,.68), pensado para blanco. Sobre la zona mas
-   oscura del fondo del bodegon (C9B39C en autogestion) eso da 4,03:1 y se queda
-   por debajo del 4,5 que pide la AA. A .84 sube a 5,7:1 y sigue leyendose como
-   texto secundario. La nota de "Imagenes orientativas" vive fuera del
-   rectangulo, sobre crema, y no se toca. */
-#productos .gama .puntos li{color:rgba(56,25,26,.84)}
-
 @media (min-width:901px){
-  .gama{
-    grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
-    column-gap:clamp(26px,3.4vw,52px);
+  .modelos-duo{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-areas:"ta tb" "da db";
+    column-gap:clamp(20px,2.6vw,36px);
+    row-gap:clamp(14px,1.6vw,20px);
   }
+  #modelo-arbitrade{grid-area:ta}
+  #detalle-arbitrade{grid-area:da}
+  #modelo-ametller{grid-area:tb}
+  #detalle-ametller{grid-area:db}
 }
-
 @media (max-width:900px){
-  .gama{
-    grid-template-columns:minmax(0,1fr);
-    row-gap:clamp(14px,2.2vh,20px);
-  }
-  #productos .gama .modelos{width:100%}
+  /* Mas aire entre un modelo y el siguiente que entre una tarjeta y su bloque:
+     asi se lee que el bloque pertenece a la tarjeta de encima. */
+  .modelo-detalle{margin-bottom:clamp(10px,3vw,22px)}
 }
 
-/* El minimo automatico de un elemento de rejilla es su tamano min-content, y
-   el de una figura con una imagen dentro es el ancho intrinseco de la imagen.
-   Con la columna declarada como 1fr a secas, ese minimo ensanchaba el carril y
-   la foto se salia 14 px de la tarjeta en movil. En escritorio no pasaba porque
-   ahi las columnas ya iban con minmax(0,...). */
-.gama > *{min-width:0}
+/* El color de cada modelo: el naranja de la marca y el verde de la paleta. */
+#modelo-arbitrade,#detalle-arbitrade{--ac:var(--naranja)}
+#modelo-ametller,#detalle-ametller{--ac:var(--verde)}
 
-/* ============================================================
-   VARIANTE CON HUECO: LA FOTO OCUPA EL RECTANGULO ENTERO
-   La foto de Ametller esta compuesta a proposito con el producto en el tercio
-   izquierdo y el fondo libre a la derecha. En vez de meterla en una columna y
-   desaprovechar ese hueco, ocupa el rectangulo completo y el texto se coloca
-   encima de la zona vacia. Lo activa datos.js con hueco:true, no el CSS, porque
-   depende de como este compuesta cada foto: en un bodegon centrado —el de
-   autogestion— el texto caeria sobre el producto, y por eso ese modelo mantiene
-   la foto en su columna.
-   Solo en escritorio: en un movil no hay ancho para poner texto al lado de nada.
-   ============================================================ */
+/* --- La tarjeta --- */
+.modelo-tarjeta{
+  display:flex; flex-direction:column;
+  background:#fff; border:1px solid var(--cream-100); border-radius:var(--radio);
+  box-shadow:var(--sombra-m); overflow:hidden;
+}
+/* 2:1, casi la proporcion de las dos fotos (2,2 y 2,3): se recorta un poco por
+   los lados y nada por arriba ni por abajo, que es donde esta el producto. */
+.modelo-foto{margin:0; aspect-ratio:2/1; background:var(--cream-100)}
+.modelo-foto img{width:100%; height:100%; object-fit:cover; display:block}
+.modelo-texto{
+  display:flex; flex-direction:column; gap:6px;
+  padding:clamp(14px,1.8vw,22px) clamp(16px,2vw,26px) clamp(16px,2vw,26px);
+}
+.modelo-nombre{
+  margin:0; font-family:"Fraunces",Georgia,serif; font-weight:600;
+  font-variation-settings:"opsz" 40;
+  font-size:clamp(20px,2.2vw,26px); line-height:1.15;
+}
+.modelo-nombre::after{
+  content:""; display:block; width:38px; height:3px; border-radius:2px;
+  background:var(--ac); margin-top:8px;
+}
+.modelo-resumen{
+  margin:0; font-size:clamp(14px,1.35vw,16px); line-height:1.5;
+  color:rgba(56,25,26,.72);
+}
+
+/* --- El bloque que desarrolla el modelo --- */
+.modelo-detalle{
+  display:flex; flex-direction:column; align-items:flex-start;
+  gap:clamp(12px,1.5vw,18px);
+  background:var(--cream-100); border:1px solid var(--cream-200); border-radius:var(--radio);
+  padding:clamp(16px,2vw,26px);
+}
+.modelo-detalle h4{
+  margin:0; font-family:"Fraunces",Georgia,serif; font-weight:600;
+  font-variation-settings:"opsz" 40;
+  font-size:clamp(17px,1.7vw,21px); line-height:1.25;
+}
+/* Sin reutilizar .puntos: esa lista esta pensada para pantallas apretadas y
+   un monton de reglas de alto la encogen (font-size 12,5 px en moviles bajos).
+   Esta no tiene limite de alto. */
+.detalle-lista{
+  list-style:none; margin:0; padding:0; width:100%;
+  display:flex; flex-direction:column; gap:clamp(10px,1.3vw,14px);
+}
+.detalle-lista li{
+  position:relative; padding-left:19px;
+  font-size:clamp(14px,1.3vw,15.5px); line-height:1.5;
+  color:rgba(56,25,26,.74);
+}
+.detalle-lista li::before{
+  content:""; position:absolute; left:3px; top:.6em;
+  width:7px; height:7px; border-radius:50%; background:var(--ac);
+}
+.detalle-lista b{color:var(--ink); font-weight:700}
+/* El boton de la presentacion va siempre abajo del bloque: con dos bloques de
+   distinta altura, asi quedan los dos botones a la misma altura. */
+.modelo-detalle .btn{margin-top:auto}
+
+/* El cuerpo del bloque de Ametller: lista y video lado a lado en escritorio. */
+.detalle-cuerpo{
+  width:100%;
+  display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(14px,2vw,22px);
+  align-items:start;
+}
 @media (min-width:901px){
-  /* Las dos variantes miden lo mismo para que al cambiar de pestaña el
-     rectangulo no pegue un salto de 90 px. El tope en svh es lo que deja el
-     presupuesto de la pantalla: a 768 sobraban 108 px y se usan 91. */
-  .gama{min-height:min(58svh,470px)}
-
+  .detalle-cuerpo{grid-template-columns:minmax(0,1fr) auto}
 }
 
-/* El hueco solo da de si a partir de 1200 px. Por debajo, la tarjeta deja de
-   medir 1060 y pasa a valer 94vw: la foto se escala por alto, se recorta por la
-   derecha y el producto avanza hacia el centro justo cuando la columna de texto
-   se estrecha. A 1024 medido, el tomate quedaba 15 px por debajo del primer
-   bullet. Ahi Ametller vuelve al reparto normal, con la foto en su columna. */
-@media (min-width:1200px){
-  .gama.con-hueco{
-    grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);
-    padding:clamp(18px,2vw,30px);
-  }
-  /* Sin fondo desenfocado: aqui el fondo es la foto de verdad, a tamaño real. */
-  .gama.con-hueco::before{display:none}
-  #productos .gama.con-hueco .foto-gama{
-    position:absolute; inset:0; z-index:0; margin:0;
-    width:auto; height:auto; aspect-ratio:auto;
-    border-radius:0;
-  }
-  /* 70% y no "center": el recorte vertical se lo lleva casi todo la parte de
-     arriba, que esta vacia, y asi no se corta la base de las bandejas. */
-  #productos .gama.con-hueco .foto-gama img{object-position:left 70%}
-  #productos .gama.con-hueco .modelos{grid-column:2; z-index:1}
-  /* La columna de texto es mas estrecha que en la otra variante —tiene que
-     caber dentro del hueco— asi que las dos pestañas bajan un punto para
-     seguir entrando en una sola fila. */
-  #productos .gama.con-hueco .pestana{font-size:13px; padding:.7em 1.05em}
+/* --- El video con selector de idioma ---
+   El selector va en tinta oscura y no en naranja: asi no se confunde con un
+   boton de accion de la marca. */
+.video-modelo{display:flex; flex-direction:column; align-items:center; gap:10px}
+/* El selector solo existe con el script vivo (app-ok, que pone iniciar()): sin
+   JS no cambiaria nada, y esta web no deja controles muertos. El <video>, en
+   cambio, va en el HTML y se reproduce igual. */
+.video-modelo .idiomas{display:none}
+.app-ok .video-modelo .idiomas{display:inline-flex}
+.video-modelo-player{
+  display:block; width:clamp(170px,17vw,210px); aspect-ratio:9/16;
+  border-radius:16px; background:#000; object-fit:contain;
+  box-shadow:var(--sombra-m);
 }
-
-/* En movil la foto vuelve a su sitio, arriba del texto, y se recorta por la
-   derecha: en una tira de 345 px el hueco vacio no sirve de nada y lo que
-   interesa es ver el producto grande. */
-#productos .gama .foto-gama img{object-position:left center}
+@media (max-width:900px){
+  .video-modelo-player{width:min(240px,64vw)}
+}
+.idiomas{
+  display:inline-flex; gap:2px; padding:3px;
+  background:#fff; border:1px solid var(--cream-200); border-radius:999px;
+}
+.idiomas button{
+  font:inherit; font-size:clamp(12.5px,1.2vw,14px); font-weight:700; color:var(--ink);
+  background:none; border:0; border-radius:999px; cursor:pointer;
+  padding:.45em 1em; min-height:40px;
+  transition:background .2s, color .2s;
+}
+.idiomas button[aria-pressed="true"]{background:var(--ink); color:#fff}
+@media (hover:hover){
+  .idiomas button[aria-pressed="false"]:hover{background:var(--cream-100)}
+}
 
 /* ============================================================
    LA FOTO DEL LOBBY EN "QUE APORTA"

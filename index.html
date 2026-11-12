@@ -159,12 +159,15 @@
     </button>
   </section>
 
-  <!-- ============ 3 · QUÉ HAY DENTRO + LOS DOS MODELOS ============ -->
-  <!-- El surtido y los modelos son el mismo tema, y por eso van en la misma
-       pantalla: separarlos obligaba a cambiar de pagina para compararlos.
-       Cuidado con el alto: esto mide 100svh y ya va justo en un iPhone SE.
-       Nada con clase .entra dentro de un .panel — un panel oculto no interseca
-       y el observador lo dejaria invisible para siempre. -->
+  <!-- ============ 3 · LOS DOS MODELOS ============ -->
+  <!-- Dos tarjetas (foto y dos lineas) y, debajo de cada una, un bloque que
+       desarrolla el modelo. El de Ametller lleva el video, con selector de
+       idioma. Ya no hay pestañas: los dos modelos se ven a la vez para poder
+       compararlos.
+       Esta pantalla es ALTA a proposito (no cabe en 100svh) y no pasa nada: el
+       recorrido ya trata las pantallas mas altas que el viewport, tanto con el
+       teclado como con el scroll. Aqui si puede llevar .entra en cualquier
+       sitio: nada esta oculto. -->
   <section class="pantalla" id="productos" tabindex="-1" aria-labelledby="t-productos">
     <p class="kicker entra">Gama y modelos</p>
     <h2 class="titular entra" id="t-productos">Dos modelos. La misma gestión.</h2>
@@ -173,66 +176,86 @@
       marcha, la reposición y el mantenimiento. Tú eliges el tipo de surtido
       que mejor encaja en tu espacio.
     </p>
-    <!-- La foto y el selector comparten una sola tarjeta: son la misma idea
-         —esto es lo que hay dentro, y cambia con el modelo— y separados en dos
-         bloques sueltos no se leian como una pieza. El contenido de dentro lo
-         intercambian las pestañas; el marco es siempre el mismo. -->
-    <div class="gama entra" style="--gama-foto:url('assets/img/gama-productos.jpg')">
-      <figure class="foto-gama" data-foto-modelo>
-        <img src="assets/img/gama-productos.jpg" width="1400" height="869" loading="lazy" decoding="async"
-             alt="Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.">
-      </figure>
 
-      <div class="modelos" data-modelos>
-      <div class="pestanas" role="tablist" aria-label="Modelos de SmartShop">
-        <button class="pestana" type="button" role="tab" id="tab-autogestion"
-                aria-controls="panel-autogestion" aria-selected="true">Modelo Arbitrade</button>
-        <button class="pestana" type="button" role="tab" id="tab-ametller"
-                aria-controls="panel-ametller" aria-selected="false">Modelo Ametller Origen</button>
-      </div>
+    <!-- El orden del DOM es tarjeta A, bloque A, tarjeta B, bloque B: en movil
+         cada modelo va con su desarrollo. En escritorio la rejilla los reparte
+         en dos columnas (ver .modelos-duo en el CSS). -->
+    <div class="modelos-duo">
 
-      <!-- ---- Panel: modelo autogestión ---- -->
-      <div class="panel activo" id="panel-autogestion" role="tabpanel" aria-labelledby="tab-autogestion">
-        <h3 class="panel-nombre">Modelo Arbitrade</h3>
-        <ul class="puntos">
-          <li><b>Surtido a tu medida</b> — seleccionamos contigo los productos y revisamos periódicamente el planograma.</li>
-          <li><b>Máxima variedad de formatos</b> — desde pequeños snacks hasta platos y envases de mayor tamaño.</li>
-          <li><b>Alimentación para todos los momentos</b> — opciones frescas, bebidas, snacks y platos preparados.</li>
+      <!-- ---- Modelo Arbitrade ---- -->
+      <article class="modelo-tarjeta entra" id="modelo-arbitrade" aria-labelledby="n-arbitrade">
+        <figure class="modelo-foto" data-foto-modelo="autogestion">
+          <img src="assets/img/gama-productos.jpg" width="1600" height="726" loading="lazy" decoding="async"
+               alt="Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.">
+        </figure>
+        <div class="modelo-texto">
+          <h3 class="modelo-nombre" id="n-arbitrade">Modelo Arbitrade</h3>
+          <p class="modelo-resumen">
+            Elegimos contigo los productos y revisamos el planograma, de
+            pequeños snacks a platos de gran tamaño.
+          </p>
+        </div>
+      </article>
+
+      <section class="modelo-detalle entra" id="detalle-arbitrade" aria-labelledby="d-arbitrade">
+        <h4 id="d-arbitrade">Un surtido que diseñamos contigo</h4>
+        <ul class="detalle-lista">
+          <li><b>Surtido a tu medida.</b> Seleccionamos contigo los productos y revisamos periódicamente el planograma, con el foco en la alimentación fresca.</li>
+          <li><b>Máxima variedad de formatos.</b> Más de 30 variedades: cualquier producto es posible, de un bombón a un envase de gran tamaño.</li>
+          <li><b>Alimentación para todos los momentos.</b> Opciones frescas, bebidas, snacks y platos preparados.</li>
+          <li><b>Comida real, sin personal en sala.</b> Disponible las 24 horas, sin servicio de restauración ni costes de personal.</li>
         </ul>
         <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion="autogestion">
           <span class="etiqueta-presentacion">Descubre el modelo Arbitrade</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
         </a>
-      </div>
+      </section>
 
-      <!-- ---- Panel: modelo Ametller ---- -->
-      <div class="panel" id="panel-ametller" role="tabpanel" aria-labelledby="tab-ametller">
-        <h3 class="panel-nombre">Modelo Ametller Origen</h3>
-        <ul class="puntos">
-          <li><b>Selección Ametller Origen</b> — platos preparados, cremas, ensaladas, yogures y kéfir.</li>
-          <li><b>Una oferta reconocible</b> — productos de una marca consolidada y valorada por el consumidor.</li>
-          <li><b>Completado por Arbitrade</b> — ampliamos el surtido con otras referencias para ofrecer una solución más completa.</li>
-        </ul>
-        <!-- El vídeo del modelo, en dos idiomas. Los botones llevan el idioma en
-             data-idioma y la clave es la de "videos" en datos.js; app.js retira
-             el idioma que no tenga vídeo y, sin ninguno, el bloque entero.
-             Sin clase .entra: este panel puede estar oculto. -->
-        <div class="video-modelo" data-video-modelo>
-          <button class="btn btn-primario" type="button" data-ver-video>
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
-            Ver el vídeo
-          </button>
-          <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
-            <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
-            <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
+      <!-- ---- Modelo Ametller Origen ---- -->
+      <article class="modelo-tarjeta entra" id="modelo-ametller" aria-labelledby="n-ametller">
+        <figure class="modelo-foto" data-foto-modelo="ametller">
+          <img src="assets/img/gama-ametller.jpg" width="1600" height="698" loading="lazy" decoding="async"
+               alt="Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras, un tomate y un gazpacho embotellado.">
+        </figure>
+        <div class="modelo-texto">
+          <h3 class="modelo-nombre" id="n-ametller">Modelo Ametller Origen</h3>
+          <p class="modelo-resumen">
+            Platos, cremas, ensaladas, yogures y kéfir de una marca
+            consolidada, completados por Arbitrade.
+          </p>
+        </div>
+      </article>
+
+      <section class="modelo-detalle entra" id="detalle-ametller" aria-labelledby="d-ametller">
+        <h4 id="d-ametller">Ametller Origen dentro de tu SmartShop</h4>
+        <div class="detalle-cuerpo">
+          <ul class="detalle-lista">
+            <li><b>Selección Ametller Origen.</b> Platos preparados, cremas, ensaladas, yogures y kéfir.</li>
+            <li><b>Una oferta reconocible.</b> Productos de una marca consolidada y valorada por el consumidor.</li>
+            <li><b>Completado por Arbitrade.</b> Ampliamos el surtido con otras referencias, y diseñamos y revisamos el planograma de las dos marcas juntas.</li>
+          </ul>
+
+          <!-- El video del modelo, en dos idiomas. El <video> va escrito aqui con
+               el español, asi se reproduce aunque no cargue el script. app.js
+               añade el selector y cambia el archivo; las claves de data-idioma
+               son las de "videos" en datos.js. Sin clase .entra: el selector
+               solo existe con el script vivo (app-ok). -->
+          <div class="video-modelo" data-video-modelo>
+            <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
+              <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
+              <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
+            </div>
+            <video class="video-modelo-player" data-video-player controls playsinline preload="none"
+                   poster="assets/img/poster-ametller-origen.jpg"
+                   src="assets/video/ametller-origen-es.mp4"
+                   aria-label="Vídeo del modelo Ametller Origen, en español"></video>
           </div>
         </div>
         <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion="ametller">
           <span class="etiqueta-presentacion">Descubre el modelo Ametller Origen</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
         </a>
-      </div>
-      </div>
+      </section>
     </div>
 
     <p class="nota entra">Imágenes orientativas.</p>
