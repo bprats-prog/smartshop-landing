@@ -1343,7 +1343,9 @@ h2.titular.grande{
   align-items:start;
 }
 @media (min-width:901px){
-  .detalle-cuerpo{grid-template-columns:minmax(0,1fr) auto}
+  /* La lista centrada junto al video: con tres viñetas es mas corta que el
+     video, y arriba dejaria un hueco debajo del texto. */
+  .detalle-cuerpo{grid-template-columns:minmax(0,1fr) auto; align-items:center}
 }
 
 /* --- El video con selector de idioma ---
@@ -1355,8 +1357,11 @@ h2.titular.grande{
    cambio, va en el HTML y se reproduce igual. */
 .video-modelo .idiomas{display:none}
 .app-ok .video-modelo .idiomas{display:inline-flex}
+/* 190 px a 1280: con ese ancho el bloque de Ametller mide lo mismo que el de
+   Arbitrade sin estirar. Si cambias el tamaño del video o el numero de viñetas
+   de un bloque, vuelve a comparar las alturas naturales de los dos. */
 .video-modelo-player{
-  display:block; width:clamp(170px,17vw,210px); aspect-ratio:9/16;
+  display:block; width:clamp(170px,15vw,190px); aspect-ratio:9/16;
   border-radius:16px; background:#000; object-fit:contain;
   box-shadow:var(--sombra-m);
 }

@@ -116,6 +116,20 @@ está oculto, **ya no hay restricción sobre dónde poner `.entra`**.
   (`--ac`, que pinta la rayita bajo el nombre y los puntos de la lista).
 - El botón de la presentación va siempre al final del bloque (`margin-top:auto`),
   así los dos quedan a la misma altura aunque un bloque lleve más contenido.
+- **Los dos bloques miden lo mismo en escritorio, y no por casualidad.** La
+  rejilla estira el más corto, pero estirar deja un hueco muerto dentro. Para
+  que apenas haga falta, el tamaño del vídeo (190 px de ancho) y el número de
+  viñetas (6 en Arbitrade, 3 en Ametller) están ajustados para que a 1024 y a
+  1280 px midan lo mismo de forma natural. En otros anchos un salto de línea
+  puede dejar 20-35 px de diferencia, que se queda como aire antes del botón.
+  Si cambias el vídeo o añades o quitas una viñeta, compara las alturas
+  naturales de los dos bloques (con `align-self:start` en cada uno).
+- En el bloque de Ametller la lista va centrada verticalmente junto al vídeo
+  (solo en escritorio): con tres viñetas es más corta que el vídeo, y alineada
+  arriba dejaría un hueco debajo del texto.
+- **Qué va en cada bloque.** El bloque desarrolla lo que la tarjeta resume, no
+  lo repite: si una viñeta dice lo mismo que las dos líneas de la tarjeta, sobra.
+  Por eso el de Ametller no lista los productos ni habla de «marca consolidada».
 
 **El copy de los bloques sale de las presentaciones, pero es un primer
 borrador.** Las líneas de los bloques desarrollan lo que ya decían las viñetas
