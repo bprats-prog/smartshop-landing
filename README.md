@@ -157,6 +157,14 @@ lobby (`hero-lobby.jpg`), que es la misma que «Qué aporta»: no hay otra foto 
 una persona usando la SmartShop. En escritorio van en dos columnas, el mensaje
 a la izquierda y la foto a la derecha; en móvil, el texto y debajo la foto.
 
+El titular son **tres frases cortas, una por línea** («Abre. Elige. Cierra.»):
+cada una va en un `<span class="frase">` que es un bloque, con su punto en
+naranja (`.punto`). Se lee como los tres pasos de la SmartShop. Al ser frases
+tan cortas, en móvil el titular crece con el ancho (`clamp(48px,16vw,72px)`, 60 px
+a 375) en lugar de quedarse en los 34 px base; la portada sigue cabiendo en una
+pantalla, también a 360×640. Si se cambia el titular por uno más largo, conviene
+volver a mirar ese tamaño y si `.frase` sigue siendo lo que se quiere.
+
 ## Los vídeos de Ametller Origen
 
 El bloque de «Modelo Ametller Origen», en la pantalla *Gama y modelos*, lleva el

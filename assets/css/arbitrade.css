@@ -937,6 +937,21 @@ h2.titular.grande{
   display:flex; flex-direction:column; align-items:center;
   gap:clamp(10px,1.7vh,22px);
 }
+/* El titular de la portada son tres frases cortas, una por linea. Con display
+   block en .frase no depende de cuanto mida cada una ni del ancho de la
+   columna; el espacio entre ellas en el HTML solo se ve si alguien lo lee sin
+   estilos. */
+#portada h1.titular .frase{display:block}
+/* En movil el titular de la portada es corto (la frase mas larga mide 7
+   caracteres) y a los 34 px base ocupaba 95 px de una pantalla de 375: se
+   queda sin presencia. Crece con el ancho hasta un tope; en escritorio manda
+   el tamaño base (clamp hasta 84 px). */
+@media (max-width:900px){
+  #portada h1.titular{font-size:clamp(48px,16vw,72px)}
+}
+/* El apoyo es una frase corta: que reparta las lineas por igual en vez de dejar
+   una palabra sola en la segunda. */
+#portada .apoyo{text-wrap:balance}
 .portada-media{margin:0}
 .portada-media img{
   display:block; width:min(520px,100%); height:auto;
