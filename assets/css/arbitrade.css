@@ -928,6 +928,23 @@ h2.titular.grande{
 }
 
 /* ============================================================
+   LA PORTADA: TEXTO E IMAGEN
+   Apilada (movil): el texto y debajo la foto. En escritorio, de dos columnas:
+   el mensaje a la izquierda y la imagen a la derecha (ver mas abajo, en el
+   bloque de escritorio).
+   ============================================================ */
+.portada-texto{
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(10px,1.7vh,22px);
+}
+.portada-media{margin:0}
+.portada-media img{
+  display:block; width:min(520px,100%); height:auto;
+  aspect-ratio:1200/896; object-fit:cover;
+  border-radius:var(--radio); box-shadow:var(--sombra-l);
+}
+
+/* ============================================================
    ESCRITORIO: SCROLL CONTINUO
    En escritorio cada seccion era una diapositiva: medida a 100svh, con el
    contenido centrado y un encaje que la reenganchaba al soltar la rueda. Las
@@ -955,17 +972,30 @@ h2.titular.grande{
     gap:clamp(14px,2.2vh,24px);
   }
 
-  /* La portada ya no es una pantalla entera: es solo texto (260 px de
-     contenido), y a 100svh dejaba mas de 320 px en blanco arriba y abajo. Con
-     ~62svh respira y todavia asoma el principio de la siguiente seccion, que
-     es la pista de que se puede seguir bajando. */
+  /* La portada ya no es una pantalla entera: con ~72svh (maximo 640 px) respira
+     y todavia asoma el principio de la siguiente seccion, que es la pista de
+     que se puede seguir bajando. Dos columnas: el mensaje a la izquierda y la
+     foto a la derecha. */
   #portada{
-    min-height:min(62svh,600px);
+    min-height:min(72svh,640px);
     scroll-margin-top:0;
-    justify-content:center;
+    flex-direction:row;
+    align-items:center; justify-content:center;
+    gap:clamp(32px,5vw,80px);
+    text-align:left;
     padding-top:calc(var(--barra) + clamp(18px,3vh,34px));
     padding-bottom:clamp(48px,7vh,72px);
+    padding-left:clamp(36px,6vw,96px);
+    padding-right:clamp(36px,6vw,96px);
   }
+  #portada .portada-texto{
+    align-items:flex-start;
+    flex:1 1 auto; max-width:min(52ch,50%);
+  }
+  #portada .portada-media{flex:0 0 auto}
+  #portada .portada-media img{width:clamp(380px,42vw,600px)}
+  #portada h1.titular{max-width:12ch}
+  #portada .apoyo{max-width:36ch}
 
   /* El cierre es el final de la pagina y lleva el degradado de la marca: un
      poco mas de relleno que una seccion normal para que no se quede en una
@@ -1208,58 +1238,55 @@ h2.titular.grande{
 
 /* ============================================================
    LOS DOS MODELOS
-   Dos tarjetas (foto y dos lineas) y, debajo de cada una, un bloque que
-   desarrolla el modelo; el de Ametller lleva el video con selector de idioma.
-   En escritorio van en dos columnas, cada tarjeta sobre su bloque. En movil,
-   una columna con el orden del DOM (tarjeta A, bloque A, tarjeta B, bloque B),
-   que es el que une a cada modelo con su desarrollo.
+   Dos bloques, uno encima del otro: cada modelo en el suyo, con su color (el
+   naranja de la marca y el verde de la paleta) como tinte de fondo, borde y
+   acento. En escritorio cada bloque son dos columnas: a la izquierda la foto,
+   el nombre con su resumen y el boton de la presentacion; a la derecha el
+   desarrollo (lista y video). La rejilla los coloca por areas.
+   En movil, una columna con el orden del HTML: foto, texto, desarrollo, boton.
    Es una pantalla alta a proposito: no se intenta que quepa en 100svh.
    ============================================================ */
-.modelos-duo{
+.modelos-pila{
   width:min(1060px,94vw); text-align:left;
-  display:grid; grid-template-columns:minmax(0,1fr);
-  gap:clamp(12px,1.6vw,18px);
+  display:flex; flex-direction:column; gap:clamp(20px,3vw,36px);
 }
+.modelo{
+  --ac:var(--naranja); --tinte:rgba(255,95,21,.07); --borde:rgba(255,95,21,.24);
+  display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(14px,1.8vw,20px);
+  padding:clamp(18px,2.6vw,32px);
+  background:var(--tinte); border:1px solid var(--borde);
+  border-radius:calc(var(--radio) + 6px);
+}
+#modelo-ametller{--ac:var(--verde); --tinte:rgba(96,160,34,.09); --borde:rgba(96,160,34,.30)}
+
 @media (min-width:901px){
-  .modelos-duo{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    grid-template-areas:"ta tb" "da db";
-    column-gap:clamp(20px,2.6vw,36px);
-    row-gap:clamp(14px,1.6vw,20px);
+  .modelo{
+    grid-template-columns:minmax(0,.85fr) minmax(0,1fr);
+    grid-template-rows:auto auto 1fr;
+    grid-template-areas:"foto detalle" "texto detalle" "boton detalle";
+    column-gap:clamp(24px,3.4vw,48px);
   }
-  #modelo-arbitrade{grid-area:ta}
-  #detalle-arbitrade{grid-area:da}
-  #modelo-ametller{grid-area:tb}
-  #detalle-ametller{grid-area:db}
-}
-@media (max-width:900px){
-  /* Mas aire entre un modelo y el siguiente que entre una tarjeta y su bloque:
-     asi se lee que el bloque pertenece a la tarjeta de encima. */
-  .modelo-detalle{margin-bottom:clamp(10px,3vw,22px)}
+  .modelo-foto{grid-area:foto}
+  .modelo-texto{grid-area:texto}
+  .modelo-detalle{grid-area:detalle}
+  /* El boton queda abajo de la columna izquierda, a la altura del pie del
+     desarrollo, aunque la columna derecha sea mas alta. */
+  .modelo-boton{grid-area:boton; align-self:end}
 }
 
-/* El color de cada modelo: el naranja de la marca y el verde de la paleta. */
-#modelo-arbitrade,#detalle-arbitrade{--ac:var(--naranja)}
-#modelo-ametller,#detalle-ametller{--ac:var(--verde)}
-
-/* --- La tarjeta --- */
-.modelo-tarjeta{
-  display:flex; flex-direction:column;
-  background:#fff; border:1px solid var(--cream-100); border-radius:var(--radio);
-  box-shadow:var(--sombra-m); overflow:hidden;
-}
+/* --- La foto, el nombre y el resumen --- */
 /* 2:1, casi la proporcion de las dos fotos (2,2 y 2,3): se recorta un poco por
    los lados y nada por arriba ni por abajo, que es donde esta el producto. */
-.modelo-foto{margin:0; aspect-ratio:2/1; background:var(--cream-100)}
-.modelo-foto img{width:100%; height:100%; object-fit:cover; display:block}
-.modelo-texto{
-  display:flex; flex-direction:column; gap:6px;
-  padding:clamp(14px,1.8vw,22px) clamp(16px,2vw,26px) clamp(16px,2vw,26px);
+.modelo-foto{
+  margin:0; aspect-ratio:2/1; overflow:hidden;
+  border-radius:18px; box-shadow:var(--sombra-m); background:var(--cream-100);
 }
+.modelo-foto img{width:100%; height:100%; object-fit:cover; display:block}
+.modelo-texto{display:flex; flex-direction:column; gap:6px}
 .modelo-nombre{
   margin:0; font-family:"Fraunces",Georgia,serif; font-weight:600;
   font-variation-settings:"opsz" 40;
-  font-size:clamp(20px,2.2vw,26px); line-height:1.15;
+  font-size:clamp(22px,2.4vw,30px); line-height:1.15;
 }
 .modelo-nombre::after{
   content:""; display:block; width:38px; height:3px; border-radius:2px;
@@ -1267,15 +1294,14 @@ h2.titular.grande{
 }
 .modelo-resumen{
   margin:0; font-size:clamp(14px,1.35vw,16px); line-height:1.5;
-  color:rgba(56,25,26,.72);
+  color:rgba(56,25,26,.74);
 }
+.modelo-boton{justify-self:start}
 
-/* --- El bloque que desarrolla el modelo --- */
+/* --- El desarrollo del modelo --- */
 .modelo-detalle{
   display:flex; flex-direction:column; align-items:flex-start;
   gap:clamp(12px,1.5vw,18px);
-  background:var(--cream-100); border:1px solid var(--cream-200); border-radius:var(--radio);
-  padding:clamp(16px,2vw,26px);
 }
 .modelo-detalle h4{
   margin:0; font-family:"Fraunces",Georgia,serif; font-weight:600;
@@ -1292,40 +1318,33 @@ h2.titular.grande{
 .detalle-lista li{
   position:relative; padding-left:19px;
   font-size:clamp(14px,1.3vw,15.5px); line-height:1.5;
-  color:rgba(56,25,26,.74);
+  color:rgba(56,25,26,.78);
 }
 .detalle-lista li::before{
   content:""; position:absolute; left:3px; top:.6em;
   width:7px; height:7px; border-radius:50%; background:var(--ac);
 }
 .detalle-lista b{color:var(--ink); font-weight:700}
-/* El boton de la presentacion va siempre abajo del bloque: con dos bloques de
-   distinta altura, asi quedan los dos botones a la misma altura. */
-.modelo-detalle .btn{margin-top:auto}
 
-/* El cuerpo del bloque de Ametller: lista y video lado a lado en escritorio. */
+/* El cuerpo del desarrollo: la lista y el video, lado a lado en escritorio. */
 .detalle-cuerpo{
   width:100%;
   display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(14px,2vw,22px);
   align-items:start;
 }
 @media (min-width:901px){
-  /* El cuerpo ocupa todo el alto que sobra del bloque (flex:1): asi, aunque un
-     bloque sea mas bajo que el otro, el video queda pegado abajo y los dos
-     videos coinciden. La lista va centrada junto al video; el selector de
-     idioma de Ametller sube por encima del suyo sin mover el video. */
+  /* El cuerpo ocupa el alto que sobra (flex:1): el video queda pegado abajo, a
+     la altura del boton de la columna de al lado, y la lista centrada junto a
+     el. El selector de idioma de Ametller sube por encima de su video. */
   .detalle-cuerpo{grid-template-columns:minmax(0,1fr) auto; flex:1}
   .detalle-cuerpo .detalle-lista{align-self:center}
   .detalle-media{align-self:end}
 }
-/* Los dos videos de los bloques (el Short de YouTube de Arbitrade y el MP4 de
-   Ametller) comparten tamaño. 190 px a 1280: con ese ancho el bloque de Ametller
-   mide lo mismo que el de Arbitrade sin estirar; si lo cambias, o cambias el
-   numero de viñetas, vuelve a comparar las alturas naturales de los dos.
-   Especificidad mayor que .video.vertical, que le pone un alto en svh pensado
-   para la columna de medios de otras pantallas. */
+/* Los dos videos (el Short de YouTube de Arbitrade y el MP4 de Ametller)
+   comparten tamaño. Especificidad mayor que .video.vertical, que le pone un
+   alto en svh pensado para la columna de medios de otras pantallas. */
 .modelo-detalle .video{
-  width:clamp(170px,15vw,190px); height:auto; aspect-ratio:9/16;
+  width:clamp(180px,17vw,220px); height:auto; aspect-ratio:9/16;
   box-shadow:var(--sombra-m); border-radius:16px;
 }
 @media (max-width:900px){

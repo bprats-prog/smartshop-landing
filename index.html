@@ -56,12 +56,23 @@
 
   <!-- ============ 0 · PORTADA ============ -->
   <section class="pantalla hero" id="portada" tabindex="-1" aria-labelledby="t-portada">
-    <p class="kicker entra">Arbitrade presenta</p>
-    <h1 class="titular entra" id="t-portada">La tienda que cobra sola<span class="punto">.</span></h1>
-    <p class="apoyo entra">
-      Abre con el móvil, coge lo que quieras y cierra.
-      <strong>Las básculas cobran solas.</strong>
-    </p>
+    <!-- El texto va envuelto para que en escritorio la portada sea de dos
+         columnas —mensaje a la izquierda, imagen a la derecha— y en movil se
+         apile: texto arriba, imagen debajo. -->
+    <div class="portada-texto">
+      <p class="kicker entra">Arbitrade presenta</p>
+      <h1 class="titular entra" id="t-portada">La tienda que cobra sola<span class="punto">.</span></h1>
+      <p class="apoyo entra">
+        Abre con el móvil, coge lo que quieras y cierra.
+        <strong>Las básculas cobran solas.</strong>
+      </p>
+    </div>
+    <!-- La misma foto del lobby que "Qué aporta": no hay otra con una persona
+         usando la SmartShop. Cargada sin pereza: es lo primero que se ve. -->
+    <figure class="portada-media entra">
+      <img src="assets/img/hero-lobby.jpg" width="1200" height="896" fetchpriority="high" decoding="async"
+           alt="SmartShop instalada en la recepción de un hotel, con una persona consultando la pantalla táctil.">
+    </figure>
     <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </button>
@@ -160,13 +171,15 @@
       que mejor encaja en tu espacio.
     </p>
 
-    <!-- El orden del DOM es tarjeta A, bloque A, tarjeta B, bloque B: en movil
-         cada modelo va con su desarrollo. En escritorio la rejilla los reparte
-         en dos columnas (ver .modelos-duo en el CSS). -->
-    <div class="modelos-duo">
+    <!-- Dos bloques, uno encima del otro, cada modelo en el suyo. Cada bloque
+         lleva, en este orden: foto, nombre y resumen, el desarrollo (lista y
+         video) y el boton de la presentacion. En escritorio la foto, el texto y
+         el boton van a la izquierda y el desarrollo a la derecha (la rejilla
+         los coloca por areas); en movil, una columna con este mismo orden. -->
+    <div class="modelos-pila">
 
       <!-- ---- Modelo Arbitrade ---- -->
-      <article class="modelo-tarjeta entra" id="modelo-arbitrade" aria-labelledby="n-arbitrade">
+      <article class="modelo entra" id="modelo-arbitrade" aria-labelledby="n-arbitrade">
         <figure class="modelo-foto" data-foto-modelo="autogestion">
           <img src="assets/img/gama-productos.jpg" width="1600" height="726" loading="lazy" decoding="async"
                alt="Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.">
@@ -178,37 +191,36 @@
             pequeños snacks a platos de gran tamaño.
           </p>
         </div>
-      </article>
-
-      <section class="modelo-detalle entra" id="detalle-arbitrade" aria-labelledby="d-arbitrade">
-        <h4 id="d-arbitrade">Un surtido que diseñamos contigo</h4>
-        <!-- Mismo esquema que el bloque de Ametller: lista a un lado y un
-             video vertical al otro. El video es el Short que antes abria la
-             portada (YouTube, solo se carga al pulsar). -->
-        <div class="detalle-cuerpo">
-          <ul class="detalle-lista">
-            <li><b>Más de 30 variedades.</b> Frescos, bebidas, snacks y platos preparados.</li>
-            <li><b>Adaptado a tu espacio.</b> Nos adaptamos a las necesidades de tu empresa.</li>
-            <li><b>Comida real, sin personal.</b> Disponible las 24 horas, sin servicio de restauración.</li>
-          </ul>
-          <div class="detalle-media">
-            <button class="video" type="button" data-video="entornoLaboral">
-              <span class="play">
-                <span>
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+        <div class="modelo-detalle">
+          <h4>Un surtido que diseñamos contigo</h4>
+          <!-- Mismo esquema que el bloque de Ametller: lista a un lado y un
+               video vertical al otro. El video es el Short que antes abria la
+               portada (YouTube, solo se carga al pulsar). -->
+          <div class="detalle-cuerpo">
+            <ul class="detalle-lista">
+              <li><b>Más de 30 variedades.</b> Frescos, bebidas, snacks y platos preparados.</li>
+              <li><b>Adaptado a tu espacio.</b> Nos adaptamos a las necesidades de tu empresa.</li>
+              <li><b>Comida real, sin personal.</b> Disponible las 24 horas, sin servicio de restauración.</li>
+            </ul>
+            <div class="detalle-media">
+              <button class="video" type="button" data-video="entornoLaboral">
+                <span class="play">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>
+            </div>
           </div>
         </div>
-        <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion="autogestion">
+        <a class="btn btn-secundario modelo-boton" href="#" target="_blank" rel="noopener" data-presentacion="autogestion">
           <span class="etiqueta-presentacion">Descubre el modelo Arbitrade</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
         </a>
-      </section>
+      </article>
 
       <!-- ---- Modelo Ametller Origen ---- -->
-      <article class="modelo-tarjeta entra" id="modelo-ametller" aria-labelledby="n-ametller">
+      <article class="modelo entra" id="modelo-ametller" aria-labelledby="n-ametller">
         <figure class="modelo-foto" data-foto-modelo="ametller">
           <img src="assets/img/gama-ametller.jpg" width="1600" height="698" loading="lazy" decoding="async"
                alt="Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras, un tomate y un gazpacho embotellado.">
@@ -220,49 +232,48 @@
             consolidada, completados por Arbitrade.
           </p>
         </div>
-      </article>
+        <div class="modelo-detalle">
+          <h4>Ametller Origen en tu SmartShop</h4>
+          <div class="detalle-cuerpo">
+            <ul class="detalle-lista">
+              <li><b>Una oferta reconocible.</b> Productos de una marca valorada por el consumidor.</li>
+              <li><b>Al precio de sus tiendas.</b> Los productos de Ametller cuestan lo mismo que en sus tiendas físicas.</li>
+              <li><b>Un único planograma.</b> Diseñamos y revisamos juntos el surtido de Ametller y el de Arbitrade.</li>
+            </ul>
 
-      <section class="modelo-detalle entra" id="detalle-ametller" aria-labelledby="d-ametller">
-        <h4 id="d-ametller">Ametller Origen en tu SmartShop</h4>
-        <div class="detalle-cuerpo">
-          <ul class="detalle-lista">
-            <li><b>Una oferta reconocible.</b> Productos de una marca valorada por el consumidor.</li>
-            <li><b>Al precio de sus tiendas.</b> Los productos de Ametller cuestan lo mismo que en sus tiendas físicas.</li>
-            <li><b>Un único planograma.</b> Diseñamos y revisamos juntos el surtido de Ametller y el de Arbitrade.</li>
-          </ul>
-
-          <!-- El video del modelo, en dos idiomas. El <video> va escrito aqui con
-               el español, asi se reproduce aunque no cargue el script. app.js
-               añade el selector y cambia el archivo; las claves de data-idioma
-               son las de "videos" en datos.js. Sin clase .entra: el selector
-               solo existe con el script vivo (app-ok). -->
-          <div class="video-modelo detalle-media" data-video-modelo>
-            <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
-              <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
-              <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
-            </div>
-            <!-- Mismo componente .video que el Short del bloque de Arbitrade, para
-                 que los dos videos se vean y se lean igual. El play de encima es
-                 decorativo y solo existe con el script vivo; los controles
-                 nativos del <video> (y su teclado) hacen el resto. -->
-            <div class="video">
-              <video class="video-modelo-player" data-video-player controls playsinline preload="none"
-                     poster="assets/img/poster-ametller-origen.jpg"
-                     src="assets/video/ametller-origen-es.mp4"
-                     aria-label="Vídeo del modelo Ametller Origen, en español"></video>
-              <span class="play" aria-hidden="true">
-                <span>
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+            <!-- El video del modelo, en dos idiomas. El <video> va escrito aqui con
+                 el español, asi se reproduce aunque no cargue el script. app.js
+                 añade el selector y cambia el archivo; las claves de data-idioma
+                 son las de "videos" en datos.js. El selector solo existe con el
+                 script vivo (app-ok). -->
+            <div class="video-modelo detalle-media" data-video-modelo>
+              <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
+                <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
+                <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
+              </div>
+              <!-- Mismo componente .video que el Short del bloque de Arbitrade, para
+                   que los dos videos se vean y se lean igual. El play de encima es
+                   decorativo y solo existe con el script vivo; los controles
+                   nativos del <video> (y su teclado) hacen el resto. -->
+              <div class="video">
+                <video class="video-modelo-player" data-video-player controls playsinline preload="none"
+                       poster="assets/img/poster-ametller-origen.jpg"
+                       src="assets/video/ametller-origen-es.mp4"
+                       aria-label="Vídeo del modelo Ametller Origen, en español"></video>
+                <span class="play" aria-hidden="true">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
           </div>
         </div>
-        <a class="btn btn-secundario" href="#" target="_blank" rel="noopener" data-presentacion="ametller">
+        <a class="btn btn-secundario modelo-boton" href="#" target="_blank" rel="noopener" data-presentacion="ametller">
           <span class="etiqueta-presentacion">Descubre el modelo Ametller Origen</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
         </a>
-      </section>
+      </article>
     </div>
 
     <p class="nota entra">Imágenes orientativas.</p>
