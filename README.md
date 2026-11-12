@@ -120,8 +120,11 @@ está oculto, **ya no hay restricción sobre dónde poner `.entra`**.
 **El copy de los bloques sale de las presentaciones, pero es un primer
 borrador.** Las líneas de los bloques desarrollan lo que ya decían las viñetas
 con datos de los decks (más de 30 variedades, 24 horas, planograma conjunto…).
-No lleva ningún precio, ni la tarifa de Ametller ni los precios de producto: ver
-«La web no publica precios». Se edita directamente en `index.html`.
+No lleva ninguna cifra, ni la tarifa de Ametller ni los precios de producto: ver
+«La web no publica precios». La única referencia a precios es la condición del
+bloque de Ametller —sus productos cuestan lo mismo que en sus tiendas físicas—,
+que sale tal cual de su presentación y no lleva importe. Se edita directamente
+en `index.html`.
 
 **Las dos URLs de `presentaciones` son provisionales.** Hoy apuntan al deck
 general de Empresas y al de Ametller Origen, pero los definitivos de cada
