@@ -980,19 +980,22 @@ h2.titular.grande{
     scroll-margin-top:0;
     flex-direction:row;
     align-items:center; justify-content:center;
-    gap:clamp(32px,5vw,80px);
+    gap:clamp(32px,4.5vw,72px);
     text-align:left;
     padding-top:calc(var(--barra) + clamp(18px,3vh,34px));
     padding-bottom:clamp(48px,7vh,72px);
     padding-left:clamp(36px,6vw,96px);
     padding-right:clamp(36px,6vw,96px);
   }
+  /* El texto mide lo que mide su contenido (antes se estiraba hasta el 50 % y
+     dejaba ~300 px de aire entre el mensaje y la foto) y la foto es la que
+     manda: ocupa algo mas de la mitad. El bloque entero va centrado. */
   #portada .portada-texto{
     align-items:flex-start;
-    flex:1 1 auto; max-width:min(52ch,50%);
+    flex:0 1 auto; max-width:min(52ch,40%);
   }
   #portada .portada-media{flex:0 0 auto}
-  #portada .portada-media img{width:clamp(420px,46vw,660px)}
+  #portada .portada-media img{width:clamp(420px,54vw,880px)}
   #portada h1.titular{max-width:12ch}
   #portada .apoyo{max-width:36ch}
 
