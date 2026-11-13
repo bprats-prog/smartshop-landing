@@ -87,8 +87,9 @@ window.SMARTSHOP = {
   /* ---------- La foto de cada modelo ----------
      La clave se corresponde con el data-foto-modelo de la tarjeta, que es el
      mismo vocabulario que usan data-presentacion y presentaciones. Si un modelo
-     no tiene entrada, se queda la que hubiera puesta en el HTML. La foto se
-     recorta a 2:1 en la tarjeta: las dos actuales miden 2,2 y 2,3. */
+     no tiene entrada, se queda la que hubiera puesta en el HTML. Las dos
+     fotos actuales son exactamente 2:1 y llevan los productos centrados (ver
+     README), asi que la tarjeta, que es 2:1, no recorta nada. */
   fotosModelo: {
     autogestion: {
       src: "assets/img/gama-productos.jpg",

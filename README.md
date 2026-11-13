@@ -107,8 +107,8 @@ nada está oculto, **no hay restricción sobre dónde poner `.entra`**.
 - Las listas del desarrollo son `.detalle-lista` y **no** `.puntos`. `.puntos` está
   pensada para pantallas apretadas y varias reglas de alto la encogen (12,5 px
   en móviles bajos); aquí no hay límite de alto y no debe heredarlas.
-- La foto de cada bloque se recorta a 2:1 (las dos actuales miden 2,2 y 2,3).
-  Se cambia en `fotosModelo` de `datos.js`, con la misma clave que
+- La foto de cada bloque es **exactamente 2:1** y lleva los productos centrados
+  (ver «Bodegones centrados»), así que la tarjeta no recorta nada. Se cambia en `fotosModelo` de `datos.js`, con la misma clave que
   `data-foto-modelo` en el HTML (`autogestion`, `ametller`). Sin entrada en
   `datos.js` se queda la que lleva el HTML.
 - En el desarrollo, la lista va centrada junto al vídeo y el vídeo pegado abajo
@@ -232,13 +232,12 @@ castigue una conexión móvil.
   también la mejor candidata a miniatura al compartir el enlace.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
 - `gama-ametller.jpg` — el surtido del modelo Ametller Origen, en su tarjeta.
-  Es una **fotografía real** de producto, no una imagen generada. La tarjeta la
-  recorta a 2:1, así que pierde un poco por los lados; el producto está en el
-  centro y a la izquierda, y no se toca.
+  Es una **fotografía real** de producto, no una imagen generada. 1488×744, 2:1,
+  con los productos centrados (ver «Bodegones centrados»).
 - `gama-productos.jpg` — el bodegón de la tarjeta del modelo Arbitrade. Está
   recortado para dejar la cerveza fuera de cuadro; con ella se van también el
   agua y la Coca-Cola que había a su derecha, así que la sección no muestra
-  ninguna bebida. La tarjeta la recorta a 2:1, un poco por los lados. El original venía a 959 px de ancho:
+  ninguna bebida. 1492×746, 2:1, con los productos centrados (ver «Bodegones centrados»). El original venía a 959 px de ancho:
   suficiente para el tamaño al que se ve, pero si aparece la versión de estudio
   en alta, conviene sustituirlo.
 - `pv-desbloqueo-movil`, `pv-lector-pantalla`, `pv-fila-smartshops` y
@@ -259,6 +258,33 @@ castigue una conexión móvil.
 - `arbitrade-wordmark.svg` — el wordmark de la barra superior. Venía con
   `fill="currentColor"`; se le fijó el tinta de marca (`#38191A`) porque dentro
   de un `<img>` no hereda el color de la página.
+
+
+### Bodegones centrados
+
+Los dos bodegones de los modelos (`gama-productos.jpg` y `gama-ametller.jpg`)
+venían con los productos en el 60 % izquierdo de la foto (de x≈20 a x≈970 sobre
+1600 px) y un fondo beige vacío a la derecha. La tarjeta es 2:1 y las fotos
+2,2:1, así que el recorte centrado se comía los primeros 74 px por la izquierda
+y cortaba los productos de ese lado (los M&M's, la bandeja de arroz).
+Recolocarlas con CSS no basta, porque no hay margen a la izquierda para centrar.
+
+Se rehicieron los archivos: se extendió el fondo liso por la izquierda y por abajo
+(251 y 20 px en uno, 257 y 46 en el otro) y se recortó a 2:1 con el conjunto de
+productos en el centro (márgenes izquierdo y derecho iguales a ±2 px, y también
+los de arriba y abajo). El fondo extendido sale de una franja del propio borde,
+estirada y muy suavizada, y se funde con la foto en los 14 px limpios del borde,
+antes de que empiecen los productos: sin eso se nota una costura. Los originales
+siguen en el historial de git.
+
+Para repetirlo con una foto nueva están las dos herramientas de `herramientas/`:
+`medir-productos.ps1` (PowerShell, mide la caja que ocupan los productos) y
+`centrar-bodegon.sh` (ffmpeg, extiende el fondo y recorta). Con la caja medida,
+el relleno y el recorte se calculan así: margen vertical = el mayor de los dos;
+alto = alto de la caja + 2 × margen; ancho = 2 × alto; el centro horizontal de la
+ventana es el centro de la caja. `centrar-bodegon.sh` usa el `ffmpeg` del PATH, o el que indique la
+variable `FFMPEG`.
+
 
 ## Qué va en la web y qué en la presentación
 
