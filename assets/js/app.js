@@ -135,11 +135,6 @@
     window.addEventListener("resize", actualizarProgreso);
     actualizarProgreso();
 
-    /* Flecha de avance al pie de cada pantalla */
-    $$(".avanzar", deck).forEach(function (b) {
-      b.addEventListener("click", function () { irA(pantallaActual() + 1); });
-    });
-
     /* Enlaces internos dentro del recorrido */
     $$('a[href^="#"]', deck).forEach(function (a) {
       a.addEventListener("click", function (e) {
@@ -165,8 +160,8 @@
       /* El espacio activa el elemento enfocado: sobre un boton (el selector de
          idioma del video, por ejemplo), capturarlo aqui haria avanzar de
          pantalla en vez de pulsarlo. Solo se exime el espacio: si se
-         eximiera cualquier tecla, tras pulsar una flecha .avanzar con el raton
-         el foco se quedaria ahi y la flecha abajo dejaria de funcionar. */
+         eximiera cualquier tecla, tras pulsar cualquier boton con el raton el
+         foco se quedaria ahi y la flecha abajo dejaria de funcionar. */
       if (e.key === " " && (t === "BUTTON" || t === "A")) { return; }
       /* Un <video> con controles gobierna sus propias teclas: el espacio lo
          pone y lo para, y las flechas avanzan y retroceden. Si se capturaran

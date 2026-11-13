@@ -62,9 +62,10 @@
     <div class="portada-texto">
       <p class="kicker entra">Arbitrade presenta</p>
       <!-- Tres frases, tres lineas (cada una en su .frase, que es un bloque): el
-           titular se lee como los tres pasos de la SmartShop. El punto de cada
-           una va en naranja, como el de la marca. -->
-      <h1 class="titular entra" id="t-portada"><span class="frase">Abre<span class="punto">.</span></span> <span class="frase">Elige<span class="punto">.</span></span> <span class="frase">Cierra<span class="punto">.</span></span></h1>
+           titular se lee como los tres pasos de la SmartShop. Los puntos van en
+           .solo-lector: no se ven, pero un lector de pantalla lee "Abre. Elige.
+           Cierra." con sus pausas. -->
+      <h1 class="titular entra" id="t-portada"><span class="frase">Abre<span class="solo-lector">.</span></span> <span class="frase">Elige<span class="solo-lector">.</span></span> <span class="frase">Cierra<span class="solo-lector">.</span></span></h1>
       <p class="apoyo entra">Así de fácil es comprar en una SmartShop.</p>
     </div>
     <!-- La misma foto del lobby que "Qué aporta": no hay otra con una persona
@@ -73,9 +74,6 @@
       <img src="assets/img/hero-lobby.jpg" width="1200" height="896" fetchpriority="high" decoding="async"
            alt="SmartShop instalada en la recepción de un hotel, con una persona consultando la pantalla táctil.">
     </figure>
-    <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </button>
   </section>
 
   <!-- ============ 1 · QUÉ ES ============ -->
@@ -109,9 +107,6 @@
       </article>
     </div>
     </div>
-    <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </button>
   </section>
 
   <!-- ============ 2 · CÓMO FUNCIONA ============ -->
@@ -148,9 +143,6 @@
         </div>
       </div>
     </div>
-    <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </button>
   </section>
 
   <!-- ============ 3 · LOS DOS MODELOS ============ -->
@@ -277,9 +269,6 @@
     </div>
 
     <p class="nota entra">Imágenes orientativas.</p>
-    <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </button>
   </section>
 
   <!-- ============ 5 · QUÉ APORTA ============ -->
@@ -324,9 +313,6 @@
       </article>
     </div>
     </div>
-    <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </button>
   </section>
 
   <!-- ============ 8 · PUNTOS DE VENTA ============ -->
@@ -338,9 +324,6 @@
          galeria de datos.js; los puntos y los topes de las flechas se calculan
          solos. -->
     <div class="carrusel entra" data-galeria></div>
-    <button class="avanzar" type="button" aria-label="Ir a la siguiente pantalla">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </button>
   </section>
 
   <!-- ============ 7 · CÓMO SE CONTRATA ============ -->

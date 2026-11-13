@@ -311,13 +311,20 @@ se sentía raro.
 - **El espacio entre secciones** lo fija el relleno vertical de `.pantalla`
   (`clamp(44px,6.5vh,64px)` arriba y abajo en escritorio): unos 100-130 px
   entre el último contenido de una y el primero de la siguiente.
-- **La portada mide ~72svh** (máximo 640 px en escritorio) y conserva la flecha
-  de avance. Antes ocupaba la pantalla entera; así respira y asoma el principio
-  de la siguiente sección, que es la pista de que se puede seguir bajando. En
-  móvil la portada sí sigue a pantalla entera. El cierre lleva algo más de
-  relleno que una sección normal, sin altura mínima.
+- **La portada mide ~72svh** (máximo 640 px en escritorio). Antes ocupaba la
+  pantalla entera; así respira y asoma el principio de la siguiente sección, que
+  es la pista de que se puede seguir bajando. En móvil la portada sí sigue a
+  pantalla entera. El cierre lleva algo más de relleno que una sección normal,
+  sin altura mínima.
+- **No hay flecha de avance** (se quitó el 13 de noviembre de 2026). Era el
+  control de «pasar diapositiva»; con scroll continuo solo se veía en la portada
+  y no aportaba nada, porque en escritorio la siguiente sección ya asoma. En
+  móvil, donde la portada ocupa la pantalla entera, nada insinúa que hay más
+  debajo: si se viera que la gente no baja, hay que volver a darle una pista (por
+  ejemplo, una portada algo más baja para que asome la siguiente sección). Está
+  en el historial de git (`.avanzar`, `latido`).
 - **El relleno superior no suma la barra fija** en escritorio: los saltos del
-  script (flecha, enlaces internos, teclado) restan el `scroll-margin-top` de la
+  script (enlaces internos, teclado) restan el `scroll-margin-top` de la
   sección, que es la altura de la barra (`posicion()` en `app.js`). En móvil el
   relleno sí la incluye, y ahí `scroll-margin-top` vale 0.
 - **El `.deck` no lleva `scroll-behavior:smooth`, a propósito.** Con él, un salto
@@ -326,7 +333,7 @@ se sentía raro.
   dentro de la misma página, acababa unos 70 px más abajo. Hoy los saltos
   nativos son instantáneos y exactos (aplican el `scroll-margin-top` de la
   sección), `irAlFragmento` los repite una vez cargada la página y al cambiar el
-  hash, y la animación se pide explícita donde se quiere —flecha, enlaces
+  hash, y la animación se pide explícita donde se quiere —enlaces
   internos y teclado— con `suave()`, que respeta `prefers-reduced-motion`. Esto
   importa: hay enlaces con `#modelos` circulando por WhatsApp
   (`como-se-contrata.html` los redirige a `#productos`).
