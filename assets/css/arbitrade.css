@@ -1051,10 +1051,16 @@ h2.titular.grande{
   /* La columna de tarjetas mide como mucho 480 px (antes, todo lo que sobraba:
      522 a 1440) o el 38 % de la ventana, lo que sea menor, y el bloque entero se
      centra. Lo del 38 % importa en ventanas estrechas: el texto baja de tamaño
-     con la ventana, y una caja fija de 480 px volvia a dejar aire de sobra. Con la caja mas ajustada al texto
-     y el texto mas grande, el contenido llena la tarjeta en vez de flotar en
-     ella. La foto no se toca: manda ella. */
-  #que-es .duo{grid-template-columns:auto minmax(0,min(480px,38vw)); justify-content:center}
+     con la ventana, y una caja fija de 480 px volvia a dejar aire de sobra. Con la
+     caja mas ajustada al texto y el texto mas grande, el contenido llena la
+     tarjeta en vez de flotar en ella. La foto no se toca: manda ella. */
+  #que-es .duo{grid-template-columns:auto minmax(0,min(480px,41vw)); justify-content:center;
+    --foto-h:min(60svh,620px,47vw)}
+  /* Las tarjetas se alinean con la NEVERA, no con la caja de la imagen: la foto
+     (760x943) lleva margen crema, 88 px arriba (9,3 %) y 61 px abajo (6,5 %).
+     Alinear con la caja dejaba la primera tarjeta por encima de la nevera y la
+     ultima por debajo. Se resta ese margen, proporcional al alto de la foto. */
+  #que-es .duo > .rejilla{margin-top:calc(var(--foto-h) * .0933); margin-bottom:calc(var(--foto-h) * .0647)}
   #que-es .duo-foto{margin:0; display:flex; justify-content:center}
   /* Tres topes, y manda el menor:
        60svh  — el alto util de la seccion menos titular, apoyo y rellenos.
@@ -1065,7 +1071,7 @@ h2.titular.grande{
                 recortaria la caja y la imagen quedaria flotando con aire.
      Se dimensiona por alto y no por ancho porque el alto es lo que escasea. */
   #que-es .duo-foto img{
-    height:min(60svh,620px,47vw);
+    height:var(--foto-h);
     max-height:none; width:auto; max-width:38vw;
     object-fit:contain;
   }
@@ -1104,7 +1110,7 @@ h2.titular.grande{
 #que-es .tarjeta .desc{grid-column:2; grid-row:2}
 
 @media (min-width:901px){
-  #que-es .tarjeta{padding:clamp(16px,2vh,24px) clamp(22px,2vw,30px)}
+  #que-es .tarjeta{padding:clamp(8px,1.4vh,18px) clamp(22px,2vw,30px)}
   #que-es .tarjeta .icono svg{height:clamp(34px,3.2vw,46px)}
   #que-es .tarjeta .nombre{font-size:clamp(21px,1.9vw,27px); line-height:1.15; text-wrap:balance}
   #que-es .tarjeta .desc{font-size:clamp(16px,1.4vw,20px); line-height:1.45; text-wrap:balance}
