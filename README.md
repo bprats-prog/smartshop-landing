@@ -153,7 +153,7 @@ selector de idioma del vídeo, que sin script no cambiaría nada; el vídeo sigu
 ahí, en español y con sus controles.
 
 **La portada** tiene dos piezas: el texto (kicker, titular y apoyo) y una foto
-(`portada-office.jpg`, 16:9). En escritorio van en dos columnas, el mensaje a la
+(`portada.jpg`, 16:9). En escritorio van en dos columnas, el mensaje a la
 izquierda y la foto a la derecha; en móvil, el texto y debajo la foto. La caja de
 la foto tiene la proporción de la imagen (`aspect-ratio:16/9`), así que se ve
 entera: si se cambia por otra con otra proporción, hay que cambiar también esa
@@ -232,11 +232,12 @@ castigue una conexión móvil.
 - `hero-lobby.jpg` — la foto del lobby, en «Qué aporta». Es la única con una
   persona consultando la pantalla de una SmartShop y una buena candidata a
   miniatura al compartir el enlace.
-- `portada-office.jpg` — la foto de la portada (1600×900, 16:9, ~190 KB): una
-  persona coge un plato de una SmartShop con la puerta abierta, junto a una
-  máquina de vending y una cafetera, en una zona de descanso de oficina. La
-  aportó Belén el 13 de noviembre de 2026 (original WebP de 1672×941). Parece una
-  imagen generada, no una fotografía: se nota en algunos textos de los envases.
+- `portada.jpg` — la foto de la portada (1600×900, 16:9, ~235 KB): una persona
+  se acerca a una SmartShop integrada en una zona de café del lobby de un hotel.
+  La aportó Belén el 13 de noviembre de 2026 (original WebP de 1672×941; sustituye
+  a una de una zona de descanso de oficina, que está en el historial de git).
+  Parece una imagen generada, no una fotografía: se nota en algunos textos, como
+  el rótulo de la cafetera.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
 - `gama-ametller.jpg` — el surtido del modelo Ametller Origen, en su tarjeta.
   Es una **fotografía real** de producto, no una imagen generada. 1488×744, 2:1,
