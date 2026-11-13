@@ -605,7 +605,7 @@
        "atrás" del navegador. */
     cont.setAttribute("role", "group");
     cont.setAttribute("aria-roledescription", "carrusel");
-    cont.setAttribute("aria-label", "Instalaciones reales");
+    cont.setAttribute("aria-label", "Así puede integrarse una SmartShop en tu espacio");
 
     function aLaVista() {
       var r = cont.getBoundingClientRect();
