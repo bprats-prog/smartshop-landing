@@ -152,10 +152,12 @@ Sin JavaScript se ve todo: no hay nada oculto. Lo único que desaparece es el
 selector de idioma del vídeo, que sin script no cambiaría nada; el vídeo sigue
 ahí, en español y con sus controles.
 
-**La portada** tiene dos piezas: el texto (kicker, titular y apoyo) y la foto del
-lobby (`hero-lobby.jpg`), que es la misma que «Qué aporta»: no hay otra foto con
-una persona usando la SmartShop. En escritorio van en dos columnas, el mensaje
-a la izquierda y la foto a la derecha; en móvil, el texto y debajo la foto.
+**La portada** tiene dos piezas: el texto (kicker, titular y apoyo) y una foto
+(`portada-office.jpg`, 16:9). En escritorio van en dos columnas, el mensaje a la
+izquierda y la foto a la derecha; en móvil, el texto y debajo la foto. La caja de
+la foto tiene la proporción de la imagen (`aspect-ratio:16/9`), así que se ve
+entera: si se cambia por otra con otra proporción, hay que cambiar también esa
+línea y los `width`/`height` del HTML, o se recortará.
 
 El titular son **tres frases cortas, una por línea** («Abre. Elige. Cierra.»):
 cada una va en un `<span class="frase">` que es un bloque, con su punto en
@@ -227,9 +229,14 @@ Están extraídas de las presentaciones de Google Slides y reescaladas a 1400 px
 de lado mayor con calidad 80, para que la web entera pese menos de 2 MB y no
 castigue una conexión móvil.
 
-- `hero-lobby.jpg` — la foto del lobby, en la portada y en «Qué aporta» (se
-  repite a propósito: es la única con una persona usando la SmartShop). Es
-  también la mejor candidata a miniatura al compartir el enlace.
+- `hero-lobby.jpg` — la foto del lobby, en «Qué aporta». Es la única con una
+  persona consultando la pantalla de una SmartShop y una buena candidata a
+  miniatura al compartir el enlace.
+- `portada-office.jpg` — la foto de la portada (1600×900, 16:9, ~190 KB): una
+  persona coge un plato de una SmartShop con la puerta abierta, junto a una
+  máquina de vending y una cafetera, en una zona de descanso de oficina. La
+  aportó Belén el 13 de noviembre de 2026 (original WebP de 1672×941). Parece una
+  imagen generada, no una fotografía: se nota en algunos textos de los envases.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
 - `gama-ametller.jpg` — el surtido del modelo Ametller Origen, en su tarjeta.
   Es una **fotografía real** de producto, no una imagen generada. 1488×744, 2:1,

@@ -939,7 +939,7 @@ h2.titular.grande{
 .portada-media{margin:0}
 .portada-media img{
   display:block; width:min(520px,100%); height:auto;
-  aspect-ratio:1200/896; object-fit:cover;
+  aspect-ratio:16/9; object-fit:cover;
   border-radius:var(--radio); box-shadow:var(--sombra-l);
 }
 
@@ -992,7 +992,7 @@ h2.titular.grande{
     flex:1 1 auto; max-width:min(52ch,50%);
   }
   #portada .portada-media{flex:0 0 auto}
-  #portada .portada-media img{width:clamp(380px,42vw,600px)}
+  #portada .portada-media img{width:clamp(420px,46vw,660px)}
   #portada h1.titular{max-width:12ch}
   #portada .apoyo{max-width:36ch}
 
