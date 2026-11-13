@@ -1050,18 +1050,23 @@ h2.titular.grande{
   #que-es .duo > .rejilla{align-self:stretch}
   #que-es .duo-foto{margin:0; display:flex; justify-content:center}
   /* Tres topes, y manda el menor:
-       60svh  — el alto util de la seccion menos titular, apoyo y rellenos.
-                Por encima, la pantalla deja de caber en un portatil de 768.
-       620px  — en un monitor alto, a partir de aqui la nevera ya no gana nada.
-       47vw   — equivale a 38vw de ancho con la proporcion 760/943 de la foto.
-                Sin esto, en una ventana estrecha y alta el ancho maximo
-                recortaria la caja y la imagen quedaria flotando con aire.
+       46svh  — una fraccion del alto de la ventana, para que la seccion no se
+                coma la pantalla.
+       400px  — a 1440×900 la foto medía 540 px y las tres tarjetas se repartian
+                ese alto: 167 px cada una para dos lineas de texto, con 54 px de
+                aire arriba y abajo. A 400 cada tarjeta mide ~120 y el aire baja
+                a ~30. Si lo subes, las tarjetas vuelven a quedar holgadas.
+       36vw   — para que en una ventana estrecha y alta la foto no se salga de
+                su columna (38vw de ancho con la proporcion 760/943 de la foto).
      Se dimensiona por alto y no por ancho porque el alto es lo que escasea. */
   #que-es .duo-foto img{
-    height:min(60svh,620px,47vw);
+    height:min(46svh,400px,36vw);
     max-height:none; width:auto; max-width:38vw;
     object-fit:contain;
   }
+  /* El bloque entero se estrecha con la foto: a 1000 px las tarjetas medían 522
+     y el texto no llegaba a la mitad de la caja. */
+  #que-es .duo{width:min(880px,94vw)}
 }
 
 /* En movil manda el ancho, no el alto: con scroll libre el alto ya no es un
@@ -1097,10 +1102,10 @@ h2.titular.grande{
 #que-es .tarjeta .desc{grid-column:2; grid-row:2}
 
 @media (min-width:901px){
-  #que-es .tarjeta{padding:clamp(18px,2.2vh,26px) clamp(22px,2vw,30px)}
-  #que-es .tarjeta .icono svg{height:clamp(28px,2.6vw,36px)}
-  #que-es .tarjeta .nombre{font-size:clamp(19px,1.75vw,24px); line-height:1.15}
-  #que-es .tarjeta .desc{font-size:clamp(14.5px,1.3vw,17px); line-height:1.45}
+  #que-es .tarjeta{padding:clamp(16px,2vh,24px) clamp(22px,2vw,30px)}
+  #que-es .tarjeta .icono svg{height:clamp(30px,2.8vw,40px)}
+  #que-es .tarjeta .nombre{font-size:clamp(20px,1.85vw,26px); line-height:1.15}
+  #que-es .tarjeta .desc{font-size:clamp(15px,1.3vw,18px); line-height:1.45}
 }
 
 /* En movil la tarjeta mide unos 360 px: no hay ancho que recuperar, pero si
