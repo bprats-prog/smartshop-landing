@@ -613,6 +613,7 @@ h2.titular{
 /* El cierre del recorrido conserva la escala del h1 aunque ahora sea un h2:
    dos <h1> en la misma pagina rompen el resumen de encabezados del lector. */
 h2.titular.grande{
+  text-wrap:balance;
   font-size:clamp(34px,7vw,84px); max-width:15ch;
   font-variation-settings:"opsz" 96;
 }
@@ -759,6 +760,9 @@ h2.titular.grande{
    atras desde un documento a pantalla completa no es evidente. */
 .visor-doc .volver{
   position:absolute; top:clamp(10px,2vh,20px); left:clamp(10px,3vw,24px);
+  /* right:auto: .visor .cerrar fija right, y con left tambien fijado el boton
+     se estiraba de borde a borde (1388 px a 1440). */
+  right:auto;
   z-index:2; width:auto; height:auto; border-radius:999px;
   display:inline-flex; align-items:center; gap:.5em;
   padding:.62em 1.1em; min-height:44px;
@@ -938,7 +942,9 @@ h2.titular.grande{
 #portada .apoyo{text-wrap:balance}
 .portada-media{margin:0}
 .portada-media img{
-  display:block; width:min(520px,100%); height:auto;
+  /* margin-inline:auto la centra bajo el texto cuando la figura es mas ancha
+     que ella (tablet vertical: antes quedaba pegada a la izquierda). */
+  display:block; width:min(600px,100%); height:auto; margin-inline:auto;
   aspect-ratio:16/9; object-fit:cover;
   border-radius:var(--radio); box-shadow:var(--sombra-l);
 }
@@ -1464,6 +1470,15 @@ h2.titular.grande{
   display:block; aspect-ratio:16/10; cursor:zoom-in;
 }
 .carrusel .pieza img{width:100%; height:100%; object-fit:cover; display:block}
+/* Sin JavaScript el boton del Short no hace nada: se oculta y queda el enlace
+   que hay en el <noscript>. (La clase js la pone el script del <head>.) */
+html:not(.js) button.video[data-video]{display:none}
+/* Sin JavaScript (dentro de <noscript>): las fotos en una rejilla sencilla. */
+.galeria-estatica{
+  display:grid; gap:14px; width:min(1000px,94vw);
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
+}
+.galeria-estatica img{width:100%; height:auto; border-radius:var(--radio); display:block}
 .carrusel .pieza:focus-visible{outline-offset:-4px}
 
 /* El marco es fijo y las fotos no comparten forma, asi que se recortan al

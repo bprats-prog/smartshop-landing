@@ -6,6 +6,11 @@
 <title>SmartShops de Arbitrade — qué son y cómo funcionan</title>
 <meta name="description" content="La solución Grab &amp; Go que revoluciona el retail desatendido. Abre con tarjeta o móvil, coge lo que quieras y cierra: el sistema de básculas cobra solo.">
 <meta name="theme-color" content="#F4F0EA">
+<!-- Direccion canonica: si la web cambia de dominio hay que cambiarla aqui, en
+     og:url y en og:image (ver README). -->
+<link rel="canonical" href="https://bprats-prog.github.io/smartshop-landing/">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
 <!-- Al compartir por WhatsApp, LinkedIn o correo -->
 <meta property="og:url" content="https://bprats-prog.github.io/smartshop-landing/">
@@ -13,9 +18,29 @@
 <meta property="og:title" content="SmartShops de Arbitrade">
 <meta property="og:description" content="Abre con tarjeta o móvil, coge lo que quieras y cierra. El sistema de básculas lo detecta todo y cobra automáticamente.">
 <meta property="og:locale" content="es_ES">
-<meta property="og:image" content="https://bprats-prog.github.io/smartshop-landing/assets/img/pv-office-empresa.jpg">
-<meta property="og:image:alt" content="SmartShop instalada en el office de una oficina">
+<!-- 1200x630 (1,91:1), la proporcion que usan LinkedIn, WhatsApp y Facebook:
+     un recorte de pv-office-empresa.jpg. -->
+<meta property="og:image" content="https://bprats-prog.github.io/smartshop-landing/assets/img/og-smartshops.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SmartShop de Arbitrade instalada en el office de una oficina">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bprats-prog.github.io/smartshop-landing/assets/img/og-smartshops.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Arbitrade",
+  "url": "https://arbitrade.es",
+  "telephone": "+34900264134",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "telephone": "+34900264134",
+    "availableLanguage": ["es", "ca"]
+  }
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,17 +221,22 @@
               <li><b>Comida real, sin personal.</b> Disponible las 24 horas, sin servicio de restauración.</li>
             </ul>
             <div class="detalle-media">
-              <button class="video" type="button" data-video="entornoLaboral">
+              <button class="video" type="button" data-video="entornoLaboral" aria-label="Ver el vídeo del modelo Arbitrade">
                 <span class="play">
                   <span>
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
                   </span>
                 </span>
               </button>
+              <!-- Sin JavaScript el boton de arriba no hace nada (el CSS lo
+                   oculta): se ofrece el enlace directo a YouTube. -->
+              <noscript>
+                <a class="btn btn-secundario" href="https://www.youtube.com/watch?v=8QLeAxdFQgw" target="_blank" rel="noopener">Ver el vídeo en YouTube</a>
+              </noscript>
             </div>
           </div>
         </div>
-        <a class="btn btn-secundario modelo-boton" href="#" target="_blank" rel="noopener" data-presentacion="autogestion">
+        <a class="btn btn-secundario modelo-boton" href="https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview" target="_blank" rel="noopener" data-presentacion="autogestion">
           <span class="etiqueta-presentacion">Descubre el modelo Arbitrade</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
         </a>
@@ -262,7 +292,7 @@
             </div>
           </div>
         </div>
-        <a class="btn btn-secundario modelo-boton" href="#" target="_blank" rel="noopener" data-presentacion="ametller">
+        <a class="btn btn-secundario modelo-boton" href="https://docs.google.com/presentation/d/1snA9x6OPckMfcblX6bZ9dxsgJNU4aM3cipMY53DxbmA/preview" target="_blank" rel="noopener" data-presentacion="ametller">
           <span class="etiqueta-presentacion">Descubre el modelo Ametller Origen</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
         </a>
@@ -324,7 +354,22 @@
          con flechas y puntos. Para añadir fotos basta con añadirlas a la lista
          galeria de datos.js; los puntos y los topes de las flechas se calculan
          solos. -->
-    <div class="carrusel entra" data-galeria></div>
+    <div class="carrusel entra" data-galeria>
+      <!-- Sin JavaScript no hay carrusel: se muestran las fotos tal cual. Con
+           JS, el navegador no pinta nada de lo que hay dentro de noscript.
+           Es una copia de la lista galeria de datos.js: si se cambia una,
+           cambiar la otra. -->
+      <noscript>
+        <div class="galeria-estatica">
+          <img src="assets/img/pv-oficina-bascula.jpg" width="933" height="525" loading="lazy" alt="Dos SmartShops de básculas en la zona de descanso de una oficina, con butacas azules; una persona abre una de las puertas">
+          <img src="assets/img/pv-hotel-cafe.jpg" width="1122" height="701" loading="lazy" alt="Rincón de hotel con máquina de café y una SmartShop encastrada en un mueble de madera, junto a la zona de sofás">
+          <img src="assets/img/pv-coworking.jpg" width="1400" height="1048" loading="lazy" alt="Máquina de café y SmartShop en un espacio de coworking, con personas trabajando con portátiles al fondo">
+          <img src="assets/img/pv-office-empresa.jpg" width="1900" height="1329" loading="lazy" alt="SmartShop instalada junto al office de una oficina, encastrada en un mueble negro">
+          <img src="assets/img/pv-hotel-grabandgo.jpg" width="1600" height="1029" loading="lazy" alt="Rincón Grab and Go de un hotel con dos SmartShops, cafetera y jardín vertical">
+          <img src="assets/img/pv-lounge.jpg" width="1241" height="1600" loading="lazy" alt="Dos SmartShops en la zona de estar de un hotel, junto a butacas y plantas">
+        </div>
+      </noscript>
+    </div>
   </section>
 
   <!-- ============ 7 · CÓMO SE CONTRATA ============ -->

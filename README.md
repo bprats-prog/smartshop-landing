@@ -15,8 +15,10 @@ Dos advertencias sobre las copias sueltas:
 - Abriendo `index.html` con **doble clic** la web funciona, pero YouTube se
   niega a incrustarse en una página sin dominio (error 153). En ese caso los
   vídeos se abren en una pestaña, y la nota bajo el reproductor lo avisa.
-- Si la web cambia de dominio hay que actualizar `og:url` y `og:image` en las
-  dos páginas: son rutas absolutas y no se ajustan solas.
+- Si la web cambia de dominio hay que actualizar, en `index.html`, `canonical`,
+  `og:url`, `og:image` y `twitter:image`: son rutas absolutas y no se ajustan
+  solas. `como-se-contrata.html` solo redirige y apunta con su `canonical` a la
+  home.
 
 ## Cómo subirla
 
@@ -238,6 +240,13 @@ castigue una conexión móvil.
   a una de una zona de descanso de oficina, que está en el historial de git).
   Parece una imagen generada, no una fotografía: se nota en algunos textos, como
   el rótulo de la cafetera.
+- `og-smartshops.jpg` — la imagen que se ve al compartir el enlace (WhatsApp,
+  LinkedIn, correo): 1200×630, un recorte de `pv-office-empresa.jpg` (~70 KB).
+  Está en `og:image` y `twitter:image`; si se cambia, mantener 1,91:1.
+- `favicon.svg` y `apple-touch-icon.png` (180×180) — el icono de la pestaña y de
+  la pantalla de inicio del móvil. **Son un diseño provisional** (una nevera
+  blanca con tres baldas sobre el degradado naranja de la marca), hecho porque
+  no había icono; conviene sustituirlos por el logotipo real de Arbitrade.
 - `equipo-smartshop.jpg` — el equipo entero, en "¿Qué es una SmartShop?".
 - `gama-ametller.jpg` — el surtido del modelo Ametller Origen, en su tarjeta.
   Es una **fotografía real** de producto, no una imagen generada. 1488×744, 2:1,
@@ -394,6 +403,15 @@ se sentía raro.
 - **El selector de idioma del vídeo solo existe con el script vivo**
   (`app-ok`). Sin JS no cambiaría nada, y la web no deja controles muertos; el
   `<video>` sí va en el HTML y se reproduce igual.
+- **Sin JavaScript la web no deja controles muertos ni huecos.** Los dos botones
+  de presentación llevan su URL real en el `href` del HTML (el script solo
+  añade el visor encima: si cambias una presentación en `datos.js`, cámbiala
+  también ahí); el botón del Short se oculta (`html:not(.js)`) y en su lugar
+  hay un enlace a YouTube dentro de un `<noscript>`; y la galería lleva dentro
+  de su contenedor un `<noscript>` con las seis fotos. Esa lista es **una copia**
+  de `galeria` en `datos.js`: si añades o cambias una foto, cámbiala en los dos
+  sitios. Si lo que falla es solo `datos.js`, el script no retira ni toca nada
+  de lo que ya está en el HTML.
 - **El texto de móvil es deliberadamente grande y corto.** El bloque
   "TIPOGRAFÍA EN MÓVIL" del final del CSS sube los tamaños, y lo que lo paga es
   el recorte de los párrafos. Si vuelves a alargar un texto, mide: las ocho
@@ -404,7 +422,17 @@ se sentía raro.
   arrancado —añade `app-ok`— ese mismo script retira `anim` a los tres segundos
   y el contenido aparece sin animar. No toques ese bloque: sin él, un 404 o un
   proxy corporativo dejan la web en blanco, porque quien revela los `.entra` es
-  el script.
+  el script. Dentro de `iniciar()` en `app.js` cada paso va aislado en un
+  `try/catch` (`seguro()`), y `app-ok` se pone **solo cuando `animarEntradas()`
+  ha funcionado**, que es lo único que revela las secciones: si un paso falla,
+  los demás siguen, y si falla ese, el temporizador de arriba es la red de
+  seguridad. Antes `app-ok` se ponía lo primero y un error temprano dejaba todo
+  bajo la portada invisible para siempre.
+- **Los saltos por `#fragmento` a un bloque interno** (`#modelo-ametller`, un
+  título) usan `posicion()` en `app.js`, que suma el `offsetTop` de toda la
+  cadena de `offsetParent` (el de un elemento anidado es relativo a su
+  `<section>`, no al `.deck`) y resta la barra fija. Con solo el `offsetTop`, el
+  bloque de Ametller quedaba a más de 2000 px del sitio.
 - **Atenúa el texto con `color`, nunca con `opacity`.** `opacity` crea un grupo
   de composición y un hijo no puede recuperarla: por eso el enlace del teléfono
   dentro de una `.nota` se quedaba en 2,72:1 de contraste y `.apoyo strong{opacity:1}`
@@ -424,8 +452,10 @@ se sentía raro.
 
 ## Pendiente
 
-- **Los metadatos al cambiar de dominio.** `og:url` y `og:image` ya son URLs
-  absolutas, apuntando a GitHub Pages. Cuando la web se mueva al hosting de
-  Arbitrade hay que actualizarlas a mano en los dos HTML: no se ajustan solas, y
-  si apuntan al dominio viejo WhatsApp y LinkedIn seguirán mostrando esa
-  miniatura.
+- **Los metadatos al cambiar de dominio.** `canonical`, `og:url`, `og:image` y
+  `twitter:image` ya son URLs absolutas, apuntando a GitHub Pages. Cuando la web
+  se mueva al hosting de Arbitrade hay que actualizarlas a mano en `index.html`:
+  no se ajustan solas, y si apuntan al dominio viejo WhatsApp y LinkedIn seguirán
+  mostrando esa miniatura. Con dominio propio, además, se podrán servir
+  `robots.txt` y `sitemap.xml` (en un project site de GitHub Pages no, porque
+  los rastreadores solo los leen en la raíz del host).

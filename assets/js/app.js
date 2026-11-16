@@ -35,6 +35,10 @@
      un modelo concreto.
      Si no hay URL configurada, el botón se retira en vez de quedar muerto. */
   function presentacion() {
+    /* Sin datos.js (404, bloqueo) no hay con que comparar: los botones se dejan
+       como estan en el HTML, que ya lleva su href. Retirarlos aqui borraria
+       contenido que funcionaba. */
+    if (!window.SMARTSHOP) { return; }
     var P = D.presentaciones || {};
     $$("[data-presentacion]").forEach(function (el) {
       var p = P[el.getAttribute("data-presentacion") || "general"];
@@ -82,7 +86,19 @@
        los saltos nativos (el fragmento de la URL), no a estos. */
     function posicion(p) {
       var m = parseFloat(getComputedStyle(p).scrollMarginTop) || 0;
-      return Math.max(0, p.offsetTop - m);
+      /* Un destino dentro de una pantalla (#modelo-ametller, un titulo) no
+         lleva scroll-margin-top: se resta la barra fija, como hace el
+         scroll-padding del .deck con los saltos nativos. */
+      if (!p.classList.contains("pantalla")) {
+        var barra = $(".barra");
+        m = (barra ? barra.offsetHeight : 0) + 8;
+      }
+      /* offsetTop es relativo al offsetParent, que para un elemento anidado es
+         su <section> y no el .deck: hay que sumar toda la cadena. (Usarlo solo
+         dejaba #modelo-ametller a 2000 px de donde debia.) */
+      var y = 0, el = p;
+      while (el && el !== deck) { y += el.offsetTop; el = el.offsetParent; }
+      return Math.max(0, y - m);
     }
     /* La animacion de los saltos del script. Se pide explicita (el .deck ya no
        lleva scroll-behavior:smooth) y respeta prefers-reduced-motion. */
@@ -352,7 +368,9 @@
      sonar. Si estaba parado, queda parado en su portada. */
   function videoModelo() {
     var bloque = $("[data-video-modelo]");
-    if (!bloque) { return; }
+    /* Sin datos.js el video sigue como esta en el HTML (con su src en
+       espanol); no se retira el selector ni el bloque. */
+    if (!bloque || !window.SMARTSHOP) { return; }
     var grupo = $("[data-idiomas]", bloque);
     var player = $("[data-video-player]", bloque);
     var V = D.videos || {};
@@ -704,21 +722,33 @@
   }
 
   /* ---------- Arranque ---------- */
+  /* Cada paso se ejecuta aislado: si uno lanza una excepcion (un navegador
+     viejo, un dato raro) los demas siguen y la pagina no se queda a medias. */
+  function seguro(paso) {
+    try { paso(); return true; }
+    catch (err) {
+      if (window.console && console.error) { console.error("SmartShops: fallo en " + paso.name, err); }
+      return false;
+    }
+  }
+
   function iniciar() {
-    /* Le dice al script del <head> que el comportamiento esta vivo: sin esto
-       retira la clase anim a los 3 s y el contenido se muestra sin animar. */
-    document.documentElement.classList.add("app-ok");
-    pintarContacto();
-    presentacion();
-    recorrido();
-    animarEntradas();
-    video();
-    videoModelo();
-    galeria();
-    visor();
-    visorVideo();
-    visorDoc();
-    fotosModelo();
+    seguro(pintarContacto);
+    seguro(presentacion);
+    seguro(recorrido);
+    /* app-ok le dice al script del <head> que el comportamiento esta vivo: sin
+       el retira la clase anim a los 3 s y el contenido se muestra sin animar.
+       Se pone solo cuando animarEntradas ha funcionado, que es lo unico que
+       revela las secciones: si fallara, las secciones quedarian en opacity:0
+       para siempre. Asi, ese temporizador es la red de seguridad. */
+    if (seguro(animarEntradas)) { document.documentElement.classList.add("app-ok"); }
+    seguro(video);
+    seguro(videoModelo);
+    seguro(galeria);
+    seguro(visor);
+    seguro(visorVideo);
+    seguro(visorDoc);
+    seguro(fotosModelo);
   }
 
   if (document.readyState === "loading") {
