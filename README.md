@@ -259,7 +259,7 @@ castigue una conexión móvil.
   en alta, conviene sustituirlo.
 - `pv-desbloqueo-movil`, `pv-lector-pantalla`, `pv-fila-smartshops` y
   `pv-puerta-abierta-carrito` — las cuatro miniaturas de "¿Cómo funciona?".
-- `pv-office-empresa`, `pv-hotel-grabandgo` y `pv-lounge` — la galería de
+- `pv-office-empresa`, `pv-hotel-grabandgo` y `pv-oficina-maurice` — la galería de
   instalaciones. Ninguna foto se repite entre secciones. Las columnas de la
   galería se reparten según la forma de cada foto —el script lee `ancho` y
   `alto` de `datos.js` y los escribe en la rejilla—, de modo que las alturas
