@@ -127,6 +127,8 @@ window.SMARTSHOP = {
     { src: "assets/img/pv-hotel-grabandgo.jpg", ancho: 1600, alto: 1029,
       alt: "Rincón Grab and Go de un hotel con dos SmartShops, cafetera y jardín vertical" },
     { src: "assets/img/pv-oficina-maurice.jpg", ancho: 1536, alto: 1024,
-      alt: "Rincón de office con una SmartShop encastrada junto a una máquina de café y una pared vegetal con el rótulo Maurice" }
+      alt: "Rincón de office con una SmartShop encastrada junto a una máquina de café y una pared vegetal con el rótulo Maurice" },
+    { src: "assets/img/pv-oficina-vending.jpg", ancho: 1600, alto: 900,
+      alt: "Zona de café de una oficina con una SmartShop encastrada junto a una máquina de vending de snacks y una cafetera" }
   ]
 };
