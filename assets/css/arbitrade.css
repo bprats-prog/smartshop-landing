@@ -1540,8 +1540,16 @@ html:not(.js) button.video[data-video]{display:none}
 }
 .barra-cta svg{height:1.05em; width:auto; flex:none}
 .barra-num{white-space:nowrap}
+.barra-corto{display:none}
 @media (max-width:699px){
-  .barra-num{display:none}
+  .barra-num, .barra-largo{display:none}
+  .barra-corto{display:inline}
+}
+/* Zona tactil: 44 px de alto como minimo (antes 30 px con letra de 11 px, el
+   boton mas importante de la pagina y el mas pequeno). Aplica en movil y en
+   cualquier pantalla tactil. */
+@media (max-width:699px), (pointer:coarse){
+  .barra-cta{min-height:44px; font-size:14px; padding:.4em 1.2em}
 }
 
 /* El cierre se queda en titular, una frase y el boton. Sin la lista ni el

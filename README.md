@@ -430,6 +430,19 @@ se sentía raro.
   los demás siguen, y si falla ese, el temporizador de arriba es la red de
   seguridad. Antes `app-ok` se ponía lo primero y un error temprano dejaba todo
   bajo la portada invisible para siempre.
+- **Las fotos que crea el script (galería, póster del Short) se piden con
+  `loading="lazy"` puesto ANTES de `src`.** En cuanto una `<img>` recibe `src` el
+  navegador empieza a descargarla, y cambiar `loading` después ya no la frena:
+  con el orden al revés, las fotos de la galería (~1 MB) se pedían con la
+  página aunque estuvieran a miles de píxeles. Además, el carrusel desliza en
+  horizontal y para la carga perezosa las vistas que no se ven cuentan como
+  fuera de pantalla (aparecerían en blanco al pasar), así que `galeria()` las
+  pide todas, en orden, cuando el visitante está a una pantalla de la sección.
+- **El botón de llamada de la barra** mide 44 px de alto en móvil y en pantallas
+  táctiles y dice «Llámanos»; a partir de 700 px dice «Pide tu visita» y lleva el
+  número a la vista, porque en un escritorio un enlace `tel:` no siempre hace
+  nada. El del cierre dice «Llama y concertamos tu visita»: no presupone que el
+  visitante ya tenga un comercial.
 - **Los saltos por `#fragmento` a un bloque interno** (`#modelo-ametller`, un
   título) usan `posicion()` en `app.js`, que suma el `offsetTop` de toda la
   cadena de `offsetParent` (el de un elemento anidado es relativo a su

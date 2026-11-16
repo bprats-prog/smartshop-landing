@@ -263,6 +263,8 @@
 
       if (v.poster) {
         var img = document.createElement("img");
+        img.loading = "lazy";   /* antes de src: ver galeria() */
+        img.decoding = "async";
         img.src = v.poster;
         img.alt = "";
         caja.appendChild(img);
@@ -521,11 +523,14 @@
         pieza.setAttribute("aria-label",
           "Foto " + (i + 1) + " de " + total + ". Ampliar: " + (foto.alt || ""));
         var img = document.createElement("img");
+        /* loading va ANTES que src: en cuanto una <img> recibe src el navegador
+           empieza a descargarla, y cambiar loading despues ya no la frena. Con
+           src primero, las ocho fotos (~1,3 MB) se pedian con la pagina aunque
+           la galeria este a miles de pixeles. Todas lazy; la precarga de mas
+           abajo las pide cuando el visitante se acerca. */
+        img.loading = "lazy";
         img.src = foto.src;
         img.alt = "";
-        /* La primera entra en la primera pantalla de la seccion; las demas
-           solo cuando el visitante llega a ellas. */
-        img.loading = i === 0 ? "eager" : "lazy";
         img.decoding = "async";
         if (foto.ancho && foto.alto) { img.width = foto.ancho; img.height = foto.alto; }
         /* El marco es fijo y las fotos no tienen todas la misma forma, asi que
@@ -545,6 +550,23 @@
 
     marco.appendChild(pista);
     cont.appendChild(marco);
+
+    /* El carrusel desliza en horizontal dentro de la pista y, para la carga
+       perezosa, las fotos de las demas vistas cuentan como fuera de pantalla:
+       aparecerian en blanco al pasar. Asi que, cuando el visitante se acerca a
+       la galeria (una pantalla antes), se piden todas, en orden. Hasta entonces
+       no cuestan nada. */
+    function precargar() {
+      $$("img", pista).forEach(function (im) { im.loading = "eager"; });
+    }
+    if ("IntersectionObserver" in window) {
+      var cerca = new IntersectionObserver(function (es) {
+        if (es.some(function (e) { return e.isIntersecting; })) { cerca.disconnect(); precargar(); }
+      }, { root: $(".deck") || null, rootMargin: "0px 0px 100% 0px" });
+      cerca.observe(cont);
+    } else {
+      precargar();
+    }
 
     /* Con una sola foto no hay nada que pasar: ni flechas ni puntos. */
     if (total < 2) { return; }

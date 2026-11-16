@@ -70,10 +70,13 @@
   </a>
   <!-- La barra deja de mandar a leer condiciones y pasa a llamar. El número va
        visible a partir de 700 px: en un escritorio un enlace tel: no siempre
-       hace nada, y ahí lo útil es poder leerlo y marcarlo a mano. -->
+       hace nada, y ahí lo útil es poder leerlo y marcarlo a mano. En móvil, el
+       texto es "Llámanos": "Pide tu visita" prometía un trámite y lo que
+       hace el botón es llamar. -->
   <a class="barra-cta" href="tel:+34900264134" data-tel-enlace>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-    Pide tu visita<span class="barra-num"> · <span data-telefono>900 264 134</span></span>
+    <span class="barra-corto">Llámanos</span>
+    <span class="barra-largo">Pide tu visita<span class="barra-num"> · <span data-telefono>900 264 134</span></span></span>
   </a>
 </header>
 <div class="progreso" aria-hidden="true"></div>
@@ -362,11 +365,11 @@
            cambiar la otra. -->
       <noscript>
         <div class="galeria-estatica">
+          <img src="assets/img/pv-oficina-vending.jpg" width="1600" height="900" loading="lazy" alt="Zona de café de una oficina con una SmartShop encastrada junto a una máquina de vending de snacks y una cafetera">
           <img src="assets/img/pv-hotel-cafe.jpg" width="1122" height="701" loading="lazy" alt="Rincón de hotel con máquina de café y una SmartShop encastrada en un mueble de madera, junto a la zona de sofás">
           <img src="assets/img/pv-coworking.jpg" width="1400" height="1048" loading="lazy" alt="Máquina de café y SmartShop en un espacio de coworking, con personas trabajando con portátiles al fondo">
           <img src="assets/img/pv-hotel-grabandgo.jpg" width="1600" height="1029" loading="lazy" alt="Rincón Grab and Go de un hotel con dos SmartShops, cafetera y jardín vertical">
           <img src="assets/img/pv-oficina-maurice.jpg" width="1536" height="1024" loading="lazy" alt="Rincón de office con una SmartShop encastrada junto a una máquina de café y una pared vegetal con el rótulo Maurice">
-          <img src="assets/img/pv-oficina-vending.jpg" width="1600" height="900" loading="lazy" alt="Zona de café de una oficina con una SmartShop encastrada junto a una máquina de vending de snacks y una cafetera">
           <img src="assets/img/pv-sala-ametller.jpg" width="1600" height="1200" loading="lazy" alt="Sala con dos máquinas de vending de Arbitrade, una máquina de café con pantalla y la nevera del modelo Ametller Origen">
         </div>
       </noscript>
@@ -395,7 +398,7 @@
     <div class="botones entra">
       <a class="btn btn-primario" href="tel:+34900264134" data-tel-enlace>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
-        <span class="btn-etiqueta">Llama a tu comercial · <span class="btn-num" data-telefono>900 264 134</span></span>
+        <span class="btn-etiqueta">Llama y concertamos tu visita · <span class="btn-num" data-telefono>900 264 134</span></span>
       </a>
     </div>
   </section>

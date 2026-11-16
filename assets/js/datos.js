@@ -116,6 +116,8 @@ window.SMARTSHOP = {
      queda en un extremo y un recorte centrado lo dejaría fuera. Ahora mismo no
      lo usa ninguna. */
   galeria: [
+    { src: "assets/img/pv-oficina-vending.jpg", ancho: 1600, alto: 900,
+      alt: "Zona de café de una oficina con una SmartShop encastrada junto a una máquina de vending de snacks y una cafetera" },
     { src: "assets/img/pv-hotel-cafe.jpg", ancho: 1122, alto: 701,
       alt: "Rincón de hotel con máquina de café y una SmartShop encastrada en un mueble de madera, junto a la zona de sofás" },
     { src: "assets/img/pv-coworking.jpg", ancho: 1400, alto: 1048,
@@ -124,8 +126,6 @@ window.SMARTSHOP = {
       alt: "Rincón Grab and Go de un hotel con dos SmartShops, cafetera y jardín vertical" },
     { src: "assets/img/pv-oficina-maurice.jpg", ancho: 1536, alto: 1024,
       alt: "Rincón de office con una SmartShop encastrada junto a una máquina de café y una pared vegetal con el rótulo Maurice" },
-    { src: "assets/img/pv-oficina-vending.jpg", ancho: 1600, alto: 900,
-      alt: "Zona de café de una oficina con una SmartShop encastrada junto a una máquina de vending de snacks y una cafetera" },
     { src: "assets/img/pv-sala-ametller.jpg", ancho: 1600, alto: 1200,
       alt: "Sala con dos máquinas de vending de Arbitrade, una máquina de café con pantalla y la nevera del modelo Ametller Origen" }
   ]
