@@ -3,6 +3,19 @@
    Paleta y tipografia heredadas de la identidad Arbitrade.
    ============================================================ */
 
+/* Fuentes alojadas en la web (ver assets/fonts/LICENCIA.txt). Cada archivo es
+   una fuente variable que cubre todos los pesos que se usan (400 a 700);
+   Fraunces ademas lleva el eje de tamano optico (opsz), que el CSS fija mas
+   abajo con font-variation-settings. Solo el subconjunto latino. */
+@font-face{
+  font-family:"DM Sans"; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url("../fonts/dm-sans-latin.woff2") format("woff2");
+}
+@font-face{
+  font-family:"Fraunces"; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url("../fonts/fraunces-latin.woff2") format("woff2");
+}
+
 :root{
   /* Paleta Arbitrade — claro (halos/gradientes) · base · oscuro (texto/sombras) */
   --cream-50:#F4F0EA; --cream-100:#EAE3D9; --cream-200:#D8CCBD;

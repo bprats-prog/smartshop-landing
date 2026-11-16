@@ -28,13 +28,15 @@ dependencias: son archivos estáticos.
 ```
 smartshop-landing/
 ├── index.html              El recorrido: qué es, cómo funciona, qué hay dentro…
-├── como-se-contrata.html   El modelo de negocio y qué incluye el servicio
+├── como-se-contrata.html   Solo redirige a la home (enlaces antiguos)
+├── herramientas/           Scripts de ayuda para preparar imágenes
 └── assets/
     ├── css/arbitrade.css   Colores, tipografías y componentes (compartido)
     ├── js/app.js           Comportamiento (compartido)
     ├── js/datos.js         ← LOS DATOS EDITABLES
+    ├── fonts/              Las dos fuentes (DM Sans y Fraunces), alojadas aquí
     ├── video/              Vídeos propios (Ametller Origen, en español y catalán)
-    └── img/                Fotos, alzado técnico y wordmark
+    └── img/                Fotos, iconos, imagen para compartir y wordmark
 ```
 
 También funciona abriendo `index.html` con doble clic, sin servidor: todo son
@@ -385,6 +387,16 @@ se sentía raro.
   Danet, Salgot, Activia, Florette, Jabugo, Natwins, Lay's y Milka. La foto de
   bebidas es una balda del interior de una SmartShop, que es la prueba más
   directa. Tampoco se cita ninguna marca de partner ni de cliente.
+- **La página no llama a ningún tercero al cargarse.** Las fuentes (DM Sans y
+  Fraunces) van en `assets/fonts/` en formato woff2, con licencia SIL OFL (ver
+  `assets/fonts/LICENCIA.txt`), en lugar de cargarse desde Google Fonts: así no
+  se envía la IP del visitante a Google sin que lo haya decidido. Cada archivo
+  es una fuente variable que cubre todos los pesos que se usan; solo está el
+  subconjunto latino (castellano, catalán, euro, comillas), y cualquier otro
+  carácter cae a la fuente de reserva del CSS. Si algún día hace falta otro peso
+  o un alfabeto distinto, hay que volver a descargar el archivo. Comprobable con
+  la pestaña de red del navegador: no debe aparecer ninguna petición a otro
+  dominio hasta que el visitante pulse un vídeo o una presentación.
 - **Los vídeos no cargan hasta que se pulsan.** Los de YouTube lo hacen contra
   `youtube-nocookie.com`, así la página no llama a Google sin que el visitante
   lo decida. Los propios llevan `preload="none"`: ni siquiera piden el MP4 hasta

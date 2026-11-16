@@ -1,0 +1,14 @@
+Fuentes alojadas en la propia web (en vez de cargarlas desde Google Fonts)
+
+- dm-sans-latin.woff2   DM Sans   (subconjunto latino, fuente variable de peso)
+- fraunces-latin.woff2  Fraunces  (subconjunto latino, fuente variable de peso y
+                                   tamano optico)
+
+Ambas se distribuyen con la licencia SIL Open Font License 1.1, que permite
+usarlas, copiarlas y alojarlas en una web sin coste. Texto de la licencia:
+https://openfontlicense.org
+
+Origen: Google Fonts (fonts.google.com/specimen/DM+Sans y
+fonts.google.com/specimen/Fraunces), descargadas el 16 de noviembre de 2026.
+Solo el subconjunto latino: cubre castellano, catalan, el euro y las comillas.
+Cualquier otro caracter cae a la fuente de reserva del CSS.
