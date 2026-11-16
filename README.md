@@ -163,9 +163,9 @@ la foto tiene la proporción de la imagen (`aspect-ratio:16/9`), así que se ve
 entera: si se cambia por otra con otra proporción, hay que cambiar también esa
 línea y los `width`/`height` del HTML, o se recortará.
 
-El titular son **tres frases cortas, una por línea** («Abre. Elige. Cierra.»):
-cada una va en un `<span class="frase">` que es un bloque, con su punto en
-naranja (`.punto`). Se lee como los tres pasos de la SmartShop. Al ser frases
+El titular son **tres frases cortas, una por línea** («Abre. Elige. Disfruta.»):
+cada una va en un `<span class="frase">` que es un bloque, con su punto solo
+para lectores de pantalla (`.solo-lector`: no se ve). Se lee como los tres pasos de la SmartShop. Al ser frases
 tan cortas, en móvil el titular crece con el ancho (`clamp(48px,16vw,72px)`, 60 px
 a 375) en lugar de quedarse en los 34 px base; la portada sigue cabiendo en una
 pantalla, también a 360×640. Si se cambia el titular por uno más largo, conviene
