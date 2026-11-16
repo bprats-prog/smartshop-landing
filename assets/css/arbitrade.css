@@ -456,14 +456,15 @@ h2.titular{
        fija tapa el titulo del bloque que los recibe. ---- */
 #modelos{scroll-margin-top:var(--barra)}
 
-/* ---- Pie ---- */
+/* ---- Pie legal: titular y tres enlaces a los textos de arbitrade.es ---- */
 .pie{
   background:var(--ink); color:#fff; text-align:center;
-  padding:clamp(28px,5vh,52px) clamp(20px,5vw,64px);
-  display:flex; flex-direction:column; align-items:center; gap:14px;
+  padding:clamp(22px,4vh,34px) clamp(20px,5vw,64px) clamp(26px,5vh,40px);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
 }
-.pie a{color:var(--naranja-l)}
-.pie .legal{font-size:clamp(10.5px,1.05vw,12.5px); color:rgba(255,255,255,.72); max-width:70ch; line-height:1.5}
+.pie a{color:var(--naranja-l); text-underline-offset:3px}
+.pie .legal{margin:0; font-size:13px; color:rgba(255,255,255,.78); max-width:70ch; line-height:1.5}
+.pie-enlaces{display:flex; flex-wrap:wrap; justify-content:center; gap:6px 22px; font-size:13px}
 
 /* ============================================================
    MOVILES BAJOS (iPhone SE y similares)

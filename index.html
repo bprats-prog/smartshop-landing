@@ -405,6 +405,21 @@
     </div>
   </section>
 
+  <!-- Pie legal. Los tres textos son los de la web de Arbitrade (arbitrade.es),
+       donde constan los datos del titular (art. 10 de la LSSI-CE), la politica
+       de privacidad y la de cookies. Se abren en pestana nueva para no sacar al
+       visitante de la landing. No es una .pantalla: no entra en el recorrido.
+       role="contentinfo" explicito porque, dentro de <main>, un <footer> no lo
+       es por defecto. -->
+  <footer class="pie" role="contentinfo">
+    <p class="legal">Arbitrade · ALLIANCE VENDING S.L.U.</p>
+    <nav class="pie-enlaces" aria-label="Información legal">
+      <a href="https://arbitrade.es/aviso-legal/" target="_blank" rel="noopener">Aviso legal</a>
+      <a href="https://arbitrade.es/politica-de-privacidad/" target="_blank" rel="noopener">Política de privacidad</a>
+      <a href="https://arbitrade.es/cookies/" target="_blank" rel="noopener">Cookies</a>
+    </nav>
+  </footer>
+
 </main>
 
 <!-- Visor de fotos a pantalla completa -->

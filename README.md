@@ -397,6 +397,14 @@ se sentía raro.
   o un alfabeto distinto, hay que volver a descargar el archivo. Comprobable con
   la pestaña de red del navegador: no debe aparecer ninguna petición a otro
   dominio hasta que el visitante pulse un vídeo o una presentación.
+- **El pie legal enlaza los textos de arbitrade.es.** Al final de `<main>` hay un
+  `<footer class="pie">` con el titular (ALLIANCE VENDING S.L.U., tal como consta
+  en el aviso legal de arbitrade.es) y tres enlaces, en pestaña nueva: aviso
+  legal, política de privacidad y cookies. No hay texto legal propio en la
+  landing: si Arbitrade actualiza esas páginas o cambia sus direcciones, hay que
+  cambiar los `href` en `index.html`. Conviene que quien lleve lo jurídico
+  confirme que esos textos generales cubren también esta landing. El pie no es
+  una `.pantalla`: no entra en el recorrido ni en las teclas de avance.
 - **Los vídeos no cargan hasta que se pulsan.** Los de YouTube lo hacen contra
   `youtube-nocookie.com`, así la página no llama a Google sin que el visitante
   lo decida. Los propios llevan `preload="none"`: ni siquiera piden el MP4 hasta
