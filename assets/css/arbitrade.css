@@ -1268,12 +1268,17 @@ h2.titular.grande{
 
 /* ============================================================
    LOS DOS MODELOS
-   Dos bloques, uno encima del otro: cada modelo en el suyo, con su color (el
-   naranja de la marca y el verde de la paleta) como tinte de fondo, borde y
-   acento. En escritorio cada bloque son dos columnas: a la izquierda la foto,
-   el nombre con su resumen y el boton de la presentacion; a la derecha el
-   desarrollo (lista y video). La rejilla los coloca por areas.
-   En movil, una columna con el orden del HTML: foto, texto, desarrollo, boton.
+   Estructura del wireframe B2B. Dos bloques, uno encima del otro, cada modelo
+   en el suyo, con su color (el naranja de la marca y el verde de la paleta)
+   como tinte de fondo, borde y acento. Dentro de cada bloque, de arriba abajo:
+     1. el nombre;
+     2. los medios (.modelo-medios): la foto, horizontal, y el video, vertical,
+        a la misma altura (la foto se estira a la del video);
+     3. el pie (.modelo-pie): resumen y boton de la presentacion a un lado, la
+        lista de caracteristicas al otro.
+   Desde 761 px los medios y el pie van en dos columnas. Por debajo, una sola
+   columna con este mismo orden: un video de 9:16 al lado de una foto en 340 px
+   quedaria de unos 80 px de ancho, y con los controles nativos no se maneja.
    Es una pantalla alta a proposito: no se intenta que quepa en 100svh.
    ============================================================ */
 .modelos-pila{
@@ -1282,37 +1287,14 @@ h2.titular.grande{
 }
 .modelo{
   --ac:var(--naranja); --tinte:rgba(255,95,21,.07); --borde:rgba(255,95,21,.24);
-  display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(14px,1.8vw,20px);
+  display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(14px,1.8vw,22px);
   padding:clamp(18px,2.6vw,32px);
   background:var(--tinte); border:1px solid var(--borde);
   border-radius:calc(var(--radio) + 6px);
 }
 #modelo-ametller{--ac:var(--verde); --tinte:rgba(96,160,34,.09); --borde:rgba(96,160,34,.30)}
 
-@media (min-width:901px){
-  .modelo{
-    grid-template-columns:minmax(0,.85fr) minmax(0,1fr);
-    grid-template-rows:auto auto 1fr;
-    grid-template-areas:"foto detalle" "texto detalle" "boton detalle";
-    column-gap:clamp(24px,3.4vw,48px);
-  }
-  .modelo-foto{grid-area:foto}
-  .modelo-texto{grid-area:texto}
-  .modelo-detalle{grid-area:detalle}
-  /* El boton queda abajo de la columna izquierda, a la altura del pie del
-     desarrollo, aunque la columna derecha sea mas alta. */
-  .modelo-boton{grid-area:boton; align-self:end}
-}
-
-/* --- La foto, el nombre y el resumen --- */
-/* 2:1, casi la proporcion de las dos fotos (2,2 y 2,3): se recorta un poco por
-   los lados y nada por arriba ni por abajo, que es donde esta el producto. */
-.modelo-foto{
-  margin:0; aspect-ratio:2/1; overflow:hidden;
-  border-radius:18px; box-shadow:var(--sombra-m); background:var(--cream-100);
-}
-.modelo-foto img{width:100%; height:100%; object-fit:cover; display:block}
-.modelo-texto{display:flex; flex-direction:column; gap:6px}
+/* --- El nombre --- */
 .modelo-nombre{
   margin:0; font-family:"Fraunces",Georgia,serif; font-weight:600;
   font-variation-settings:"opsz" 40;
@@ -1322,21 +1304,68 @@ h2.titular.grande{
   content:""; display:block; width:38px; height:3px; border-radius:2px;
   background:var(--ac); margin-top:8px;
 }
+
+/* --- Los medios: foto y video --- */
+.modelo-medios{
+  display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(14px,1.8vw,20px);
+}
+/* 2:1, casi la proporcion de las dos fotos (2,2 y 2,3): se recorta un poco por
+   los lados y nada por arriba ni por abajo, que es donde esta el producto. Es
+   la proporcion en movil, donde el video va debajo. En escritorio, con el
+   video al lado, la foto no lleva proporcion propia: llena el alto de la
+   columna del video (ver abajo). */
+.modelo-foto{
+  margin:0; aspect-ratio:2/1; overflow:hidden;
+  border-radius:18px; box-shadow:var(--sombra-m); background:var(--cream-100);
+}
+.modelo-foto img{width:100%; height:100%; object-fit:cover; display:block}
+.modelo-video{
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+/* Los dos videos (el Short de YouTube de Arbitrade y el MP4 de Ametller)
+   comparten tamaño. Especificidad mayor que .video.vertical, que le pone un
+   alto en svh pensado para la columna de medios de otras pantallas. */
+.modelo-video .video{
+  width:min(240px,64vw); height:auto; aspect-ratio:9/16;
+  box-shadow:var(--sombra-m); border-radius:16px;
+}
+@media (max-width:760px){
+  .modelo-video{justify-self:center}
+}
+@media (min-width:761px){
+  .modelo-medios{
+    grid-template-columns:minmax(0,1fr) auto; column-gap:0; align-items:stretch;
+  }
+  /* La separacion va en el video y no en el gap: si el script retira el bloque
+     del video no queda una columna fantasma. */
+  .modelo-video{margin-left:clamp(14px,1.8vw,24px)}
+  .modelo-video .video{width:clamp(180px,17vw,220px)}
+  /* Sin aspect-ratio a proposito: con el, al estirarla a la altura del video la
+     proporcion le calculaba un ancho mayor que su columna y se salia del
+     bloque. El alto lo marca la fila (el video); el min-height es la red si el
+     script retira el video, y la imagen va absoluta para no empujar la fila. */
+  .modelo-foto{
+    position:relative; aspect-ratio:auto; align-self:stretch;
+    min-height:clamp(200px,24vw,340px);
+  }
+  .modelo-foto img{position:absolute; inset:0}
+}
+
+/* --- El pie: resumen y boton, y la lista --- */
+.modelo-pie{
+  display:grid; grid-template-columns:minmax(0,1fr);
+  gap:clamp(14px,2vw,22px); align-items:start;
+}
+@media (min-width:761px){
+  .modelo-pie{
+    grid-template-columns:minmax(0,1fr) minmax(0,.9fr);
+    column-gap:clamp(24px,3.4vw,48px);
+  }
+}
+.modelo-texto{display:flex; flex-direction:column; align-items:flex-start; gap:14px}
 .modelo-resumen{
   margin:0; font-size:clamp(14px,1.35vw,16px); line-height:1.5;
   color:rgba(56,25,26,.74);
-}
-.modelo-boton{justify-self:start}
-
-/* --- El desarrollo del modelo --- */
-.modelo-detalle{
-  display:flex; flex-direction:column; align-items:flex-start;
-  gap:clamp(12px,1.5vw,18px);
-}
-.modelo-detalle h4{
-  margin:0; font-family:"Fraunces",Georgia,serif; font-weight:600;
-  font-variation-settings:"opsz" 40;
-  font-size:clamp(17px,1.7vw,21px); line-height:1.25;
 }
 /* Sin reutilizar .puntos: esa lista esta pensada para pantallas apretadas y
    un monton de reglas de alto la encogen (font-size 12,5 px en moviles bajos).
@@ -1356,32 +1385,6 @@ h2.titular.grande{
 }
 .detalle-lista b{color:var(--ink); font-weight:700}
 
-/* El cuerpo del desarrollo: la lista y el video, lado a lado en escritorio. */
-.detalle-cuerpo{
-  width:100%;
-  display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(14px,2vw,22px);
-  align-items:start;
-}
-@media (min-width:901px){
-  /* El cuerpo ocupa el alto que sobra (flex:1): el video queda pegado abajo, a
-     la altura del boton de la columna de al lado, y la lista centrada junto a
-     el. El selector de idioma de Ametller sube por encima de su video. */
-  .detalle-cuerpo{grid-template-columns:minmax(0,1fr) auto; flex:1}
-  .detalle-cuerpo .detalle-lista{align-self:center}
-  .detalle-media{align-self:end}
-}
-/* Los dos videos (el Short de YouTube de Arbitrade y el MP4 de Ametller)
-   comparten tamaño. Especificidad mayor que .video.vertical, que le pone un
-   alto en svh pensado para la columna de medios de otras pantallas. */
-.modelo-detalle .video{
-  width:clamp(180px,17vw,220px); height:auto; aspect-ratio:9/16;
-  box-shadow:var(--sombra-m); border-radius:16px;
-}
-@media (max-width:900px){
-  .detalle-media{justify-self:center}
-  .modelo-detalle .video{width:min(240px,64vw)}
-}
-
 /* --- El video con selector de idioma ---
    El selector va en tinta oscura y no en naranja: asi no se confunde con un
    boton de accion de la marca. */
@@ -1392,7 +1395,7 @@ h2.titular.grande{
 .video-modelo .idiomas{display:none}
 .app-ok .video-modelo .idiomas{display:inline-flex}
 /* El <video> rellena su .video (que es el que lleva el tamaño, el radio y la
-   sombra: ver ".modelo-detalle .video"). */
+   sombra: ver ".modelo-video .video"). */
 .video-modelo-player{display:block; width:100%; height:100%; object-fit:contain; background:#000}
 /* El play de encima solo existe con el script vivo (si no, taparia los
    controles nativos sin hacer nada) y se va en cuanto el video arranca. */
@@ -1575,4 +1578,112 @@ html:not(.js) button.video[data-video]{display:none}
     gap:clamp(16px,2.6vh,24px);
   }
   .cierre .apoyo{font-size:17.5px; line-height:1.5; max-width:34ch}
+}
+
+/* ============================================================
+   PROPUESTA B2B (wireframe): portada con llamada, bloque de gestion y
+   seccion de contratacion
+   ============================================================ */
+
+/* --- Portada: boton de llamada y enlace al recorrido --- */
+.portada-acciones{
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(6px,1vh,10px);
+}
+/* Tinta casi plena (no opacity): el enlace tiene que leerse sobre el degradado. */
+.enlace-bajar{
+  display:inline-flex; align-items:center; min-height:44px; padding:0 .4em;
+  font-size:clamp(13.5px,1.25vw,15.5px); font-weight:600;
+  color:rgba(56,25,26,.8); text-decoration:underline; text-underline-offset:4px;
+}
+.enlace-bajar:hover{color:var(--ink)}
+@media (min-width:901px){
+  #portada .portada-acciones{align-items:flex-start}
+  #portada .enlace-bajar{padding-left:0}
+  /* Con el boton debajo, el texto de apoyo (ahora de dos frases) puede ser un
+     poco mas ancho sin hacerse una columna estrecha. */
+  #portada .apoyo{max-width:40ch}
+}
+
+/* --- "De la gestion nos ocupamos nosotros" (dentro de Que aporta) --- */
+.gestion{
+  width:min(1000px,94vw); text-align:center;
+  display:flex; flex-direction:column; align-items:center;
+  gap:clamp(10px,1.6vh,16px);
+}
+.gestion{gap:clamp(14px,2.2vh,22px)}
+.gestion-titulo{
+  font-family:"Fraunces",Georgia,serif; font-weight:600;
+  font-variation-settings:"opsz" 40;
+  font-size:clamp(19px,2vw,25px); line-height:1.2; margin:0;
+}
+/* La marca de acento bajo el titulo, la misma de los nombres de modelo. */
+.gestion-titulo::after{
+  content:""; display:block; width:38px; height:3px; border-radius:2px;
+  background:var(--naranja); margin:10px auto 0;
+}
+/* Cuatro tarjetas con icono, como las de "Que aporta" pero mas bajas: aqui no
+   hay descripcion, solo el nombre de la tarea. */
+.gestion-lista{
+  list-style:none; margin:0; padding:0; width:100%;
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(10px,1.4vw,16px);
+}
+.gestion-lista li{
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  gap:clamp(8px,1.2vh,12px);
+  background:#fff; border:1px solid var(--cream-100); border-radius:var(--radio);
+  box-shadow:var(--sombra-s);
+  padding:clamp(14px,2.2vh,22px) 10px;
+  font-size:clamp(14.5px,1.4vw,17px); font-weight:700; line-height:1.2;
+  transition:transform .25s, box-shadow .25s;
+}
+.gestion-icono{
+  display:grid; place-items:center; flex:none;
+  width:clamp(42px,3.6vw,52px); aspect-ratio:1; border-radius:50%;
+  background:rgba(255,95,21,.10); color:var(--naranja-d);
+}
+.gestion-icono svg{height:52%; width:auto}
+@media (hover:hover){
+  .gestion-lista li:hover{transform:translateY(-3px); box-shadow:var(--sombra-m)}
+}
+@media (max-width:560px){
+  .gestion-lista{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* --- Como se contrata: tres pasos --- */
+.proceso{
+  list-style:none; margin:0; padding:0;
+  width:min(1000px,94vw); text-align:left;
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(12px,1.6vw,20px);
+}
+.proceso li{
+  background:#fff; border:1px solid var(--cream-100); border-radius:20px;
+  box-shadow:var(--sombra-s);
+  padding:clamp(16px,2.4vh,24px) clamp(16px,2vw,24px);
+}
+.proceso .num{
+  display:block; margin-bottom:8px;
+  font-family:"Fraunces",Georgia,serif; font-weight:700;
+  font-variation-settings:"opsz" 72;
+  font-size:clamp(26px,2.6vw,34px); line-height:1; color:var(--naranja-d);
+}
+.proceso h3{
+  font-family:"Fraunces",Georgia,serif; font-weight:600;
+  font-variation-settings:"opsz" 40;
+  font-size:clamp(17px,1.7vw,21px); line-height:1.2; margin:0 0 4px;
+}
+.proceso p{margin:0; font-size:clamp(14px,1.3vw,16px); line-height:1.5; opacity:.66}
+@media (max-width:700px){
+  .proceso{grid-template-columns:1fr}
+  /* Numero a la izquierda, texto a la derecha: tres tarjetas apiladas no
+     tienen por que gastar una linea entera en el numero. */
+  .proceso li{
+    display:grid; grid-template-columns:auto 1fr; column-gap:14px; row-gap:2px;
+    align-items:start;
+  }
+  .proceso .num{grid-column:1; grid-row:1 / span 2; margin:0; min-width:.7em}
+  .proceso h3{grid-column:2; grid-row:1}
+  .proceso p{grid-column:2; grid-row:2}
 }

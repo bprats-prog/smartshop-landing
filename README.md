@@ -74,15 +74,17 @@ un bloque por modelo.
 ## Los dos modelos de surtido
 
 Los dos modelos con los que se trabaja —el **Arbitrade** (clave interna
-`autogestion`) y el **Ametller Origen**— se presentan en la **pantalla 3 del
+`autogestion`) y el **Ametller Origen**— se presentan en la **pantalla 4 del
 recorrido**, "Dos modelos. La misma gestión.", **uno encima del otro**, cada uno
 en su bloque (`.modelo`) y con su color: tinte, borde y acento naranja para el
 Arbitrade y verde para el Ametller (`--ac`, `--tinte`, `--borde`).
 
-Cada bloque lleva, en este orden: la foto (`.modelo-foto`), el nombre y dos líneas
-de resumen (`.modelo-texto`), el desarrollo (`.modelo-detalle`: una lista y un
-vídeo) y el botón de la presentación (`.modelo-boton`). El de Ametller lleva
-además el selector de idioma del vídeo.
+Cada bloque sigue la estructura del wireframe B2B y lleva, de arriba abajo: el
+nombre (`.modelo-nombre`); los medios (`.modelo-medios`: la foto horizontal,
+`.modelo-foto`, y el vídeo vertical, `.modelo-video`, a la misma altura); y el
+pie (`.modelo-pie`: a un lado el resumen con el botón de la presentación,
+`.modelo-texto`, y al otro la lista, `.detalle-lista`). El de Ametller lleva
+además el selector de idioma del vídeo, encima del vídeo.
 
 El equipo, la instalación y todo lo que incluye el servicio son idénticos: lo
 único que cambia es el surtido, y así se dice.
@@ -96,13 +98,16 @@ en `como-se-contrata.html`, y para verlos había que cambiar de página. Hoy esa
 página solo redirige: quien traiga el fragmento `#modelos` (hay enlaces con él
 circulando por WhatsApp) aterriza en `index.html#productos`.
 
-**La rejilla de cada bloque.** En escritorio (≥ 901 px) son dos columnas
-(`.85fr / 1fr`) y la rejilla coloca los hijos por áreas: foto, texto y botón a la
-izquierda; el desarrollo a la derecha, ocupando las tres filas. El botón va
-abajo (`align-self:end`), a la altura del pie del desarrollo. En móvil es una
-sola columna con el orden del HTML —foto, texto, desarrollo, botón—, que es el
-que se lee bien; por eso el botón está **después** del desarrollo en el HTML y
-no junto al texto.
+**La rejilla de cada bloque.** Desde 761 px, los medios son dos columnas
+(`1fr / auto`: la foto y el vídeo) y el pie, otras dos (`1fr / .9fr`). Por
+debajo de 761 px todo va en una columna con el orden del HTML —nombre, foto,
+vídeo, resumen y botón, lista—: un vídeo 9:16 al lado de una foto en 340 px
+mediría unos 80 px de ancho y sus controles nativos no se manejan. **La foto no
+lleva `aspect-ratio` en escritorio**: llena el alto de la columna del vídeo (en
+Ametller, el vídeo más el selector de idioma, así que su foto es unos 58 px más
+alta que la de Arbitrade). Con `aspect-ratio` y `align-self:stretch` a la vez, la
+proporción le calculaba un ancho mayor que su columna y se salía del bloque. El
+`min-height` es la red si el script retira el vídeo.
 
 **Es una pantalla alta a propósito.** No se intenta que quepa en 100svh. El
 recorrido es de scroll continuo en móvil y en escritorio (ver «El scroll»). Como
@@ -112,11 +117,11 @@ nada está oculto, **no hay restricción sobre dónde poner `.entra`**.
   pensada para pantallas apretadas y varias reglas de alto la encogen (12,5 px
   en móviles bajos); aquí no hay límite de alto y no debe heredarlas.
 - La foto de cada bloque es **exactamente 2:1** y lleva los productos centrados
-  (ver «Bodegones centrados»), así que la tarjeta no recorta nada. Se cambia en `fotosModelo` de `datos.js`, con la misma clave que
+  (ver «Bodegones centrados»). En móvil se ve entera; en escritorio se ajusta
+  a la altura del vídeo y `object-fit:cover` recorta algo por los lados, que
+  es donde no hay producto. Se cambia en `fotosModelo` de `datos.js`, con la misma clave que
   `data-foto-modelo` en el HTML (`autogestion`, `ametller`). Sin entrada en
   `datos.js` se queda la que lleva el HTML.
-- En el desarrollo, la lista va centrada junto al vídeo y el vídeo pegado abajo
-  (`flex:1` en el cuerpo y `align-self:end` en el vídeo), a la altura del botón.
 - **Los dos vídeos usan el mismo componente `.video`** (radio, sombra y el play
   naranja) y el mismo tamaño (220 px de ancho a 1280), aunque uno sea un
   `<video>` y el otro un Short de YouTube. En el de Ametller el play es un
@@ -310,9 +315,9 @@ variable `FFMPEG`.
 ## Qué va en la web y qué en la presentación
 
 La web convence en noventa segundos en un móvil; la presentación es la
-profundidad. Por eso el recorrido son siete pantallas —la portada, qué es, cómo
-funciona, los dos modelos, qué aporta, dónde está instalada y el cierre— y
-todo lo demás (requisitos de instalación, medidas completas, cifras de
+profundidad. Por eso el recorrido son ocho pantallas —la portada, qué es, qué
+aporta, cómo funciona, los dos modelos, dónde está instalada, cómo se contrata
+y el cierre— y todo lo demás (requisitos de instalación, medidas completas, cifras de
 solvencia del grupo) vive en la presentación enlazada.
 
 Si vuelves a añadir contenido a la home, ya no hace falta que cada pantalla
@@ -462,7 +467,20 @@ se sentía raro.
   táctiles y dice «Llámanos»; a partir de 700 px dice «Pide tu visita» y lleva el
   número a la vista, porque en un escritorio un enlace `tel:` no siempre hace
   nada. El del cierre dice «Llama y concertamos tu visita»: no presupone que el
-  visitante ya tenga un comercial.
+  visitante ya tenga un comercial. El de la portada dice «Llámanos y concertamos
+  tu visita» (sin número: en escritorio el número ya está en la barra) y lleva
+  debajo el enlace «Descubre cómo funciona ↓» a `#como-funciona`.
+- **El orden del recorrido sigue el wireframe B2B** (noviembre): portada, qué es,
+  qué aporta, cómo funciona, modelos, galería, cómo se contrata y cierre. Antes
+  «Qué aporta» iba después de los modelos. La portada habla a la empresa («Comida
+  y bebida disponible las 24 horas en tu espacio…»), no al consumidor final.
+  «Qué aporta» termina con la franja «De la gestión nos ocupamos nosotros»
+  (`.gestion`: instalación, surtido, reposición, mantenimiento). «Cómo se
+  contrata» (`#contratacion`, `.proceso`) son tres pasos —hablamos, visitamos,
+  propuesta— y la nota «Visita inicial sin coste ni compromiso»; por eso el cierre
+  ya no repite esa frase. Ninguna lleva formulario: el único contacto es llamar.
+  `#siguiente` sigue siendo el cierre (los enlaces antiguos y
+  `como-se-contrata.html` apuntan ahí).
 - **Los saltos por `#fragmento` a un bloque interno** (`#modelo-ametller`, un
   título) usan `posicion()` en `app.js`, que suma el `offsetTop` de toda la
   cadena de `offsetParent` (el de un elemento anidado es relativo a su

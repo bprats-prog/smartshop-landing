@@ -91,13 +91,23 @@
          columnas —mensaje a la izquierda, imagen a la derecha— y en movil se
          apile: texto arriba, imagen debajo. -->
     <div class="portada-texto">
-      <p class="kicker entra">Arbitrade presenta</p>
+      <p class="kicker entra">SmartShops para empresas y hoteles</p>
       <!-- Tres frases, tres lineas (cada una en su .frase, que es un bloque): el
            titular se lee como los tres pasos de la SmartShop. Los puntos van en
            .solo-lector: no se ven, pero un lector de pantalla lee "Abre. Elige.
            Disfruta." con sus pausas. -->
       <h1 class="titular entra" id="t-portada"><span class="frase">Abre<span class="solo-lector">.</span></span> <span class="frase">Elige<span class="solo-lector">.</span></span> <span class="frase">Disfruta<span class="solo-lector">.</span></span></h1>
-      <p class="apoyo entra">Así de fácil es comprar en una SmartShop.</p>
+      <p class="apoyo entra">Comida y bebida disponible las 24 horas en tu espacio. Arbitrade se encarga de la instalación, la reposición y el mantenimiento.</p>
+      <!-- El botón llama, igual que el de la barra y el del cierre: no hay
+           formulario, así que no se promete uno ("Solicitar una visita" sería
+           un botón que no solicita nada). El enlace lleva al recorrido. -->
+      <div class="portada-acciones entra">
+        <a class="btn btn-primario" href="tel:+34900264134" data-tel-enlace>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+          <span class="btn-etiqueta">Llámanos y concertamos tu visita</span>
+        </a>
+        <a class="enlace-bajar" href="#como-funciona">Descubre cómo funciona <span aria-hidden="true">↓</span></a>
+      </div>
     </div>
     <!-- Es lo primero que se ve: sin carga perezosa y con prioridad alta. La foto
          es 16:9 y la caja tiene su misma proporcion (ver .portada-media img en
@@ -141,174 +151,7 @@
     </div>
   </section>
 
-  <!-- ============ 2 · CÓMO FUNCIONA ============ -->
-  <section class="pantalla" id="como-funciona" tabindex="-1" aria-labelledby="t-como-funciona">
-    <p class="kicker entra">Paso a paso</p>
-    <h2 class="titular entra" id="t-como-funciona">¿Cómo funciona?</h2>
-    <div class="pasos">
-      <div class="paso ac-naranja entra">
-        <div class="foto"><img src="assets/img/pv-desbloqueo-movil.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Persona acercando el móvil al lector de la puerta"></div>
-        <div class="texto">
-          <b><span class="num">1</span> Acerca la tarjeta al lector</b>
-          <span>Vale la tarjeta bancaria, el <span lang="en">wallet</span> del móvil o la app.</span>
-        </div>
-      </div>
-      <div class="paso ac-azul entra">
-        <div class="foto"><img src="assets/img/pv-lector-pantalla.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Pantalla de la SmartShop confirmando la autorización"></div>
-        <div class="texto">
-          <b><span class="num">2</span> Se preautoriza un importe</b>
-          <span>No se cobra: se retiene, como en las gasolineras.</span>
-        </div>
-      </div>
-      <div class="paso ac-verde entra">
-        <div class="foto"><img src="assets/img/pv-fila-smartshops.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Persona cogiendo un producto de la SmartShop con la puerta abierta"></div>
-        <div class="texto">
-          <b><span class="num">3</span> Se desbloquea la puerta</b>
-          <span>Sin límite de unidades ni de tamaño de producto.</span>
-        </div>
-      </div>
-      <div class="paso ac-rosa entra">
-        <div class="foto"><img src="assets/img/pv-puerta-abierta-carrito.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Pantalla mostrando el carrito con el producto retirado y su importe"></div>
-        <div class="texto">
-          <b><span class="num">4</span> Cierras la puerta y ya está</b>
-          <span>Cobra el importe exacto y te muestra el resumen.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 3 · LOS DOS MODELOS ============ -->
-  <!-- Dos tarjetas (foto y dos lineas) y, debajo de cada una, un bloque que
-       desarrolla el modelo. El de Ametller lleva el video, con selector de
-       idioma. Ya no hay pestañas: los dos modelos se ven a la vez para poder
-       compararlos.
-       Esta pantalla es ALTA a proposito (no cabe en 100svh) y no pasa nada: el
-       recorrido ya trata las pantallas mas altas que el viewport, tanto con el
-       teclado como con el scroll. Aqui si puede llevar .entra en cualquier
-       sitio: nada esta oculto. -->
-  <section class="pantalla" id="productos" tabindex="-1" aria-labelledby="t-productos">
-    <p class="kicker entra">Gama y modelos</p>
-    <h2 class="titular entra" id="t-productos">Dos modelos. La misma gestión.</h2>
-    <p class="apoyo entra">
-      En ambos casos, Arbitrade se encarga de la instalación, la puesta en
-      marcha, la reposición y el mantenimiento. Tú eliges el tipo de surtido
-      que mejor encaja en tu espacio.
-    </p>
-
-    <!-- Dos bloques, uno encima del otro, cada modelo en el suyo. Cada bloque
-         lleva, en este orden: foto, nombre y resumen, el desarrollo (lista y
-         video) y el boton de la presentacion. En escritorio la foto, el texto y
-         el boton van a la izquierda y el desarrollo a la derecha (la rejilla
-         los coloca por areas); en movil, una columna con este mismo orden. -->
-    <div class="modelos-pila">
-
-      <!-- ---- Modelo Arbitrade ---- -->
-      <article class="modelo entra" id="modelo-arbitrade" aria-labelledby="n-arbitrade">
-        <figure class="modelo-foto" data-foto-modelo="autogestion">
-          <img src="assets/img/gama-productos.jpg" width="1492" height="746" loading="lazy" decoding="async"
-               alt="Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.">
-        </figure>
-        <div class="modelo-texto">
-          <h3 class="modelo-nombre" id="n-arbitrade">Modelo Arbitrade</h3>
-          <p class="modelo-resumen">
-            Elegimos contigo los productos y revisamos el planograma, de
-            pequeños snacks a platos de gran tamaño.
-          </p>
-        </div>
-        <div class="modelo-detalle">
-          <h4>Un surtido que diseñamos contigo</h4>
-          <!-- Mismo esquema que el bloque de Ametller: lista a un lado y un
-               video vertical al otro. El video es el Short que antes abria la
-               portada (YouTube, solo se carga al pulsar). -->
-          <div class="detalle-cuerpo">
-            <ul class="detalle-lista">
-              <li><b>Más de 30 variedades.</b> Frescos, bebidas, snacks y platos preparados.</li>
-              <li><b>Adaptado a tu espacio.</b> Nos adaptamos a las necesidades de tu empresa.</li>
-              <li><b>Comida real, sin personal.</b> Disponible las 24 horas, sin servicio de restauración.</li>
-            </ul>
-            <div class="detalle-media">
-              <button class="video" type="button" data-video="entornoLaboral" aria-label="Ver el vídeo del modelo Arbitrade">
-                <span class="play">
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
-                  </span>
-                </span>
-              </button>
-              <!-- Sin JavaScript el boton de arriba no hace nada (el CSS lo
-                   oculta): se ofrece el enlace directo a YouTube. -->
-              <noscript>
-                <a class="btn btn-secundario" href="https://www.youtube.com/watch?v=8QLeAxdFQgw" target="_blank" rel="noopener">Ver el vídeo en YouTube</a>
-              </noscript>
-            </div>
-          </div>
-        </div>
-        <a class="btn btn-secundario modelo-boton" href="https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview" target="_blank" rel="noopener" data-presentacion="autogestion">
-          <span class="etiqueta-presentacion">Descubre el modelo Arbitrade</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-        </a>
-      </article>
-
-      <!-- ---- Modelo Ametller Origen ---- -->
-      <article class="modelo entra" id="modelo-ametller" aria-labelledby="n-ametller">
-        <figure class="modelo-foto" data-foto-modelo="ametller">
-          <img src="assets/img/gama-ametller.jpg" width="1488" height="744" loading="lazy" decoding="async"
-               alt="Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras, un tomate y un gazpacho embotellado.">
-        </figure>
-        <div class="modelo-texto">
-          <h3 class="modelo-nombre" id="n-ametller">Modelo Ametller Origen</h3>
-          <p class="modelo-resumen">
-            Platos, cremas, ensaladas, yogures y kéfir de una marca
-            consolidada, completados por Arbitrade.
-          </p>
-        </div>
-        <div class="modelo-detalle">
-          <h4>Ametller Origen en tu SmartShop</h4>
-          <div class="detalle-cuerpo">
-            <ul class="detalle-lista">
-              <li><b>Una oferta reconocible.</b> Productos de una marca valorada por el consumidor.</li>
-              <li><b>Al precio de sus tiendas.</b> Los productos de Ametller cuestan lo mismo que en sus tiendas físicas.</li>
-              <li><b>Un único planograma.</b> Diseñamos y revisamos juntos el surtido de Ametller y el de Arbitrade.</li>
-            </ul>
-
-            <!-- El video del modelo, en dos idiomas. El <video> va escrito aqui con
-                 el español, asi se reproduce aunque no cargue el script. app.js
-                 añade el selector y cambia el archivo; las claves de data-idioma
-                 son las de "videos" en datos.js. El selector solo existe con el
-                 script vivo (app-ok). -->
-            <div class="video-modelo detalle-media" data-video-modelo>
-              <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
-                <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
-                <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
-              </div>
-              <!-- Mismo componente .video que el Short del bloque de Arbitrade, para
-                   que los dos videos se vean y se lean igual. El play de encima es
-                   decorativo y solo existe con el script vivo; los controles
-                   nativos del <video> (y su teclado) hacen el resto. -->
-              <div class="video">
-                <video class="video-modelo-player" data-video-player controls playsinline preload="none"
-                       poster="assets/img/poster-ametller-origen.jpg"
-                       src="assets/video/ametller-origen-es.mp4"
-                       aria-label="Vídeo del modelo Ametller Origen, en español"></video>
-                <span class="play" aria-hidden="true">
-                  <span>
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="btn btn-secundario modelo-boton" href="https://docs.google.com/presentation/d/1snA9x6OPckMfcblX6bZ9dxsgJNU4aM3cipMY53DxbmA/preview" target="_blank" rel="noopener" data-presentacion="ametller">
-          <span class="etiqueta-presentacion">Descubre el modelo Ametller Origen</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-        </a>
-      </article>
-    </div>
-
-    <p class="nota entra">Imágenes orientativas.</p>
-  </section>
-
-  <!-- ============ 5 · QUÉ APORTA ============ -->
+  <!-- ============ 2 · QUÉ APORTA ============ -->
   <section class="pantalla" id="beneficios" tabindex="-1" aria-labelledby="t-beneficios">
     <p class="kicker entra">Ventajas únicas</p>
     <h2 class="titular entra" id="t-beneficios">¿Qué aporta a tu empresa?</h2>
@@ -350,9 +193,191 @@
       </article>
     </div>
     </div>
+
+    <!-- Lo que el cliente no tiene que hacer. En el wireframe B2B es el cierre
+         de "qué aporta": cuatro tareas, una fila. La misma idea está en una
+         frase de la pantalla de los modelos; aquí es lo primero que se ve. -->
+    <div class="gestion entra">
+      <h3 class="gestion-titulo">De la gestión nos ocupamos nosotros</h3>
+      <ul class="gestion-lista">
+        <li><span class="gestion-icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span>Instalación</span></li>
+        <li><span class="gestion-icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 11-1 9"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4"/><path d="M4.5 15.5h15"/><path d="m5 11 4-7"/><path d="m9 11 1 9"/></svg></span><span>Surtido</span></li>
+        <li><span class="gestion-icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></span><span>Reposición</span></li>
+        <li><span class="gestion-icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span><span>Mantenimiento</span></li>
+      </ul>
+    </div>
   </section>
 
-  <!-- ============ 8 · PUNTOS DE VENTA ============ -->
+  <!-- ============ 3 · CÓMO FUNCIONA ============ -->
+  <section class="pantalla" id="como-funciona" tabindex="-1" aria-labelledby="t-como-funciona">
+    <p class="kicker entra">Paso a paso</p>
+    <h2 class="titular entra" id="t-como-funciona">¿Cómo funciona?</h2>
+    <div class="pasos">
+      <div class="paso ac-naranja entra">
+        <div class="foto"><img src="assets/img/pv-desbloqueo-movil.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Persona acercando el móvil al lector de la puerta"></div>
+        <div class="texto">
+          <b><span class="num">1</span> Acerca la tarjeta al lector</b>
+          <span>Vale la tarjeta bancaria, el <span lang="en">wallet</span> del móvil o la app.</span>
+        </div>
+      </div>
+      <div class="paso ac-azul entra">
+        <div class="foto"><img src="assets/img/pv-lector-pantalla.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Pantalla de la SmartShop confirmando la autorización"></div>
+        <div class="texto">
+          <b><span class="num">2</span> Se preautoriza un importe</b>
+          <span>No se cobra: se retiene, como en las gasolineras.</span>
+        </div>
+      </div>
+      <div class="paso ac-verde entra">
+        <div class="foto"><img src="assets/img/pv-fila-smartshops.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Persona cogiendo un producto de la SmartShop con la puerta abierta"></div>
+        <div class="texto">
+          <b><span class="num">3</span> Se desbloquea la puerta</b>
+          <span>Sin límite de unidades ni de tamaño de producto.</span>
+        </div>
+      </div>
+      <div class="paso ac-rosa entra">
+        <div class="foto"><img src="assets/img/pv-puerta-abierta-carrito.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Pantalla mostrando el carrito con el producto retirado y su importe"></div>
+        <div class="texto">
+          <b><span class="num">4</span> Cierras la puerta y ya está</b>
+          <span>Cobra el importe exacto y te muestra el resumen.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · LOS DOS MODELOS ============ -->
+  <!-- Un bloque por modelo, con la estructura del wireframe B2B: el nombre
+       arriba; la foto (horizontal) y el video (vertical) a la misma altura; y
+       debajo el resumen con el boton de la presentacion a un lado y la lista al
+       otro. El de Ametller lleva el video con selector de idioma. Los dos
+       modelos se ven a la vez para poder compararlos.
+       Esta pantalla es ALTA a proposito (no cabe en 100svh) y no pasa nada: el
+       recorrido ya trata las pantallas mas altas que el viewport, tanto con el
+       teclado como con el scroll. Aqui si puede llevar .entra en cualquier
+       sitio: nada esta oculto. -->
+  <section class="pantalla" id="productos" tabindex="-1" aria-labelledby="t-productos">
+    <p class="kicker entra">Gama y modelos</p>
+    <h2 class="titular entra" id="t-productos">Dos modelos. La misma gestión.</h2>
+    <p class="apoyo entra">
+      En ambos casos, Arbitrade se encarga de la instalación, la puesta en
+      marcha, la reposición y el mantenimiento. Tú eliges el tipo de surtido
+      que mejor encaja en tu espacio.
+    </p>
+
+    <!-- Dos bloques, uno encima del otro. Cada bloque lleva, en este orden: el
+         nombre; los medios (.modelo-medios: foto y video); y el pie
+         (.modelo-pie: resumen con boton, y la lista). Desde 761 px los medios
+         van en dos columnas (la foto se estira a la altura del video) y el pie
+         tambien; por debajo, una columna con este mismo orden. -->
+    <div class="modelos-pila">
+
+      <!-- ---- Modelo Arbitrade ---- -->
+      <article class="modelo entra" id="modelo-arbitrade" aria-labelledby="n-arbitrade">
+        <h3 class="modelo-nombre" id="n-arbitrade">Modelo Arbitrade</h3>
+
+        <div class="modelo-medios">
+          <figure class="modelo-foto" data-foto-modelo="autogestion">
+            <img src="assets/img/gama-productos.jpg" width="1492" height="746" loading="lazy" decoding="async"
+                 alt="Surtido de una SmartShop: chocolatinas, un bol de ensalada, un yogur con frutos rojos, un sándwich de jamón y queso, un tarro de yogur natural, jamón serrano, patatas fritas, dos aguas embotelladas y dos refrescos.">
+          </figure>
+          <!-- El video es el Short que antes abria la portada (YouTube, solo se
+               carga al pulsar). -->
+          <div class="modelo-video">
+            <button class="video" type="button" data-video="entornoLaboral" aria-label="Ver el vídeo del modelo Arbitrade">
+              <span class="play">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+                </span>
+              </span>
+            </button>
+            <!-- Sin JavaScript el boton de arriba no hace nada (el CSS lo
+                 oculta): se ofrece el enlace directo a YouTube. -->
+            <noscript>
+              <a class="btn btn-secundario" href="https://www.youtube.com/watch?v=8QLeAxdFQgw" target="_blank" rel="noopener">Ver el vídeo en YouTube</a>
+            </noscript>
+          </div>
+        </div>
+
+        <div class="modelo-pie">
+          <div class="modelo-texto">
+            <p class="modelo-resumen">
+              Elegimos contigo los productos y revisamos el planograma, de
+              pequeños snacks a platos de gran tamaño.
+            </p>
+            <a class="btn btn-secundario modelo-boton" href="https://docs.google.com/presentation/d/1x56L3mKWzkHD5oDqd1VOCkv04t1oXbut5fmfln7MAjk/preview" target="_blank" rel="noopener" data-presentacion="autogestion">
+              <span class="etiqueta-presentacion">Descubre el modelo Arbitrade</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
+          </div>
+          <ul class="detalle-lista" aria-label="Características del modelo Arbitrade">
+            <li><b>Más de 30 variedades.</b> Frescos, bebidas, snacks y platos preparados.</li>
+            <li><b>Adaptado a tu espacio.</b> Nos adaptamos a las necesidades de tu empresa.</li>
+            <li><b>Comida real, sin personal.</b> Disponible las 24 horas, sin servicio de restauración.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ---- Modelo Ametller Origen ---- -->
+      <article class="modelo entra" id="modelo-ametller" aria-labelledby="n-ametller">
+        <h3 class="modelo-nombre" id="n-ametller">Modelo Ametller Origen</h3>
+
+        <div class="modelo-medios">
+          <figure class="modelo-foto" data-foto-modelo="ametller">
+            <img src="assets/img/gama-ametller.jpg" width="1488" height="744" loading="lazy" decoding="async"
+                 alt="Surtido del modelo Ametller Origen: macarrones boloñesa, un plato único de salmón con cuscús y verduras, arroz con verduras al curry verde, un bol de macarrones, una crema de verduras, un tomate y un gazpacho embotellado.">
+          </figure>
+
+          <!-- El video del modelo, en dos idiomas. El <video> va escrito aqui con
+               el español, asi se reproduce aunque no cargue el script. app.js
+               añade el selector y cambia el archivo; las claves de data-idioma
+               son las de "videos" en datos.js. El selector solo existe con el
+               script vivo (app-ok). -->
+          <div class="video-modelo modelo-video" data-video-modelo>
+            <div class="idiomas" role="group" aria-label="Idioma del vídeo" data-idiomas>
+              <button type="button" data-idioma="es" lang="es" aria-pressed="true">Español</button>
+              <button type="button" data-idioma="ca" lang="ca" aria-pressed="false">Català</button>
+            </div>
+            <!-- Mismo componente .video que el Short del bloque de Arbitrade, para
+                 que los dos videos se vean y se lean igual. El play de encima es
+                 decorativo y solo existe con el script vivo; los controles
+                 nativos del <video> (y su teclado) hacen el resto. -->
+            <div class="video">
+              <video class="video-modelo-player" data-video-player controls playsinline preload="none"
+                     poster="assets/img/poster-ametller-origen.jpg"
+                     src="assets/video/ametller-origen-es.mp4"
+                     aria-label="Vídeo del modelo Ametller Origen, en español"></video>
+              <span class="play" aria-hidden="true">
+                <span>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modelo-pie">
+          <div class="modelo-texto">
+            <p class="modelo-resumen">
+              Platos, cremas, ensaladas, yogures y kéfir de una marca
+              consolidada, completados por Arbitrade.
+            </p>
+            <a class="btn btn-secundario modelo-boton" href="https://docs.google.com/presentation/d/1snA9x6OPckMfcblX6bZ9dxsgJNU4aM3cipMY53DxbmA/preview" target="_blank" rel="noopener" data-presentacion="ametller">
+              <span class="etiqueta-presentacion">Descubre el modelo Ametller Origen</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
+          </div>
+          <ul class="detalle-lista" aria-label="Características del modelo Ametller Origen">
+            <li><b>Una oferta reconocible.</b> Productos de una marca valorada por el consumidor.</li>
+            <li><b>Al precio de sus tiendas.</b> Los productos de Ametller cuestan lo mismo que en sus tiendas físicas.</li>
+            <li><b>Un único planograma.</b> Diseñamos y revisamos juntos el surtido de Ametller y el de Arbitrade.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <p class="nota entra">Imágenes orientativas.</p>
+  </section>
+
+  <!-- ============ 5 · PUNTOS DE VENTA ============ -->
   <section class="pantalla" id="puntos-venta" tabindex="-1" aria-labelledby="t-puntos-venta">
     <p class="kicker entra">Así puede integrarse una SmartShop en tu espacio</p>
     <h2 class="titular entra" id="t-puntos-venta">Mira cómo queda</h2>
@@ -378,7 +403,38 @@
     </div>
   </section>
 
-  <!-- ============ 7 · CÓMO SE CONTRATA ============ -->
+  <!-- ============ 6 · CÓMO SE CONTRATA ============ -->
+  <!-- Tres pasos y una nota. Contesta a "¿y qué pasa si pido una?" antes de
+       pedir la llamada: lo que se promete es una visita, no un contrato. No
+       lleva ninguna cifra ni condición económica: la propia nota remite a la
+       propuesta. -->
+  <section class="pantalla" id="contratacion" tabindex="-1" aria-labelledby="t-contratacion">
+    <p class="kicker entra">Cómo se contrata</p>
+    <h2 class="titular entra" id="t-contratacion">¿Cómo ponemos en marcha tu SmartShop?</h2>
+    <ol class="proceso">
+      <li class="entra">
+        <span class="num" aria-hidden="true">1</span>
+        <h3>Hablamos</h3>
+        <p>Nos cuentas qué necesitas.</p>
+      </li>
+      <li class="entra">
+        <span class="num" aria-hidden="true">2</span>
+        <h3>Visitamos el espacio</h3>
+        <p>Valoramos las necesidades y la viabilidad.</p>
+      </li>
+      <li class="entra">
+        <span class="num" aria-hidden="true">3</span>
+        <h3>Te hacemos una propuesta</h3>
+        <p>Presentamos la solución y sus condiciones.</p>
+      </li>
+    </ol>
+    <p class="apoyo entra">
+      <strong>Visita inicial sin coste ni compromiso.</strong>
+      Las condiciones económicas se detallan en la propuesta personalizada.
+    </p>
+  </section>
+
+  <!-- ============ 7 · CIERRE ============ -->
   <!-- Es la unica seccion que NO cabe en una pantalla, y es deliberado: aqui
        termina el recorrido y el visitante ya no esta pasando diapositivas, esta
        leyendo condiciones. Por eso lleva la clase cierre, que le quita el alto
@@ -393,8 +449,8 @@
     <h2 class="titular grande entra" id="t-siguiente">Tu SmartShop empieza aquí<span class="punto">.</span></h2>
 
     <p class="apoyo entra">
-      <strong>El siguiente paso es una visita sin coste ni compromiso.</strong>
-      Analizamos tus necesidades y te presentamos una propuesta a medida.
+      <strong>Llámanos y cuéntanos qué necesitas.</strong>
+      Estudiamos la mejor solución para tu espacio.
     </p>
 
     <div class="botones entra">
