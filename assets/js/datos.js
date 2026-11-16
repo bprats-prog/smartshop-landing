@@ -105,7 +105,7 @@ window.SMARTSHOP = {
      Solo instalaciones: las fotos de uso se han repartido por el recorrido
      (los cuatro pasos de "¿Cómo funciona?"), así no se repite ninguna.
      Con src a null se pinta un marcador a rayas en su lugar. */
-  /* ---------- El carrusel de "Así queda en su sitio" ----------
+  /* ---------- El carrusel de "Mira cómo queda" ----------
      Orden de aparición. Solo la línea de básculas: nada de RFID (Selfly,
      Pickio). Aquí el cliente entiende que eso es lo que le van a instalar, así
      que una foto de la otra línea enseñaría un producto que no se vende en
@@ -116,14 +116,10 @@ window.SMARTSHOP = {
      queda en un extremo y un recorte centrado lo dejaría fuera. Ahora mismo no
      lo usa ninguna. */
   galeria: [
-    { src: "assets/img/pv-oficina-bascula.jpg", ancho: 933, alto: 525,
-      alt: "Dos SmartShops de básculas en la zona de descanso de una oficina, con butacas azules; una persona abre una de las puertas" },
     { src: "assets/img/pv-hotel-cafe.jpg", ancho: 1122, alto: 701,
       alt: "Rincón de hotel con máquina de café y una SmartShop encastrada en un mueble de madera, junto a la zona de sofás" },
     { src: "assets/img/pv-coworking.jpg", ancho: 1400, alto: 1048,
       alt: "Máquina de café y SmartShop en un espacio de coworking, con personas trabajando con portátiles al fondo" },
-    { src: "assets/img/pv-office-empresa.jpg", ancho: 1900, alto: 1329,
-      alt: "SmartShop instalada junto al office de una oficina, encastrada en un mueble negro" },
     { src: "assets/img/pv-hotel-grabandgo.jpg", ancho: 1600, alto: 1029,
       alt: "Rincón Grab and Go de un hotel con dos SmartShops, cafetera y jardín vertical" },
     { src: "assets/img/pv-oficina-maurice.jpg", ancho: 1536, alto: 1024,

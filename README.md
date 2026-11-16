@@ -241,7 +241,8 @@ castigue una conexión móvil.
   Parece una imagen generada, no una fotografía: se nota en algunos textos, como
   el rótulo de la cafetera.
 - `og-smartshops.jpg` — la imagen que se ve al compartir el enlace (WhatsApp,
-  LinkedIn, correo): 1200×630, un recorte de `pv-office-empresa.jpg` (~70 KB).
+  LinkedIn, correo): 1200×630, un recorte de una foto de un office (`pv-office-empresa.jpg`, ya fuera de la
+  galería; está en el historial de git) (~70 KB).
   Está en `og:image` y `twitter:image`; si se cambia, mantener 1,91:1.
 - `favicon.svg` y `apple-touch-icon.png` (180×180) — el icono de la pestaña y de
   la pantalla de inicio del móvil. **Son un diseño provisional** (una nevera
@@ -259,13 +260,13 @@ castigue una conexión móvil.
   en alta, conviene sustituirlo.
 - `pv-desbloqueo-movil`, `pv-lector-pantalla`, `pv-fila-smartshops` y
   `pv-puerta-abierta-carrito` — las cuatro miniaturas de "¿Cómo funciona?".
-- `pv-office-empresa`, `pv-hotel-grabandgo`, `pv-oficina-maurice`,
-  `pv-oficina-vending` y `pv-sala-ametller` — la galería de
-  instalaciones. Ninguna foto se repite entre secciones. Las columnas de la
-  galería se reparten según la forma de cada foto —el script lee `ancho` y
-  `alto` de `datos.js` y los escribe en la rejilla—, de modo que las alturas
-  coinciden solas y ninguna se recorta. Si cambias una foto, actualiza también
-  su `ancho` y `alto` o el hueco quedará mal calculado.
+- `pv-hotel-cafe`, `pv-coworking`, `pv-hotel-grabandgo`, `pv-oficina-maurice`,
+  `pv-oficina-vending` y `pv-sala-ametller` — el carrusel «Mira cómo queda».
+  Ninguna foto se repite entre secciones. El marco es fijo (16:10 en escritorio,
+  4:3 en móvil) y las fotos se recortan con `object-fit:cover`; `ancho` y `alto`
+  de `datos.js` solo se escriben como `width`/`height` de la imagen, para que no
+  salte el diseño al cargar. Si cambias una foto, actualiza también esos dos
+  números y la copia del `<noscript>` de `index.html`.
 - `poster-video-entorno.jpg` — la portada del Short, recortada a 9:16 desde la
   miniatura de YouTube. El Short vive en el bloque del modelo Arbitrade; antes
   abría la portada.
